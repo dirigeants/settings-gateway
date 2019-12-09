@@ -20,12 +20,14 @@ export class Gateway extends GatewayStorage {
 	public requestHandler = new RequestHandler(
 		(id: string): Promise<IdKeyed<string>> => {
 			const { provider } = this;
-			if (provider === null) throw new Error('Cannot run requests without a provider available.');
-			return provider.get(this.name, id) as Promise<IdKeyed<string>>;
+			return provider === null ?
+				Promise.reject(new Error('Cannot run requests without a provider available.')) :
+				provider.get(this.name, id) as Promise<IdKeyed<string>>;
 		}, (ids: string[]): Promise<IdKeyed<string>[]> => {
 			const { provider } = this;
-			if (provider === null) throw new Error('Cannot run requests without a provider available.');
-			return provider.getAll(this.name, ids) as Promise<IdKeyed<string>[]>;
+			return provider === null ?
+				Promise.reject(new Error('Cannot run requests without a provider available.')) :
+				provider.getAll(this.name, ids) as Promise<IdKeyed<string>[]>;
 		}
 	);
 	/* eslint-enable no-invalid-this */

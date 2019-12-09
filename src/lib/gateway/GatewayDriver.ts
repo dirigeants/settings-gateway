@@ -41,7 +41,7 @@ export class GatewayDriver extends Collection<string, GatewayStorage> {
 	 *     .register(new GatewayStorage(client, 'moderations', { provider: 'postgres' }));
 	 */
 	public register(gateway: GatewayStorage): this {
-		if (typeof this.client.options.settings.gateways === 'undefined') this.client.options.settings.gateways = {};
+		if (typeof this.client.options.settings.gateways === 'undefined') this.client.options.settings.gateways = { [gateway.name]: {} };
 		if (!(gateway.name in this.client.options.settings.gateways)) this.client.options.settings.gateways[gateway.name] = {};
 		this.set(gateway.name, gateway);
 		return this;

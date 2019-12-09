@@ -48,11 +48,11 @@ export class GatewayStorage {
 	 */
 	public async init(): Promise<void> {
 		// Gateways must not initialize twice.
-		if (this.ready) throw new Error(`The gateway ${this.name} has already been initialized.`);
+		if (this.ready) throw new Error(`The gateway "${this.name}" has already been initialized.`);
 
 		// Check the provider's existence.
 		const { provider } = this;
-		if (provider === null) throw new Error(`The gateway ${this.name} could not find the provider ${this._provider}.`);
+		if (provider === null) throw new Error(`The gateway "${this.name}" could not find the provider "${this._provider}".`);
 		this.ready = true;
 
 		const errors = [...this._checkSchemaFolder(this.schema)];
