@@ -32,7 +32,7 @@ export class Settings extends SettingsFolder {
 		this.gateway = gateway;
 		this.target = target;
 		this.existenceStatus = SettingsExistenceStatus.Unsynchronized;
-		this.init(this, this.schema);
+		this._init(this, this.schema);
 	}
 
 	/**
@@ -40,7 +40,7 @@ export class Settings extends SettingsFolder {
 	 */
 	public clone(): Settings {
 		const clone = new Settings(this.gateway, this.target, this.id);
-		clone.patch(this.toJSON());
+		clone._patch(this.toJSON());
 		return clone;
 	}
 
@@ -56,7 +56,7 @@ export class Settings extends SettingsFolder {
 		const data = await this.gateway.requestHandler.push(this.id);
 		if (data) {
 			this.existenceStatus = SettingsExistenceStatus.Exists;
-			this.patch(data as IdKeyedObject);
+			this._patch(data as IdKeyedObject);
 			this.gateway.client.emit('settingsSync', this);
 		} else {
 			this.existenceStatus = SettingsExistenceStatus.NotExists;
@@ -75,7 +75,7 @@ export class Settings extends SettingsFolder {
 			if (provider === null) throw new Error('The provider was not available during the destroy operation.');
 			await provider.delete(this.gateway.name, this.id);
 			this.gateway.client.emit('settingsDelete', this);
-			this.init(this, this.schema);
+			this._init(this, this.schema);
 			this.existenceStatus = SettingsExistenceStatus.NotExists;
 		}
 

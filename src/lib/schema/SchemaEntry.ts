@@ -78,7 +78,7 @@ export class SchemaEntry {
 		this.path = this.parent.path.length === 0 ? this.key : `${this.parent.path}.${this.key}`;
 		this.type = type.toLowerCase();
 		this.array = typeof options.array === 'undefined' ? typeof options.default === 'undefined' ? false : Array.isArray(options.default) : options.array;
-		this.default = typeof options.default === 'undefined' ? this.generateDefaultValue() : options.default;
+		this.default = typeof options.default === 'undefined' ? this._generateDefaultValue() : options.default;
 		this.minimum = typeof options.minimum === 'undefined' ? null : options.minimum;
 		this.maximum = typeof options.maximum === 'undefined' ? null : options.maximum;
 		this.inclusive = typeof options.inclusive === 'undefined' ? false : options.inclusive;
@@ -118,10 +118,26 @@ export class SchemaEntry {
 	}
 
 	/**
+	 * Overload to serialize this entry to JSON.
+	 */
+	public toJSON(): SchemaEntryJson {
+		return {
+			type: this.type,
+			array: this.array,
+			configurable: this.configurable,
+			default: this.default,
+			inclusive: this.inclusive,
+			maximum: this.maximum,
+			minimum: this.minimum,
+			resolve: this.shouldResolve
+		};
+	}
+
+	/**
 	 * Performs the validity checks of this entry
 	 * @internal
 	 */
-	public check(): void {
+	public _check(): void {
 		if (this.client === null) throw new Error('Cannot retrieve serializers from non-initialized SchemaEntry.');
 
 		// Check type
@@ -153,25 +169,9 @@ export class SchemaEntry {
 	}
 
 	/**
-	 * Overload to serialize this entry to JSON.
-	 */
-	public toJSON(): SchemaEntryJson {
-		return {
-			type: this.type,
-			array: this.array,
-			configurable: this.configurable,
-			default: this.default,
-			inclusive: this.inclusive,
-			maximum: this.maximum,
-			minimum: this.minimum,
-			resolve: this.shouldResolve
-		};
-	}
-
-	/**
 	 * The default value generator, called when type and array are given but not the default itself.
 	 */
-	private generateDefaultValue(): SerializableValue {
+	private _generateDefaultValue(): SerializableValue {
 		if (this.array) return [];
 		if (this.type === 'boolean') return false;
 		return null;

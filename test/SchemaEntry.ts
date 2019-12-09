@@ -77,7 +77,7 @@ ava('schemaentry-check', (test): void => {
 	const client = createClient();
 	const schema = new Schema();
 	const schemaEntry = new SchemaEntry(schema, 'test', 'textchannel');
-	const throwsCheck = (): void => schemaEntry.check();
+	const throwsCheck = (): void => schemaEntry._check();
 
 	/* eslint-disable @typescript-eslint/ban-ts-ignore */
 
@@ -178,7 +178,7 @@ ava('schemaentry-default-generator', (test): void => {
 
 	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 	// @ts-ignore 2341
-	const generateDefault = (): SerializableValue => schemaEntry.generateDefaultValue();
+	const generateDefault = (): SerializableValue => schemaEntry._generateDefaultValue();
 
 	test.is(generateDefault(), null);
 
