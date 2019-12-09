@@ -16,12 +16,11 @@
 		"target": "esnext"
 	},
 	"exclude": [
-		"node_modules",
 		"bin",
 		"examples",
 		"scripts"
 	],
 	"include": [
-		"./src/**/*"
+		"src"
 	]
 }
