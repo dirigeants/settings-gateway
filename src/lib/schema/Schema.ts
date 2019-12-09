@@ -216,7 +216,7 @@ export class Schema extends Map<string, SchemaFolder | SchemaEntry> {
 	public *entries(recursive = false): IterableIterator<[string, SchemaFolder | SchemaEntry]> {
 		if (recursive) {
 			for (const [key, value] of super.entries()) {
-				if (value.type === 'Folder') yield* (value as SchemaFolder).entries(recursive);
+				if (value.type === 'Folder') yield* (value as SchemaFolder).entries(true);
 				else yield [key, value];
 			}
 		} else {
