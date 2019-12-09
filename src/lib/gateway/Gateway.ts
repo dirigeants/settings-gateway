@@ -94,5 +94,4 @@ export interface ProxyMapEntry {
 	settings: Settings;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ProxyMap extends Map<string, ProxyMapEntry> { }
+export type ProxyMap = Map<string, ProxyMapEntry>;

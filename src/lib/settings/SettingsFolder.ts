@@ -83,13 +83,13 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 			const entry = this.schema.get(path);
 			if (typeof entry === 'undefined') return undefined;
 			return entry.type === 'Folder' ?
-				this._resolveFolder({
+				this.resolveFolder({
 					folder: entry as SchemaFolder,
 					language,
 					guild,
 					extraContext: null
 				}) :
-				this._resolveEntry({
+				this.resolveEntry({
 					entry: entry as SchemaEntry,
 					language,
 					guild,
@@ -192,11 +192,11 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 
 			// If the key does not exist, throw
 			if (typeof entry === 'undefined') throw language.get('SETTING_GATEWAY_KEY_NOEXT', path);
-			if (entry.type === 'Folder') this._resetSchemaFolder(changes, entry as SchemaFolder, path, language, onlyConfigurable);
-			else this._resetSchemaEntry(changes, entry as SchemaEntry, path, language, onlyConfigurable);
+			if (entry.type === 'Folder') this.resetSchemaFolder(changes, entry as SchemaFolder, path, language, onlyConfigurable);
+			else this.resetSchemaEntry(changes, entry as SchemaEntry, path, language, onlyConfigurable);
 		}
 
-		if (changes.length !== 0) await this._save({ changes, guild, language, extraContext: extra });
+		if (changes.length !== 0) await this.save({ changes, guild, language, extraContext: extra });
 		return changes;
 	}
 
@@ -291,26 +291,21 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 			options = typeof valueOrOptions === 'undefined' ? {} : valueOrOptions as SettingsFolderUpdateOptions;
 		}
 
-		return this._processUpdate(entries, options as InternalRawFolderUpdateOptions);
+		return this.processUpdate(entries, options as InternalRawFolderUpdateOptions);
 	}
 
 	/**
 	 * Overload to serialize this entry to JSON.
 	 */
 	public toJSON(): SettingsFolderJson {
-		const json: SettingsFolderJson = {};
-		for (const [key, value] of super.entries()) {
-			json[key] = value instanceof SettingsFolder ? value.toJSON() : value;
-		}
-
-		return json;
+		return fromEntries([...super.entries()].map(([key, value]) => [key, value instanceof SettingsFolder ? value.toJSON() : value]));
 	}
 
 	/**
 	 * Patch an object against this instance.
 	 * @param data The data to apply to this instance
 	 */
-	protected _patch(data: ReadonlyAnyObject): void {
+	protected patch(data: ReadonlyAnyObject): void {
 		for (const [key, value] of Object.entries(data)) {
 			// Undefined values are invalid values, skip.
 			if (typeof value === 'undefined') continue;
@@ -319,7 +314,7 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 			const childValue = super.get(key);
 			if (typeof childValue === 'undefined') continue;
 
-			if (childValue instanceof SettingsFolder) childValue._patch(value as ReadonlyAnyObject);
+			if (childValue instanceof SettingsFolder) childValue.patch(value as ReadonlyAnyObject);
 			else super.set(key, value as SerializableValue);
 		}
 	}
@@ -329,21 +324,21 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 	 * @param folder The children folder of this instance
 	 * @param schema The schema that manages the folder
 	 */
-	protected _init(folder: SettingsFolder, schema: Schema | SchemaFolder): void {
+	protected init(folder: SettingsFolder, schema: Schema | SchemaFolder): void {
 		folder.base = this.base;
 
 		for (const [key, value] of schema.entries()) {
 			if (value.type === 'Folder') {
 				const settings = new SettingsFolder(value as SchemaFolder);
 				folder.set(key, settings);
-				this._init(settings, value as SchemaFolder);
+				this.init(settings, value as SchemaFolder);
 			} else {
 				folder.set(key, (value as SchemaEntry).default);
 			}
 		}
 	}
 
-	protected async _save(context: SettingsUpdateContext): Promise<void> {
+	protected async save(context: SettingsUpdateContext): Promise<void> {
 		const updateObject: KeyedObject = {};
 		for (const change of context.changes) mergeObjects(updateObject, makeObject(change.entry.path, change.next));
 
@@ -353,28 +348,28 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 		if (gateway.provider === null) throw new Error('Cannot update due to the gateway missing a reference to the provider.');
 		if (this.base.existenceStatus === SettingsExistenceStatus.Exists) {
 			await gateway.provider.update(gateway.name, id, updateObject);
-			this._patch(updateObject);
+			this.patch(updateObject);
 			gateway.client.emit('settingsUpdate', this.base, updateObject, context);
 		} else {
 			await gateway.provider.create(gateway.name, id, updateObject);
 			this.base.existenceStatus = SettingsExistenceStatus.Exists;
-			this._patch(updateObject);
+			this.patch(updateObject);
 			gateway.client.emit('settingsCreate', this.base, updateObject, context);
 		}
 	}
 
-	private async _resolveFolder(context: FolderUpdateContext): Promise<object> {
+	private async resolveFolder(context: FolderUpdateContext): Promise<object> {
 		const promises: Promise<[string, unknown]>[] = [];
 		for (const entry of context.folder.values()) {
 			if (entry.type === 'Folder') {
-				promises.push(this._resolveFolder({
+				promises.push(this.resolveFolder({
 					folder: entry as SchemaFolder,
 					language: context.language,
 					guild: context.guild,
 					extraContext: context.extraContext
 				}).then(value => [entry.key, value]));
 			} else {
-				promises.push(this._resolveEntry({
+				promises.push(this.resolveEntry({
 					entry: entry as SchemaEntry,
 					language: context.language,
 					guild: context.guild,
@@ -386,7 +381,7 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 		return fromEntries(await Promise.all(promises));
 	}
 
-	private async _resolveEntry(context: SerializerUpdateContext): Promise<unknown> {
+	private async resolveEntry(context: SerializerUpdateContext): Promise<unknown> {
 		const values = this.get(context.entry.path);
 		if (typeof values === 'undefined') return undefined;
 
@@ -403,7 +398,7 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 		return serializer.resolve(values as SerializableValue, context);
 	}
 
-	private _resetSchemaFolder(changes: SettingsUpdateResults, schemaFolder: SchemaFolder, key: string, language: Language, onlyConfigurable: boolean): void {
+	private resetSchemaFolder(changes: SettingsUpdateResults, schemaFolder: SchemaFolder, key: string, language: Language, onlyConfigurable: boolean): void {
 		let nonConfigurable = 0;
 		let skipped = 0;
 		let processed = 0;
@@ -440,7 +435,7 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 		if (processed === 0 && skipped === 0 && nonConfigurable !== 0) throw language.get('SETTING_GATEWAY_UNCONFIGURABLE_FOLDER');
 	}
 
-	private _resetSchemaEntry(changes: SettingsUpdateResults, schemaEntry: SchemaEntry, key: string, language: Language, onlyConfigurable: boolean): void {
+	private resetSchemaEntry(changes: SettingsUpdateResults, schemaEntry: SchemaEntry, key: string, language: Language, onlyConfigurable: boolean): void {
 		if (onlyConfigurable && !schemaEntry.configurable) {
 			throw language.get('SETTINGS_GATEWAY_UNCONFIGURABLE_KEY', key);
 		}
@@ -461,7 +456,7 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 		}
 	}
 
-	private async _processUpdate(entries: [string, SerializableValue][], options: InternalRawFolderUpdateOptions): Promise<SettingsUpdateResults> {
+	private async processUpdate(entries: [string, SerializableValue][], options: InternalRawFolderUpdateOptions): Promise<SettingsUpdateResults> {
 		const { client, schema } = this;
 		const onlyConfigurable = typeof options.onlyConfigurable === 'undefined' ? false : options.onlyConfigurable;
 		const arrayAction = typeof options.arrayAction === 'undefined' ? ArrayActions.Auto : options.arrayAction as ArrayActions;
@@ -488,16 +483,16 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 				throw language.get('SETTINGS_GATEWAY_UNCONFIGURABLE_KEY', path);
 			}
 
-			promises.push(this._updateSchemaEntry(path, value, { entry: entry as SchemaEntry, language, guild, extraContext: extra }, internalOptions));
+			promises.push(this.updateSchemaEntry(path, value, { entry: entry as SchemaEntry, language, guild, extraContext: extra }, internalOptions));
 		}
 
 		const changes = await Promise.all(promises);
-		if (changes.length !== 0) await this._save({ changes, guild, language, extraContext: extra });
+		if (changes.length !== 0) await this.save({ changes, guild, language, extraContext: extra });
 		return changes;
 	}
 
 	// eslint-disable-next-line complexity
-	private async _updateSchemaEntry(key: string, value: SerializableValue, context: SerializerUpdateContext, options: InternalSettingsFolderUpdateOptions): Promise<SettingsUpdateResult> {
+	private async updateSchemaEntry(key: string, value: SerializableValue, context: SerializerUpdateContext, options: InternalSettingsFolderUpdateOptions): Promise<SettingsUpdateResult> {
 		const previous = this.get(key) as SerializableValue;
 
 		// If null or undefined, return the default value instead
@@ -506,13 +501,13 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 		}
 
 		if (!context.entry.array) {
-			value = await this._updateSchemaEntryValue(value, context) as SerializableValue;
+			value = await this.updateSchemaEntryValue(value, context) as SerializableValue;
 			return { previous, next: value, entry: context.entry };
 		}
 
 		value = Array.isArray(value) ?
-			await Promise.all(value.map(val => this._updateSchemaEntryValue(val, context) as Promise<SerializableValue>)) :
-			[await this._updateSchemaEntryValue(value, context) as SerializableValue];
+			await Promise.all(value.map(val => this.updateSchemaEntryValue(val, context) as Promise<SerializableValue>)) :
+			[await this.updateSchemaEntryValue(value, context) as SerializableValue];
 
 		if (options.arrayAction === ArrayActions.Overwrite) {
 			return { previous, next: value, entry: context.entry };
@@ -564,7 +559,7 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 		};
 	}
 
-	private async _updateSchemaEntryValue(value: SerializableValue, context: SerializerUpdateContext): Promise<unknown> {
+	private async updateSchemaEntryValue(value: SerializableValue, context: SerializerUpdateContext): Promise<unknown> {
 		const { serializer } = context.entry;
 		if (serializer === null) throw new Error('The serializer was not available during the update.');
 		const parsed = await serializer.validate(value, context);
@@ -617,9 +612,9 @@ export interface InternalSettingsFolderUpdateOptions {
 	arrayIndex: number | null;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface SettingsUpdateResults extends Array<SettingsUpdateResult> { }
+export type SettingsUpdateResults = SettingsUpdateResult[];
 
+// This is an interface because it references itself, resulting on a compiler error.
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SettingsFolderJson extends Record<string, SettingsFolderJson | SerializableValue> { }
 

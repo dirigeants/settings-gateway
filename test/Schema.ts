@@ -82,7 +82,9 @@ ava('schema-folder-empty', (test): void => {
 	test.plan(22);
 
 	const schema = new Schema()
-		.add('test', () => { });
+		.add('test', () => {
+			// noop
+		});
 
 	test.true(schema instanceof Schema, '"add" method must be chainable.');
 	test.is(schema.path, '');

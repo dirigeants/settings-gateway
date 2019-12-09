@@ -237,6 +237,7 @@ export interface SchemaAddCallback {
 	(folder: SchemaFolder): unknown;
 }
 
+// Those are interfaces because they reference themselves, resulting on a compiler error. The other is for consistency.
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SchemaFolderJson extends Record<string, SchemaFolderJson | SchemaEntryJson> { }
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

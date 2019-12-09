@@ -55,13 +55,13 @@ export class GatewayStorage {
 		if (provider === null) throw new Error(`The gateway "${this.name}" could not find the provider "${this._provider}".`);
 		this.ready = true;
 
-		const errors = [...this._checkSchemaFolder(this.schema)];
+		const errors = [...this.checkSchemaFolder(this.schema)];
 		if (errors.length) throw new Error(`[SCHEMA] There is an error with your schema.\n${errors.join('\n')}`);
 
 		// Initialize the defaults
 		// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 		// @ts-ignore 2445
-		this.schema.defaults._init(this.schema.defaults, this.schema);
+		this.schema.defaults.init(this.schema.defaults, this.schema);
 
 		// Init the table
 		const hasTable = await provider.hasTable(this.name);
@@ -98,12 +98,12 @@ export class GatewayStorage {
 		};
 	}
 
-	private *_checkSchemaFolder(schema: Schema): IterableIterator<string> {
+	private *checkSchemaFolder(schema: Schema): IterableIterator<string> {
 		// Iterate over all the schema's values
 		for (const value of schema.values()) {
 			if (value instanceof Schema) {
 				// Check the child's children values
-				yield* this._checkSchemaFolder(value);
+				yield* this.checkSchemaFolder(value);
 			} else {
 				// Set the client and check if it is valid, afterwards freeze,
 				// otherwise delete it from its parent and yield error message

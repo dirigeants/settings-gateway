@@ -194,8 +194,7 @@ export interface SchemaEntryEditOptions extends SchemaEntryOptions {
 	type?: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface SchemaEntryJson extends Required<Omit<SchemaEntryEditOptions, 'filter'>> { }
+export type SchemaEntryJson = Required<Omit<SchemaEntryEditOptions, 'filter'>>;
 
 export interface SchemaEntryFilterFunction {
 	(client: Client, value: unknown, context: SerializerUpdateContext): boolean;

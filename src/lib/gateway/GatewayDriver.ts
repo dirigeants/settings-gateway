@@ -63,5 +63,4 @@ export class GatewayDriver extends Collection<string, GatewayStorage> {
 
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface GatewayDriverJson extends Record<string, GatewayStorageJson> { }
+export type GatewayDriverJson = Record<string, GatewayStorageJson>;

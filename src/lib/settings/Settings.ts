@@ -32,7 +32,7 @@ export class Settings extends SettingsFolder {
 		this.gateway = gateway;
 		this.target = target;
 		this.existenceStatus = SettingsExistenceStatus.Unsynchronized;
-		this._init(this, this.schema);
+		this.init(this, this.schema);
 	}
 
 	/**
@@ -40,7 +40,7 @@ export class Settings extends SettingsFolder {
 	 */
 	public clone(): Settings {
 		const clone = new Settings(this.gateway, this.target, this.id);
-		clone._patch(this.toJSON());
+		clone.patch(this.toJSON());
 		return clone;
 	}
 
@@ -50,13 +50,13 @@ export class Settings extends SettingsFolder {
 	 */
 	public async sync(force = this.existenceStatus === SettingsExistenceStatus.Unsynchronized): Promise<this> {
 		// If not force and the instance has already been synchronized with the database, return this
-		if (!force && this.existenceStatus !== null) return this;
+		if (!force && this.existenceStatus !== SettingsExistenceStatus.Unsynchronized) return this;
 
 		// Push a synchronization task to the request handler queue
 		const data = await this.gateway.requestHandler.push(this.id);
 		if (data) {
 			this.existenceStatus = SettingsExistenceStatus.Exists;
-			this._patch(data as IdKeyedObject);
+			this.patch(data as IdKeyedObject);
 			this.gateway.client.emit('settingsSync', this);
 		} else {
 			this.existenceStatus = SettingsExistenceStatus.NotExists;
@@ -75,7 +75,7 @@ export class Settings extends SettingsFolder {
 			if (provider === null) throw new Error('The provider was not available during the destroy operation.');
 			await provider.delete(this.gateway.name, this.id);
 			this.gateway.client.emit('settingsDelete', this);
-			this._init(this, this.schema);
+			this.init(this, this.schema);
 			this.existenceStatus = SettingsExistenceStatus.NotExists;
 		}
 

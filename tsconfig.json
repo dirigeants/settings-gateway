@@ -15,11 +15,6 @@
 		"removeComments": false,
 		"target": "esnext"
 	},
-	"exclude": [
-		"bin",
-		"examples",
-		"scripts"
-	],
 	"include": [
 		"src"
 	]
