@@ -1,5 +1,5 @@
 import { Piece } from 'klasa';
-import { ReadonlyAnyObject, KeyedObject } from '../types';
+import { KeyedObject } from '../types';
 import { SettingsUpdateResults } from '../settings/SettingsFolder';
 import { mergeObjects, makeObject } from '@klasa/utils';
 import { SchemaFolder } from '../schema/SchemaFolder';
@@ -32,7 +32,7 @@ export abstract class Provider extends Piece {
 	 * @param entry The entry's ID to create
 	 * @param data The data to insert
 	 */
-	public abstract create(table: string, entry: string, data: ReadonlyAnyObject): Promise<unknown>;
+	public abstract create(table: string, entry: string, data: object): Promise<unknown>;
 
 	/**
 	 * Removes entries from a table.
@@ -74,7 +74,7 @@ export abstract class Provider extends Piece {
 	 * @param entry The entry's ID to update
 	 * @param data The data to update
 	 */
-	public abstract update(table: string, entry: string, data: ReadonlyAnyObject | SettingsUpdateResults): Promise<unknown>;
+	public abstract update(table: string, entry: string, data: object | SettingsUpdateResults): Promise<unknown>;
 
 	/**
 	 * Overwrites the data from an entry in a table.
@@ -82,7 +82,7 @@ export abstract class Provider extends Piece {
 	 * @param entry The entry's ID to update
 	 * @param data The new data for the entry
 	 */
-	public abstract replace(table: string, entry: string, data: ReadonlyAnyObject | SettingsUpdateResults): Promise<unknown>;
+	public abstract replace(table: string, entry: string, data: object | SettingsUpdateResults): Promise<unknown>;
 
 	/**
 	 * Shutdown method, this is called before the piece is unloaded.
@@ -140,7 +140,7 @@ export abstract class Provider extends Piece {
 	 * Parse the input from SettingsGateway for this
 	 * @param changes The data that has been updated
 	 */
-	protected parseUpdateInput(changes: ReadonlyAnyObject | SettingsUpdateResults): KeyedObject {
+	protected parseUpdateInput(changes: object | SettingsUpdateResults): KeyedObject {
 		if (!Array.isArray(changes)) return changes as KeyedObject;
 		const updated: KeyedObject = {};
 		for (const change of changes) mergeObjects(updated, makeObject(change.entry.path, change.next));

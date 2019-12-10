@@ -1,4 +1,4 @@
-import { Provider, ReadonlyAnyObject, SettingsUpdateResults } from '../../dist';
+import { Provider, ReadonlyKeyedObject, SettingsUpdateResults } from '../../dist';
 import { mergeObjects } from '@klasa/utils';
 
 export class MockProvider extends Provider {
@@ -19,7 +19,7 @@ export class MockProvider extends Provider {
 		return this.tables.has(table);
 	}
 
-	public async create(table: string, entry: string, data: ReadonlyAnyObject): Promise<void> {
+	public async create(table: string, entry: string, data: ReadonlyKeyedObject): Promise<void> {
 		const resolvedTable = this.tables.get(table);
 		if (typeof resolvedTable === 'undefined') throw new Error('Table Not Exists');
 		if (resolvedTable.has(entry)) throw new Error('Entry Exists');
@@ -68,7 +68,7 @@ export class MockProvider extends Provider {
 		return resolvedTable.has(entry);
 	}
 
-	public async update(table: string, entry: string, data: ReadonlyAnyObject | SettingsUpdateResults): Promise<void> {
+	public async update(table: string, entry: string, data: ReadonlyKeyedObject | SettingsUpdateResults): Promise<void> {
 		const resolvedTable = this.tables.get(table);
 		if (typeof resolvedTable === 'undefined') throw new Error('Table Not Exists');
 
@@ -80,7 +80,7 @@ export class MockProvider extends Provider {
 		resolvedTable.set(entry, merged);
 	}
 
-	public async replace(table: string, entry: string, data: ReadonlyAnyObject | SettingsUpdateResults): Promise<void> {
+	public async replace(table: string, entry: string, data: ReadonlyKeyedObject | SettingsUpdateResults): Promise<void> {
 		const resolvedTable = this.tables.get(table);
 		if (typeof resolvedTable === 'undefined') throw new Error('Table Not Exists');
 

@@ -1,5 +1,5 @@
 import ava from 'ava';
-import { Schema, SettingsFolder, Gateway, Provider, Client, Settings, SchemaEntry, AnyObject, SettingsUpdateContext, SettingsExistenceStatus } from '../dist';
+import { Schema, SettingsFolder, Gateway, Provider, Client, Settings, SchemaEntry, KeyedObject, SettingsUpdateContext, SettingsExistenceStatus } from '../dist';
 import { createClient } from './lib/MockClient';
 
 async function createSettings(id: string): Promise<PreparedContextSettings> {
@@ -355,7 +355,7 @@ ava('SettingsFolder#reset (Events | Exists)', async (test): Promise<void> => {
 
 	const schemaEntry = schema.get('count') as SchemaEntry;
 	client.once('settingsCreate', () => test.fail());
-	client.once('settingsUpdate', (emittedSettings: Settings, changes: AnyObject, context: SettingsUpdateContext) => {
+	client.once('settingsUpdate', (emittedSettings: Settings, changes: KeyedObject, context: SettingsUpdateContext) => {
 		test.is(emittedSettings, settings);
 		test.deepEqual(changes, { count: null });
 		test.is(context.changes.length, 1);
@@ -379,7 +379,7 @@ ava('SettingsFolder#reset (Events + Extra | Exists)', async (test): Promise<void
 	const extraContext = Symbol('Hello!');
 	const schemaEntry = schema.get('count') as SchemaEntry;
 	client.once('settingsCreate', () => test.fail());
-	client.once('settingsUpdate', (emittedSettings: Settings, changes: AnyObject, context: SettingsUpdateContext) => {
+	client.once('settingsUpdate', (emittedSettings: Settings, changes: KeyedObject, context: SettingsUpdateContext) => {
 		test.is(emittedSettings, settings);
 		test.deepEqual(changes, { count: null });
 		test.is(context.changes.length, 1);
@@ -798,7 +798,7 @@ ava('SettingsFolder#update (Events | Not Exists)', async (test): Promise<void> =
 	await settings.sync();
 
 	const schemaEntry = schema.get('count') as SchemaEntry;
-	client.once('settingsCreate', (emittedSettings: Settings, changes: AnyObject, context: SettingsUpdateContext) => {
+	client.once('settingsCreate', (emittedSettings: Settings, changes: KeyedObject, context: SettingsUpdateContext) => {
 		test.is(emittedSettings, settings);
 		test.deepEqual(changes, { count: 64 });
 		test.is(context.changes.length, 1);
@@ -822,7 +822,7 @@ ava('SettingsFolder#update (Events | Exists)', async (test): Promise<void> => {
 
 	const schemaEntry = schema.get('count') as SchemaEntry;
 	client.once('settingsCreate', () => test.fail());
-	client.once('settingsUpdate', (emittedSettings: Settings, changes: AnyObject, context: SettingsUpdateContext) => {
+	client.once('settingsUpdate', (emittedSettings: Settings, changes: KeyedObject, context: SettingsUpdateContext) => {
 		test.is(emittedSettings, settings);
 		test.deepEqual(changes, { count: 420 });
 		test.is(context.changes.length, 1);
@@ -844,7 +844,7 @@ ava('SettingsFolder#update (Events + Extra | Not Exists)', async (test): Promise
 
 	const extraContext = Symbol('Hello!');
 	const schemaEntry = schema.get('count') as SchemaEntry;
-	client.once('settingsCreate', (emittedSettings: Settings, changes: AnyObject, context: SettingsUpdateContext) => {
+	client.once('settingsCreate', (emittedSettings: Settings, changes: KeyedObject, context: SettingsUpdateContext) => {
 		test.is(emittedSettings, settings);
 		test.deepEqual(changes, { count: 420 });
 		test.is(context.changes.length, 1);
@@ -869,7 +869,7 @@ ava('SettingsFolder#update (Events + Extra | Exists)', async (test): Promise<voi
 	const extraContext = Symbol('Hello!');
 	const schemaEntry = schema.get('count') as SchemaEntry;
 	client.once('settingsCreate', () => test.fail());
-	client.once('settingsUpdate', (emittedSettings: Settings, changes: AnyObject, context: SettingsUpdateContext) => {
+	client.once('settingsUpdate', (emittedSettings: Settings, changes: KeyedObject, context: SettingsUpdateContext) => {
 		test.is(emittedSettings, settings);
 		test.deepEqual(changes, { count: 420 });
 		test.is(context.changes.length, 1);

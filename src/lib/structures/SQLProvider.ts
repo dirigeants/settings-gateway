@@ -1,5 +1,4 @@
 import { Provider } from './Provider';
-import { ReadonlyAnyObject } from '../types';
 import { SettingsUpdateResults } from '../settings/SettingsFolder';
 import { SchemaFolder } from '../schema/SchemaFolder';
 import { SchemaEntry } from '../schema/SchemaEntry';
@@ -38,7 +37,7 @@ export abstract class SQLProvider extends Provider {
 	 * @param entry The entry's ID to create
 	 * @param data The data to insert
 	 */
-	public abstract create(table: string, entry: string, data: ReadonlyAnyObject): Promise<unknown>;
+	public abstract create(table: string, entry: string, data: object): Promise<unknown>;
 
 	/**
 	 * Removes entries from a table.
@@ -52,7 +51,7 @@ export abstract class SQLProvider extends Provider {
 	 * @param table The table to query
 	 * @param entry The ID of the entry to retrieve
 	 */
-	public abstract get(table: string, entry: string): Promise<object>;
+	public abstract get(table: string, entry: string): Promise<object | null>;
 
 	/**
 	 * Retrieve all entries from a table.
@@ -80,7 +79,7 @@ export abstract class SQLProvider extends Provider {
 	 * @param entry The entry's ID to update
 	 * @param data The data to update
 	 */
-	public abstract update(table: string, entry: string, data: ReadonlyAnyObject | SettingsUpdateResults): Promise<unknown>;
+	public abstract update(table: string, entry: string, data: object | SettingsUpdateResults): Promise<unknown>;
 
 	/**
 	 * Overwrites the data from an entry in a table.
@@ -88,7 +87,7 @@ export abstract class SQLProvider extends Provider {
 	 * @param entry The entry's ID to update
 	 * @param data The new data for the entry
 	 */
-	public abstract replace(table: string, entry: string, data: ReadonlyAnyObject | SettingsUpdateResults): Promise<unknown>;
+	public abstract replace(table: string, entry: string, data: object | SettingsUpdateResults): Promise<unknown>;
 
 	/**
 	 * The addColumn method which inserts/creates a new table to the database.
@@ -131,9 +130,7 @@ export abstract class SQLProvider extends Provider {
 	 * Parse the input from SettingsGateway for this
 	 * @param changes The data that has been updated
 	 */
-	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-	// @ts-ignore
-	protected parseUpdateInput(changes: ReadonlyAnyObject | SettingsUpdateResults): ParsedUpdateInput {
+	protected parseTupleUpdateInput(changes: object | SettingsUpdateResults): SqlProviderParsedTupleUpdateInput {
 		const keys: string[] = [];
 		const values: unknown[] = [];
 
@@ -143,7 +140,7 @@ export abstract class SQLProvider extends Provider {
 				values.push(change.next);
 			}
 		} else {
-			for (const [key, value] of objectToTuples(changes)) {
+			for (const [key, value] of objectToTuples(changes as Record<PropertyKey, unknown>)) {
 				keys.push(key);
 				values.push(value);
 			}
@@ -154,7 +151,7 @@ export abstract class SQLProvider extends Provider {
 
 }
 
-export interface ParsedUpdateInput {
+export interface SqlProviderParsedTupleUpdateInput {
 	keys: string[];
 	values: unknown[];
 }

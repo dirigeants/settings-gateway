@@ -3,7 +3,7 @@ import { Settings } from './Settings';
 import { SchemaFolder } from '../schema/SchemaFolder';
 import { SchemaEntry } from '../schema/SchemaEntry';
 import { Language } from 'klasa';
-import { Client, ReadonlyAnyObject, KeyedObject, ReadonlyKeyedObject } from '../types';
+import { Client, ReadonlyKeyedObject, KeyedObject } from '../types';
 import { GuildResolvable } from 'discord.js';
 import { isObject, objectToTuples, mergeObjects, makeObject } from '@klasa/utils';
 import arraysStrictEquals from '@klasa/utils/dist/lib/arrayStrictEquals';
@@ -163,8 +163,8 @@ export class SettingsFolder extends Map<string, unknown> {
 	 * // Resets a key and an entire folder:
 	 * await message.guild.settings.reset({ prefix: null, roles: null });
 	 */
-	public async reset(object: ReadonlyAnyObject, options?: Readonly<SettingsFolderResetOptions>): Promise<SettingsUpdateResults>;
-	public async reset(paths: string | ReadonlyAnyObject | readonly string[] = [...this.keys()], options: Readonly<SettingsFolderResetOptions> = {}): Promise<SettingsUpdateResults> {
+	public async reset(object: ReadonlyKeyedObject, options?: Readonly<SettingsFolderResetOptions>): Promise<SettingsUpdateResults>;
+	public async reset(paths: string | ReadonlyKeyedObject | readonly string[] = [...this.keys()], options: Readonly<SettingsFolderResetOptions> = {}): Promise<SettingsUpdateResults> {
 		if (this.base === null) {
 			throw new Error('Cannot reset keys from a non-ready settings instance.');
 		}
@@ -269,7 +269,7 @@ export class SettingsFolder extends Map<string, unknown> {
 	 * const index = tags.findIndex(([tag]) => tag === 'foo');
 	 * await message.guild.settings.update({ tags: null }, { arrayIndex: index });
 	 */
-	public update(entries: ReadonlyAnyObject, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
+	public update(entries: ReadonlyKeyedObject, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
 	public async update(pathOrEntries: PathOrEntries, valueOrOptions?: ValueOrOptions, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults> {
 		if (this.base === null) {
 			throw new Error('Cannot update keys from a non-ready settings instance.');
@@ -305,7 +305,7 @@ export class SettingsFolder extends Map<string, unknown> {
 	 * Patch an object against this instance.
 	 * @param data The data to apply to this instance
 	 */
-	protected _patch(data: ReadonlyAnyObject): void {
+	protected _patch(data: object): void {
 		for (const [key, value] of Object.entries(data)) {
 			// Undefined values are invalid values, skip.
 			if (typeof value === 'undefined') continue;
@@ -314,7 +314,7 @@ export class SettingsFolder extends Map<string, unknown> {
 			const childValue = super.get(key);
 			if (typeof childValue === 'undefined') continue;
 
-			if (childValue instanceof SettingsFolder) childValue._patch(value as ReadonlyAnyObject);
+			if (childValue instanceof SettingsFolder) childValue._patch(value);
 			else super.set(key, value);
 		}
 	}
@@ -624,6 +624,6 @@ export const enum ArrayActions {
 
 export type ArrayActionsString = 'add' | 'remove' | 'auto' | 'overwrite';
 
-type PathOrEntries = string | [string, unknown][] | ReadonlyAnyObject;
+type PathOrEntries = string | [string, unknown][] | ReadonlyKeyedObject;
 type ValueOrOptions = unknown | SettingsFolderUpdateOptions;
 type InternalRawFolderUpdateOptions = SettingsFolderUpdateOptions & SettingsFolderUpdateOptionsNonOverwrite;

@@ -8,10 +8,12 @@ export type DeepReadonly<T extends object> = {
 }
 
 export type KeyedObject = Record<PropertyKey, unknown>;
-export type AnyObject = KeyedObject;
 export type ReadonlyKeyedObject = DeepReadonly<KeyedObject>;
-export type ReadonlyAnyObject = DeepReadonly<AnyObject>;
 
+/**
+ * Dummy Client made to ignore the origin's properties, so SG may compile correctly.
+ * @internal
+ */
 export interface Client extends Omit<DiscordClient, 'gateways' | 'providers' | 'serializers'> {
 	gateways: GatewayDriver;
 	providers: ProviderStore;
