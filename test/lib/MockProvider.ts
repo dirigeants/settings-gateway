@@ -1,9 +1,9 @@
-import { Provider, ReadonlyAnyObject, SettingsUpdateResults, IdKeyedObject } from '../../dist';
+import { Provider, ReadonlyAnyObject, SettingsUpdateResults } from '../../dist';
 import { mergeObjects } from '@klasa/utils';
 
 export class MockProvider extends Provider {
 
-	private tables = new Map<string, Map<string, IdKeyedObject>>();
+	private tables = new Map<string, Map<string, object>>();
 
 	public async createTable(table: string): Promise<void> {
 		if (this.tables.has(table)) throw new Error('Table Exists');
@@ -34,13 +34,13 @@ export class MockProvider extends Provider {
 		resolvedTable.delete(entry);
 	}
 
-	public async get(table: string, entry: string): Promise<IdKeyedObject | null> {
+	public async get(table: string, entry: string): Promise<object | null> {
 		const resolvedTable = this.tables.get(table);
 		if (typeof resolvedTable === 'undefined') throw new Error('Table Not Exists');
 		return resolvedTable.get(entry) || null;
 	}
 
-	public async getAll(table: string, entries?: readonly string[]): Promise<IdKeyedObject[]> {
+	public async getAll(table: string, entries?: readonly string[]): Promise<object[]> {
 		const resolvedTable = this.tables.get(table);
 		if (typeof resolvedTable === 'undefined') throw new Error('Table Not Exists');
 
@@ -48,7 +48,7 @@ export class MockProvider extends Provider {
 			return [...resolvedTable.values()];
 		}
 
-		const values: IdKeyedObject[] = [];
+		const values: object[] = [];
 		for (const [key, value] of resolvedTable.entries()) {
 			if (entries.includes(key)) values.push(value);
 		}

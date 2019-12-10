@@ -1,5 +1,5 @@
 import { Piece } from 'klasa';
-import { AnyObject, ReadonlyAnyObject, KeyedObject } from '../types';
+import { ReadonlyAnyObject, KeyedObject } from '../types';
 import { SettingsUpdateResults } from '../settings/SettingsFolder';
 import { mergeObjects, makeObject } from '@klasa/utils';
 import { SchemaFolder } from '../schema/SchemaFolder';
@@ -46,14 +46,14 @@ export abstract class Provider extends Piece {
 	 * @param table The table to query
 	 * @param entry The ID of the entry to retrieve
 	 */
-	public abstract get(table: string, entry: string): Promise<IdKeyedObject | null>;
+	public abstract get(table: string, entry: string): Promise<object | null>;
 
 	/**
 	 * Retrieve all entries from a table.
 	 * @param table The table to query
 	 * @param entries The ids to retrieve from the table
 	 */
-	public abstract getAll(table: string, entries?: readonly string[]): Promise<IdKeyedObject[]>;
+	public abstract getAll(table: string, entries?: readonly string[]): Promise<object[]>;
 
 	/**
 	 * Retrieves all entries' keys from a table.
@@ -87,8 +87,9 @@ export abstract class Provider extends Piece {
 	/**
 	 * Shutdown method, this is called before the piece is unloaded.
 	 */
-	public async shutdown(): Promise<void> {
+	public shutdown(): unknown {
 		// Optionally defined in extension Classes
+		return undefined;
 	}
 
 	/**
@@ -97,8 +98,9 @@ export abstract class Provider extends Piece {
 	 * @param entry The SchemaFolder or SchemaEntry added to the schema
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async addColumn(_table: string, _entry: SchemaFolder | SchemaEntry): Promise<void> {
+	public async addColumn(_table: string, _entry: SchemaFolder | SchemaEntry): Promise<unknown> {
 		// Reserved for SQL databases
+		return undefined;
 	}
 
 	/**
@@ -108,8 +110,9 @@ export abstract class Provider extends Piece {
 	 * @param columns The column names to remove
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async removeColumn(_table: string, _columns: readonly string[]): Promise<void> {
+	public async removeColumn(_table: string, _columns: readonly string[]): Promise<unknown> {
 		// Reserved for SQL databases
+		return undefined;
 	}
 
 	/**
@@ -118,8 +121,9 @@ export abstract class Provider extends Piece {
 	 * @param entry The modified SchemaEntry
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async updateColumn(_table: string, _entry: SchemaEntry): Promise<void> {
+	public async updateColumn(_table: string, _entry: SchemaEntry): Promise<unknown> {
 		// Reserved for SQL databases
+		return undefined;
 	}
 
 	/**
@@ -144,5 +148,3 @@ export abstract class Provider extends Piece {
 	}
 
 }
-
-export type IdKeyedObject = AnyObject & { id: string };

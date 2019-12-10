@@ -1,6 +1,6 @@
 import { SettingsFolder, SettingsExistenceStatus } from './SettingsFolder';
 import { Gateway } from '../gateway/Gateway';
-import { IdKeyedObject } from '../structures/Provider';
+import { ReadonlyAnyObject } from '../types';
 
 export class Settings extends SettingsFolder {
 
@@ -56,7 +56,7 @@ export class Settings extends SettingsFolder {
 		const data = await this.gateway.requestHandler.push(this.id);
 		if (data) {
 			this.existenceStatus = SettingsExistenceStatus.Exists;
-			this._patch(data as IdKeyedObject);
+			this._patch(data as unknown as ReadonlyAnyObject);
 			this.gateway.client.emit('settingsSync', this);
 		} else {
 			this.existenceStatus = SettingsExistenceStatus.NotExists;

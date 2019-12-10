@@ -1,5 +1,5 @@
-import { Provider, IdKeyedObject } from './Provider';
-import { ReadonlyAnyObject, ReadonlyKeyedObject } from '../types';
+import { Provider } from './Provider';
+import { ReadonlyAnyObject } from '../types';
 import { SettingsUpdateResults } from '../settings/SettingsFolder';
 import { SchemaFolder } from '../schema/SchemaFolder';
 import { SchemaEntry } from '../schema/SchemaEntry';
@@ -52,14 +52,14 @@ export abstract class SQLProvider extends Provider {
 	 * @param table The table to query
 	 * @param entry The ID of the entry to retrieve
 	 */
-	public abstract get(table: string, entry: string): Promise<IdKeyedObject>;
+	public abstract get(table: string, entry: string): Promise<object>;
 
 	/**
 	 * Retrieve all entries from a table.
 	 * @param table The table to query
 	 * @param entries The ids to retrieve from the table
 	 */
-	public abstract getAll(table: string, entries?: readonly string[]): Promise<IdKeyedObject[]>;
+	public abstract getAll(table: string, entries?: readonly string[]): Promise<object[]>;
 
 	/**
 	 * Retrieves all entries' keys from a table.
@@ -95,7 +95,7 @@ export abstract class SQLProvider extends Provider {
 	 * @param table The table to check against
 	 * @param entry The SchemaFolder or SchemaEntry added to the schema
 	 */
-	public abstract addColumn(table: string, entry: SchemaFolder | SchemaEntry): Promise<void>;
+	public abstract addColumn(table: string, entry: SchemaFolder | SchemaEntry): Promise<unknown>;
 
 	/**
 	 * The removeColumn method which inserts/creates a new table to the database.
@@ -103,14 +103,14 @@ export abstract class SQLProvider extends Provider {
 	 * @param table The table to check against
 	 * @param columns The column names to remove
 	 */
-	public abstract removeColumn(table: string, columns: readonly string[]): Promise<void>;
+	public abstract removeColumn(table: string, columns: readonly string[]): Promise<unknown>;
 
 	/**
 	 * The updateColumn method which alters the datatype from a column.
 	 * @param table The table to check against
 	 * @param entry The modified SchemaEntry
 	 */
-	public abstract updateColumn(table: string, entry: SchemaEntry): Promise<void>;
+	public abstract updateColumn(table: string, entry: SchemaEntry): Promise<unknown>;
 
 	/**
 	 * The getColumns method which gets the name of all columns.
@@ -133,13 +133,28 @@ export abstract class SQLProvider extends Provider {
 	 */
 	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 	// @ts-ignore
-	protected parseUpdateInput(changes: ReadonlyAnyObject | SettingsUpdateResults): [string, unknown][] {
+	protected parseUpdateInput(changes: ReadonlyAnyObject | SettingsUpdateResults): ParsedUpdateInput {
+		const keys: string[] = [];
+		const values: unknown[] = [];
+
 		if (Array.isArray(changes)) {
-			const entries: [string, unknown][] = [];
-			for (const change of changes) entries.push([change.entry.path, change.next]);
-			return entries;
+			for (const change of changes) {
+				keys.push(change.entry.path);
+				values.push(change.next);
+			}
+		} else {
+			for (const [key, value] of objectToTuples(changes)) {
+				keys.push(key);
+				values.push(value);
+			}
 		}
-		return objectToTuples(changes as ReadonlyKeyedObject);
+
+		return { keys, values };
 	}
 
+}
+
+export interface ParsedUpdateInput {
+	keys: string[];
+	values: unknown[];
 }
