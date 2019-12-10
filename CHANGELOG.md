@@ -10,6 +10,18 @@ NOTE: For the contributors, you add new entries to this document following this 
 - [[#PRNUMBER](https://github.com/dirigeants/settings-gateway/pull/PRNUMBER)] The change that has been made. (Author's Github name)
 -->
 
+## 0.0.3
+
+### Changed
+
+- Reduced type strictness of the interface. (kyranet)
+
+## 0.0.2
+
+### Changed
+
+- Added `types` field to the `package.json` file. (kyranet)
+
 ## 0.0.1
 
 ### Added
