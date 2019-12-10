@@ -10,6 +10,13 @@ NOTE: For the contributors, you add new entries to this document following this 
 - [[#PRNUMBER](https://github.com/dirigeants/settings-gateway/pull/PRNUMBER)] The change that has been made. (Author's Github name)
 -->
 
+## 0.0.5
+
+### Fixed
+
+- Resolved `SQLProvider`#`get` not being nullable. (kyranet)
+- Cleaned up useless types. (kyranet)
+
 ## 0.0.4
 
 ### Changed
