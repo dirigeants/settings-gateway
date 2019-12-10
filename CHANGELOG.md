@@ -10,6 +10,17 @@ NOTE: For the contributors, you add new entries to this document following this 
 - [[#PRNUMBER](https://github.com/dirigeants/settings-gateway/pull/PRNUMBER)] The change that has been made. (Author's Github name)
 -->
 
+## 0.0.4
+
+### Changed
+
+- Changed `Serializer`.`regex`'s accessor from `protected` to `public`. (kyranet)
+
+### Fixed
+
+- Resolved bug with `SQLProvider`'s methods returning `Promise<void>` instead of `Promise<unknown>`. (kyranet)
+- Resolved bug with `SQLProvider`#`parseUpdateInput` not returning SQL-friendly values. (kyranet)
+
 ## 0.0.3
 
 ### Changed
