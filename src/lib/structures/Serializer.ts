@@ -74,7 +74,7 @@ export abstract class Serializer extends AliasPiece {
 	/**
 	* Standard regular expressions for matching mentions and snowflake ids
 	*/
-	protected static regex: MentionRegex = constants.MENTION_REGEX;
+	public static regex: MentionRegex = constants.MENTION_REGEX;
 
 }
 
