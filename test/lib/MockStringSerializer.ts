@@ -1,4 +1,4 @@
-import { Serializer, SerializableValue, SerializerStore, SerializerUpdateContext } from '../../dist';
+import { Serializer, SerializerStore, SerializerUpdateContext } from '../../dist';
 
 export class MockStringSerializer extends Serializer {
 
@@ -6,11 +6,11 @@ export class MockStringSerializer extends Serializer {
 		super(store, file, directory, { name: 'string' });
 	}
 
-	public deserialize(data: SerializableValue): string {
+	public deserialize(data: unknown): string {
 		return String(data);
 	}
 
-	public validate(data: SerializableValue, { entry, language }: SerializerUpdateContext): string | null {
+	public validate(data: unknown, { entry, language }: SerializerUpdateContext): string | null {
 		const parsed = String(data);
 		return Serializer.minOrMax(parsed.length, entry, language) ? parsed : null;
 	}

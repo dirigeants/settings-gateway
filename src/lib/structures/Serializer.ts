@@ -1,5 +1,4 @@
 import { AliasPiece, Language, constants, MentionRegex } from 'klasa';
-import { SerializableValue } from '../types';
 import { SchemaEntry } from '../schema/SchemaEntry';
 import { Guild } from 'discord.js';
 
@@ -11,7 +10,7 @@ export abstract class Serializer extends AliasPiece {
 	 * @param context The context in which this serializer is called
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public validate(data: SerializableValue, _context: SerializerUpdateContext): Promise<SerializableValue> | SerializableValue {
+	public validate(data: unknown, _context: SerializerUpdateContext): unknown {
 		return data;
 	}
 
@@ -21,7 +20,7 @@ export abstract class Serializer extends AliasPiece {
 	 * @param context The context in which this serializer is called
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public resolve(data: SerializableValue, _context: SerializerUpdateContext): unknown {
+	public resolve(data: unknown, _context: SerializerUpdateContext): unknown {
 		return data;
 	}
 
@@ -31,7 +30,7 @@ export abstract class Serializer extends AliasPiece {
 	 * @param context The context in which this serializer is called
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public deserialize(data: SerializableValue, _context: SerializerUpdateContext): unknown {
+	public deserialize(data: unknown, _context: SerializerUpdateContext): unknown {
 		return data;
 	}
 
@@ -39,15 +38,15 @@ export abstract class Serializer extends AliasPiece {
 	 * The serialize method to be overwritten in actual Serializers.
 	 * @param data The data to serialize
 	 */
-	public serialize(data: unknown): SerializableValue {
-		return data as SerializableValue;
+	public serialize(data: unknown): unknown {
+		return data;
 	}
 
 	/**
 	 * The stringify method to be overwritten in actual Serializers
 	 * @param data The data to stringify
 	 */
-	public stringify(data: SerializableValue): string {
+	public stringify(data: unknown): string {
 		return String(data);
 	}
 

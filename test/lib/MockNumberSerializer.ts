@@ -1,4 +1,4 @@
-import { Serializer, SerializableValue, SerializerStore, SerializerUpdateContext } from '../../dist';
+import { Serializer, SerializerStore, SerializerUpdateContext } from '../../dist';
 
 export class MockNumberSerializer extends Serializer {
 
@@ -6,11 +6,11 @@ export class MockNumberSerializer extends Serializer {
 		super(store, file, directory, { name: 'number', aliases: ['integer', 'float'] });
 	}
 
-	public deserialize(data: SerializableValue): number {
+	public deserialize(data: unknown): number {
 		return Number(data);
 	}
 
-	public validate(data: SerializableValue, { entry, language }: SerializerUpdateContext): number | null {
+	public validate(data: unknown, { entry, language }: SerializerUpdateContext): number | null {
 		let parsed: number;
 		switch (entry.type) {
 			case 'integer':

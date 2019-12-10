@@ -3,7 +3,7 @@ import { Settings } from './Settings';
 import { SchemaFolder } from '../schema/SchemaFolder';
 import { SchemaEntry } from '../schema/SchemaEntry';
 import { Language } from 'klasa';
-import { Client, SerializableValue, ReadonlyAnyObject, KeyedObject, ReadonlyKeyedObject } from '../types';
+import { Client, ReadonlyAnyObject, KeyedObject, ReadonlyKeyedObject } from '../types';
 import { GuildResolvable } from 'discord.js';
 import { isObject, objectToTuples, mergeObjects, makeObject } from '@klasa/utils';
 import arraysStrictEquals from '@klasa/utils/dist/lib/arrayStrictEquals';
@@ -12,7 +12,7 @@ import { fromEntries } from '../polyfills';
 
 /* eslint-disable no-dupe-class-members */
 
-export class SettingsFolder extends Map<string, SerializableValue | SettingsFolder> {
+export class SettingsFolder extends Map<string, unknown> {
 
 	/**
 	 * The reference to the base Settings instance.
@@ -48,7 +48,7 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 	 * // Nested entry
 	 * const channel = message.guild.settings.get('channels.moderation-logs');
 	 */
-	public get(path: string): SettingsFolder | SerializableValue | undefined {
+	public get(path: string): unknown {
 		try {
 			return path.split('.').reduce((folder, key) => Map.prototype.get.call(folder, key), this);
 		} catch {
@@ -63,11 +63,11 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 	 * const [x, y] = message.guild.settings.pluck('x', 'y');
 	 * console.log(x, y);
 	 */
-	public pluck(...paths: readonly string[]): (SerializableValue | undefined)[] {
+	public pluck(...paths: readonly string[]): unknown[] {
 		return paths.map(path => {
 			const value = this.get(path);
 			return value instanceof SettingsFolder ? value.toJSON() : value;
-		}) as SerializableValue[];
+		});
 	}
 
 	/**
@@ -223,7 +223,7 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 	 * const index = tags.findIndex(([tag]) => tag === 'foo');
 	 * await message.guild.settings.update('tags', null, { arrayIndex: index });
 	 */
-	public update(path: string, value: SerializableValue, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
+	public update(path: string, value: unknown, options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
 	/**
 	 * Update one or more keys from this settings folder.
 	 * @param entries The key and value pairs to update
@@ -246,7 +246,7 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 	 * const index = tags.findIndex(([tag]) => tag === 'foo');
 	 * await message.guild.settings.update([['tags', null]], { arrayIndex: index });
 	 */
-	public update(entries: [string, SerializableValue][], options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
+	public update(entries: [string, unknown][], options?: SettingsFolderUpdateOptions): Promise<SettingsUpdateResults>;
 	/**
 	 * Update one or more keys using an object approach.
 	 * @param entries An object to flatten and update
@@ -279,15 +279,15 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 			throw new Error('Cannot update keys from a pending to synchronize settings instance. Perhaps you want to call `sync()` first.');
 		}
 
-		let entries: [string, SerializableValue][];
+		let entries: [string, unknown][];
 		if (typeof pathOrEntries === 'string') {
-			entries = [[pathOrEntries, valueOrOptions as SerializableValue]];
+			entries = [[pathOrEntries, valueOrOptions as unknown]];
 			options = typeof options === 'undefined' ? {} : options;
 		} else if (isObject(pathOrEntries)) {
-			entries = objectToTuples(pathOrEntries as ReadonlyKeyedObject) as [string, SerializableValue][];
+			entries = objectToTuples(pathOrEntries as ReadonlyKeyedObject) as [string, unknown][];
 			options = typeof valueOrOptions === 'undefined' ? {} : valueOrOptions as SettingsFolderUpdateOptions;
 		} else {
-			entries = pathOrEntries as [string, SerializableValue][];
+			entries = pathOrEntries as [string, unknown][];
 			options = typeof valueOrOptions === 'undefined' ? {} : valueOrOptions as SettingsFolderUpdateOptions;
 		}
 
@@ -315,7 +315,7 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 			if (typeof childValue === 'undefined') continue;
 
 			if (childValue instanceof SettingsFolder) childValue._patch(value as ReadonlyAnyObject);
-			else super.set(key, value as SerializableValue);
+			else super.set(key, value);
 		}
 	}
 
@@ -390,12 +390,12 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 		const { serializer } = context.entry;
 		if (serializer === null) throw new Error('The serializer was not available during the resolve.');
 		if (context.entry.array) {
-			return (await Promise.all((values as readonly SerializableValue[])
+			return (await Promise.all((values as readonly unknown[])
 				.map(value => serializer.resolve(value, context))))
 				.filter(value => value !== null);
 		}
 
-		return serializer.resolve(values as SerializableValue, context);
+		return serializer.resolve(values, context);
 	}
 
 	private _resetSchemaFolder(changes: SettingsUpdateResults, schemaFolder: SchemaFolder, key: string, language: Language, onlyConfigurable: boolean): void {
@@ -413,10 +413,10 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 			}
 
 			const localPath = entry.path.slice(key.length + 1);
-			const previous = this.get(localPathPrefix + localPath) as SerializableValue;
+			const previous = this.get(localPathPrefix + localPath);
 			const next = entry.default;
 			const equals = entry.array ?
-				arraysStrictEquals(previous as unknown as readonly SerializableValue[], next as readonly SerializableValue[]) :
+				arraysStrictEquals(previous as unknown as readonly unknown[], next as readonly unknown[]) :
 				previous === entry.default;
 
 			if (equals) {
@@ -440,11 +440,11 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 			throw language.get('SETTINGS_GATEWAY_UNCONFIGURABLE_KEY', key);
 		}
 
-		const previous = this.get(key) as SerializableValue;
+		const previous = this.get(key);
 		const next = schemaEntry.default;
 
 		const equals = schemaEntry.array ?
-			arraysStrictEquals(previous as unknown as readonly SerializableValue[], next as readonly SerializableValue[]) :
+			arraysStrictEquals(previous as unknown as readonly unknown[], next as readonly unknown[]) :
 			previous === next;
 
 		if (!equals) {
@@ -456,7 +456,7 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 		}
 	}
 
-	private async _processUpdate(entries: [string, SerializableValue][], options: InternalRawFolderUpdateOptions): Promise<SettingsUpdateResults> {
+	private async _processUpdate(entries: [string, unknown][], options: InternalRawFolderUpdateOptions): Promise<SettingsUpdateResults> {
 		const { client, schema } = this;
 		const onlyConfigurable = typeof options.onlyConfigurable === 'undefined' ? false : options.onlyConfigurable;
 		const arrayAction = typeof options.arrayAction === 'undefined' ? ArrayActions.Auto : options.arrayAction as ArrayActions;
@@ -492,8 +492,8 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 	}
 
 	// eslint-disable-next-line complexity
-	private async _updateSchemaEntry(key: string, value: SerializableValue, context: SerializerUpdateContext, options: InternalSettingsFolderUpdateOptions): Promise<SettingsUpdateResult> {
-		const previous = this.get(key) as SerializableValue;
+	private async _updateSchemaEntry(key: string, value: unknown, context: SerializerUpdateContext, options: InternalSettingsFolderUpdateOptions): Promise<SettingsUpdateResult> {
+		const previous = this.get(key);
 
 		// If null or undefined, return the default value instead
 		if (value === null || typeof value === 'undefined') {
@@ -501,20 +501,20 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 		}
 
 		if (!context.entry.array) {
-			value = await this._updateSchemaEntryValue(value, context) as SerializableValue;
+			value = await this._updateSchemaEntryValue(value, context);
 			return { previous, next: value, entry: context.entry };
 		}
 
 		value = Array.isArray(value) ?
-			await Promise.all(value.map(val => this._updateSchemaEntryValue(val, context) as Promise<SerializableValue>)) :
-			[await this._updateSchemaEntryValue(value, context) as SerializableValue];
+			await Promise.all(value.map(val => this._updateSchemaEntryValue(val, context))) :
+			[await this._updateSchemaEntryValue(value, context)];
 
 		if (options.arrayAction === ArrayActions.Overwrite) {
 			return { previous, next: value, entry: context.entry };
 		}
 
-		const next = value as readonly SerializableValue[];
-		const clone = (previous as readonly SerializableValue[]).slice(0);
+		const next = value as readonly unknown[];
+		const clone = (previous as readonly unknown[]).slice(0);
 
 		if (options.arrayIndex !== null) {
 			if (options.arrayIndex < 0 || options.arrayIndex > clone.length + 1) {
@@ -559,7 +559,7 @@ export class SettingsFolder extends Map<string, SerializableValue | SettingsFold
 		};
 	}
 
-	private async _updateSchemaEntryValue(value: SerializableValue, context: SerializerUpdateContext): Promise<unknown> {
+	private async _updateSchemaEntryValue(value: unknown, context: SerializerUpdateContext): Promise<unknown> {
 		const { serializer } = context.entry;
 		if (serializer === null) throw new Error('The serializer was not available during the update.');
 		const parsed = await serializer.validate(value, context);
@@ -601,8 +601,8 @@ export interface SettingsUpdateContext extends Omit<SerializerUpdateContext, 'en
 }
 
 export interface SettingsUpdateResult {
-	previous: SerializableValue;
-	next: SerializableValue;
+	previous: unknown;
+	next: unknown;
 	entry: SchemaEntry;
 }
 
@@ -613,10 +613,7 @@ export interface InternalSettingsFolderUpdateOptions {
 }
 
 export type SettingsUpdateResults = SettingsUpdateResult[];
-
-// This is an interface because it references itself, resulting on a compiler error.
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface SettingsFolderJson extends Record<string, SettingsFolderJson | SerializableValue> { }
+export type SettingsFolderJson = Record<string, unknown>;
 
 export const enum ArrayActions {
 	Add = 'add',
@@ -627,6 +624,6 @@ export const enum ArrayActions {
 
 export type ArrayActionsString = 'add' | 'remove' | 'auto' | 'overwrite';
 
-type PathOrEntries = string | [string, SerializableValue][] | ReadonlyAnyObject;
-type ValueOrOptions = SerializableValue | SettingsFolderUpdateOptions;
+type PathOrEntries = string | [string, unknown][] | ReadonlyAnyObject;
+type ValueOrOptions = unknown | SettingsFolderUpdateOptions;
 type InternalRawFolderUpdateOptions = SettingsFolderUpdateOptions & SettingsFolderUpdateOptionsNonOverwrite;

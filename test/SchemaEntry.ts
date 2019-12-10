@@ -1,5 +1,5 @@
 import ava from 'ava';
-import { Schema, SchemaEntry, SerializableValue } from '../dist';
+import { Schema, SchemaEntry } from '../dist';
 import { createClient } from './lib/MockClient';
 
 ava('schemaentry-basic', (test): void => {
@@ -178,7 +178,7 @@ ava('schemaentry-default-generator', (test): void => {
 
 	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 	// @ts-ignore 2341
-	const generateDefault = (): SerializableValue => schemaEntry._generateDefaultValue();
+	const generateDefault = (): unknown => schemaEntry._generateDefaultValue();
 
 	test.is(generateDefault(), null);
 

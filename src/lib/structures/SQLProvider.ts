@@ -1,5 +1,5 @@
 import { Provider, IdKeyedObject } from './Provider';
-import { ReadonlyAnyObject, SerializableValue, ReadonlyKeyedObject } from '../types';
+import { ReadonlyAnyObject, ReadonlyKeyedObject } from '../types';
 import { SettingsUpdateResults } from '../settings/SettingsFolder';
 import { SchemaFolder } from '../schema/SchemaFolder';
 import { SchemaEntry } from '../schema/SchemaEntry';
@@ -133,13 +133,13 @@ export abstract class SQLProvider extends Provider {
 	 */
 	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 	// @ts-ignore
-	protected parseUpdateInput(changes: ReadonlyAnyObject | SettingsUpdateResults): [string, SerializableValue][] {
+	protected parseUpdateInput(changes: ReadonlyAnyObject | SettingsUpdateResults): [string, unknown][] {
 		if (Array.isArray(changes)) {
-			const entries: [string, SerializableValue][] = [];
+			const entries: [string, unknown][] = [];
 			for (const change of changes) entries.push([change.entry.path, change.next]);
 			return entries;
 		}
-		return objectToTuples(changes as ReadonlyKeyedObject) as [string, SerializableValue][];
+		return objectToTuples(changes as ReadonlyKeyedObject);
 	}
 
 }

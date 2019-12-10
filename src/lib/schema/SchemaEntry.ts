@@ -1,7 +1,7 @@
 import { Schema } from './Schema';
 import { isNumber, isFunction } from '@klasa/utils';
 import { SchemaFolder } from './SchemaFolder';
-import { Client, SerializableValue } from '../types';
+import { Client } from '../types';
 import { Serializer, SerializerUpdateContext } from '../structures/Serializer';
 
 export class SchemaEntry {
@@ -39,7 +39,7 @@ export class SchemaEntry {
 	/**
 	 * The default value this entry will set when reverting a setting back to or when the key was not set.
 	 */
-	public default: SerializableValue;
+	public default: unknown;
 
 	/**
 	 * The minimum value for this entry.
@@ -171,7 +171,7 @@ export class SchemaEntry {
 	/**
 	 * The default value generator, called when type and array are given but not the default itself.
 	 */
-	private _generateDefaultValue(): SerializableValue {
+	private _generateDefaultValue(): unknown {
 		if (this.array) return [];
 		if (this.type === 'boolean') return false;
 		return null;
@@ -182,7 +182,7 @@ export class SchemaEntry {
 export interface SchemaEntryOptions {
 	array?: boolean;
 	configurable?: boolean;
-	default?: SerializableValue;
+	default?: unknown;
 	filter?: SchemaEntryFilterFunction | null;
 	inclusive?: boolean;
 	maximum?: number | null;

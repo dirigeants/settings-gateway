@@ -1,4 +1,4 @@
-import { Serializer, SerializableValue, SerializerStore } from '../../dist';
+import { Serializer, SerializerStore } from '../../dist';
 
 export class MockObjectSerializer extends Serializer {
 
@@ -6,7 +6,7 @@ export class MockObjectSerializer extends Serializer {
 		super(store, file, directory, { name: 'object' });
 	}
 
-	public resolve(data: SerializableValue): unknown {
+	public resolve(data: unknown): unknown {
 		return data === null ? null : { data };
 	}
 
