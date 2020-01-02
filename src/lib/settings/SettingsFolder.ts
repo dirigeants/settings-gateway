@@ -340,7 +340,11 @@ export class SettingsFolder extends Map<string, unknown> {
 
 	protected async _save(context: SettingsUpdateContext): Promise<void> {
 		const updateObject: KeyedObject = {};
-		for (const change of context.changes) mergeObjects(updateObject, makeObject(change.entry.path, change.next));
+		for (const change of context.changes) {
+			const { serializer } = change.entry;
+			if (serializer === null) throw new TypeError('Expected serializer to be available, but it is not.');
+			mergeObjects(updateObject, makeObject(change.entry.path, serializer.serialize(change.next)));
+		}
 
 		if (this.base === null) throw new Error('Unreachable.');
 
