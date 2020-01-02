@@ -45,8 +45,10 @@ export abstract class Serializer extends AliasPiece {
 	/**
 	 * The stringify method to be overwritten in actual Serializers
 	 * @param data The data to stringify
+	 * @param guild The guild given for context in this call
 	 */
-	public stringify(data: unknown): string {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	public stringify(data: unknown, _guild?: Guild | null): string {
 		return String(data);
 	}
 
