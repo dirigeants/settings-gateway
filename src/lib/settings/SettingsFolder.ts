@@ -341,9 +341,7 @@ export class SettingsFolder extends Map<string, unknown> {
 	protected async _save(context: SettingsUpdateContext): Promise<void> {
 		const updateObject: KeyedObject = {};
 		for (const change of context.changes) {
-			const { serializer } = change.entry;
-			if (serializer === null) throw new TypeError('Expected serializer to be available, but it is not.');
-			mergeObjects(updateObject, makeObject(change.entry.path, serializer.serialize(change.next)));
+			mergeObjects(updateObject, makeObject(change.entry.path, change.next));
 		}
 
 		if (this.base === null) throw new Error('Unreachable.');
@@ -568,7 +566,7 @@ export class SettingsFolder extends Map<string, unknown> {
 		if (serializer === null) throw new Error('The serializer was not available during the update.');
 		const parsed = await serializer.validate(value, context);
 		if (context.entry.filter !== null && context.entry.filter(this.client, parsed, context)) throw context.language.get('SETTING_GATEWAY_INVALID_FILTERED_VALUE', context.entry, value);
-		return parsed;
+		return serializer.serialize(parsed);
 	}
 
 }
