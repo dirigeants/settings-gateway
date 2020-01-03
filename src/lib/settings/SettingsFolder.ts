@@ -7,7 +7,7 @@ import { Client, ReadonlyKeyedObject, KeyedObject } from '../types';
 import { GuildResolvable } from 'discord.js';
 import { isObject, objectToTuples, mergeObjects, makeObject } from '@klasa/utils';
 import arraysStrictEquals from '@klasa/utils/dist/lib/arrayStrictEquals';
-import { SerializerUpdateContext } from '../structures/Serializer';
+import { SerializerUpdateContext, Serializer } from '../structures/Serializer';
 import { fromEntries } from '../polyfills';
 
 /* eslint-disable no-dupe-class-members */
@@ -439,7 +439,7 @@ export class SettingsFolder extends Map<string, unknown> {
 
 	private _resetSchemaEntry(changes: SettingsUpdateResults, schemaEntry: SchemaEntry, key: string, language: Language, onlyConfigurable: boolean): void {
 		if (onlyConfigurable && !schemaEntry.configurable) {
-			throw language.get('SETTINGS_GATEWAY_UNCONFIGURABLE_KEY', key);
+			throw language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', key);
 		}
 
 		const previous = this.get(key);
@@ -482,7 +482,7 @@ export class SettingsFolder extends Map<string, unknown> {
 					language.get('SETTING_GATEWAY_CHOOSE_KEY', keys) :
 					language.get('SETTING_GATEWAY_UNCONFIGURABLE_FOLDER');
 			} else if (!(entry as SchemaEntry).configurable && onlyConfigurable) {
-				throw language.get('SETTINGS_GATEWAY_UNCONFIGURABLE_KEY', path);
+				throw language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', path);
 			}
 
 			promises.push(this._updateSchemaEntry(path, value, { entry: entry as SchemaEntry, language, guild, extraContext: extra }, internalOptions));
@@ -517,10 +517,11 @@ export class SettingsFolder extends Map<string, unknown> {
 
 		const next = value as readonly unknown[];
 		const clone = (previous as readonly unknown[]).slice(0);
+		const serializer = context.entry.serializer as Serializer;
 
 		if (options.arrayIndex !== null) {
 			if (options.arrayIndex < 0 || options.arrayIndex > clone.length + 1) {
-				throw new Error(`The index ${options.arrayIndex} is bigger than the current array. It must be a value in the range of 0..${clone.length + 1}.`);
+				throw new RangeError(`The index ${options.arrayIndex} is bigger than the current array. It must be a value in the range of 0..${clone.length + 1}.`);
 			}
 
 			if (options.arrayAction === ArrayActions.Add) {
@@ -540,14 +541,14 @@ export class SettingsFolder extends Map<string, unknown> {
 		} else if (options.arrayAction === ArrayActions.Add) {
 			// Array action add must add values, throw on existent
 			for (const val of next) {
-				if (clone.includes(val)) throw new Error(`The value ${val} for the key ${context.entry.path} already exists.`);
+				if (clone.includes(val)) throw new Error(context.language.get('SETTING_GATEWAY_DUPLICATE_VALUE', context.entry, serializer.stringify(val, context.guild)));
 				clone.push(val);
 			}
 		} else if (options.arrayAction === ArrayActions.Remove) {
 			// Array action remove must add values, throw on non-existent
 			for (const val of next) {
 				const index = clone.indexOf(val);
-				if (index === -1) throw new Error(`The value ${val} for the key ${context.entry.path} does not exist.`);
+				if (index === -1) throw new Error(context.language.get('SETTING_GATEWAY_MISSING_VALUE', context.entry, serializer.stringify(val, context.guild)));
 				clone.splice(index, 1);
 			}
 		} else {
@@ -563,7 +564,7 @@ export class SettingsFolder extends Map<string, unknown> {
 
 	private async _updateSchemaEntryValue(value: unknown, context: SerializerUpdateContext): Promise<unknown> {
 		const { serializer } = context.entry;
-		if (serializer === null) throw new Error('The serializer was not available during the update.');
+		if (serializer === null) throw new TypeError('The serializer was not available during the update.');
 		const parsed = await serializer.validate(value, context);
 		if (context.entry.filter !== null && context.entry.filter(this.client, parsed, context)) throw context.language.get('SETTING_GATEWAY_INVALID_FILTERED_VALUE', context.entry, value);
 		return serializer.serialize(parsed);

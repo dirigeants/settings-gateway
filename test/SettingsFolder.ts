@@ -431,7 +431,7 @@ ava('SettingsFolder#reset (Unconfigurable)', async (test): Promise<void> => {
 		await settings.reset('count', { onlyConfigurable: true });
 		test.fail('This Settings#reset call must error.');
 	} catch (error) {
-		test.is(error, '[SETTINGS_GATEWAY_UNCONFIGURABLE_KEY]: count');
+		test.is(error, '[SETTING_GATEWAY_UNCONFIGURABLE_KEY]: count');
 	}
 });
 
@@ -644,11 +644,12 @@ ava('SettingsFolder#update (ArrayAction | Filled | Add)', async (test): Promise<
 });
 
 ava('SettingsFolder#update (ArrayAction | Empty | Remove)', async (test): Promise<void> => {
-	test.plan(1);
+	test.plan(2);
 
-	const { settings } = await createSettings('25');
+	const { settings, provider, gateway } = await createSettings('25');
 	await settings.sync();
-	await test.throwsAsync(() => settings.update('uses', [1, 2], { arrayAction: 'remove' }), 'The value 1 for the key uses does not exist.');
+	await test.throwsAsync(() => settings.update('uses', [1, 2], { arrayAction: 'remove' }), '[SETTING_GATEWAY_MISSING_VALUE]: uses 1');
+	test.is(await provider.get(gateway.name, settings.id), null);
 });
 
 ava('SettingsFolder#update (ArrayAction | Filled | Remove)', async (test): Promise<void> => {
@@ -760,6 +761,17 @@ ava('SettingsFolder#update (ArrayIndex | Filled | Add)', async (test): Promise<v
 	test.deepEqual(await provider.get(gateway.name, settings.id), { id: settings.id, uses: [5, 6, 1, 2, 4] });
 });
 
+ava('SettingsFolder#update (ArrayIndex | Filled | Add | Error)', async (test): Promise<void> => {
+	test.plan(2);
+
+	const { settings, gateway, provider } = await createSettings('27');
+	await provider.create(gateway.name, settings.id, { uses: [1, 2, 4] });
+	await settings.sync();
+
+	await test.throwsAsync(() => settings.update('uses', 4, { arrayAction: 'add' }), '[SETTING_GATEWAY_DUPLICATE_VALUE]: uses 4');
+	test.deepEqual(await provider.get(gateway.name, settings.id), { id: settings.id, uses: [1, 2, 4] });
+});
+
 ava('SettingsFolder#update (ArrayIndex | Empty | Remove)', async (test): Promise<void> => {
 	test.plan(5);
 
@@ -789,6 +801,17 @@ ava('SettingsFolder#update (ArrayIndex | Filled | Remove)', async (test): Promis
 	test.deepEqual(results[0].next, [1]);
 	test.is(results[0].entry, schemaEntry);
 	test.deepEqual(await provider.get(gateway.name, settings.id), { id: settings.id, uses: [1] });
+});
+
+ava('SettingsFolder#update (ArrayIndex | Filled | Remove | Error)', async (test): Promise<void> => {
+	test.plan(2);
+
+	const { settings, gateway, provider } = await createSettings('27');
+	await provider.create(gateway.name, settings.id, { uses: [1, 2, 4] });
+	await settings.sync();
+
+	await test.throwsAsync(() => settings.update('uses', 3, { arrayAction: 'remove' }), '[SETTING_GATEWAY_MISSING_VALUE]: uses 3');
+	test.deepEqual(await provider.get(gateway.name, settings.id), { id: settings.id, uses: [1, 2, 4] });
 });
 
 ava('SettingsFolder#update (Events | Not Exists)', async (test): Promise<void> => {
@@ -921,7 +944,7 @@ ava('SettingsFolder#update (Unconfigurable)', async (test): Promise<void> => {
 		await settings.update('count', 4, { onlyConfigurable: true });
 		test.fail('This Settings#update call must error.');
 	} catch (error) {
-		test.is(error, '[SETTINGS_GATEWAY_UNCONFIGURABLE_KEY]: count');
+		test.is(error, '[SETTING_GATEWAY_UNCONFIGURABLE_KEY]: count');
 	}
 });
 
