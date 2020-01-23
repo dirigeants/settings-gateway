@@ -40,7 +40,6 @@
     "url": "https://github.com/dirigeants/settings-gateway"
   },
   "ava": {
-    "compileEnhancements": false,
     "extensions": [
       "ts"
     ],
