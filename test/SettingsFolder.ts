@@ -38,7 +38,7 @@ ava('SettingsFolder (Basic)', async (test): Promise<void> => {
 	test.is(settingsFolder.base, null);
 	test.is(settingsFolder.schema, schema);
 	test.is(settingsFolder.size, 0);
-	test.throws(() => settingsFolder.client, /Cannot retrieve gateway from a non-ready settings instance/i);
+	test.throws(() => settingsFolder.client, { message: /Cannot retrieve gateway from a non-ready settings instance/i });
 });
 
 ava('SettingsFolder#{base,client}', async (test): Promise<void> => {
@@ -397,14 +397,14 @@ ava('SettingsFolder#reset (Uninitialized)', async (test): Promise<void> => {
 	test.plan(1);
 
 	const settings = new SettingsFolder(new Schema());
-	await test.throwsAsync(() => settings.reset(), 'Cannot reset keys from a non-ready settings instance.');
+	await test.throwsAsync(() => settings.reset(), { message: 'Cannot reset keys from a non-ready settings instance.' });
 });
 
 ava('SettingsFolder#reset (Unsynchronized)', async (test): Promise<void> => {
 	test.plan(1);
 
 	const { settings } = await createSettings('15');
-	await test.throwsAsync(() => settings.reset(), 'Cannot reset keys from a pending to synchronize settings instance. Perhaps you want to call `sync()` first.');
+	await test.throwsAsync(() => settings.reset(), { message: 'Cannot reset keys from a pending to synchronize settings instance. Perhaps you want to call `sync()` first.' });
 });
 
 ava('SettingsFolder#reset (Invalid Key)', async (test): Promise<void> => {
@@ -648,7 +648,7 @@ ava('SettingsFolder#update (ArrayAction | Empty | Remove)', async (test): Promis
 
 	const { settings, provider, gateway } = await createSettings('25');
 	await settings.sync();
-	await test.throwsAsync(() => settings.update('uses', [1, 2], { arrayAction: 'remove' }), '[SETTING_GATEWAY_MISSING_VALUE]: uses 1');
+	await test.throwsAsync(() => settings.update('uses', [1, 2], { arrayAction: 'remove' }), { message: '[SETTING_GATEWAY_MISSING_VALUE]: uses 1' });
 	test.is(await provider.get(gateway.name, settings.id), null);
 });
 
@@ -768,7 +768,7 @@ ava('SettingsFolder#update (ArrayIndex | Filled | Add | Error)', async (test): P
 	await provider.create(gateway.name, settings.id, { uses: [1, 2, 4] });
 	await settings.sync();
 
-	await test.throwsAsync(() => settings.update('uses', 4, { arrayAction: 'add' }), '[SETTING_GATEWAY_DUPLICATE_VALUE]: uses 4');
+	await test.throwsAsync(() => settings.update('uses', 4, { arrayAction: 'add' }), { message: '[SETTING_GATEWAY_DUPLICATE_VALUE]: uses 4' });
 	test.deepEqual(await provider.get(gateway.name, settings.id), { id: settings.id, uses: [1, 2, 4] });
 });
 
@@ -810,7 +810,7 @@ ava('SettingsFolder#update (ArrayIndex | Filled | Remove | Error)', async (test)
 	await provider.create(gateway.name, settings.id, { uses: [1, 2, 4] });
 	await settings.sync();
 
-	await test.throwsAsync(() => settings.update('uses', 3, { arrayAction: 'remove' }), '[SETTING_GATEWAY_MISSING_VALUE]: uses 3');
+	await test.throwsAsync(() => settings.update('uses', 3, { arrayAction: 'remove' }), { message: '[SETTING_GATEWAY_MISSING_VALUE]: uses 3' });
 	test.deepEqual(await provider.get(gateway.name, settings.id), { id: settings.id, uses: [1, 2, 4] });
 });
 
@@ -910,14 +910,14 @@ ava('SettingsFolder#update (Uninitialized)', async (test): Promise<void> => {
 	test.plan(1);
 
 	const settings = new SettingsFolder(new Schema());
-	await test.throwsAsync(() => settings.update('count', 6), 'Cannot update keys from a non-ready settings instance.');
+	await test.throwsAsync(() => settings.update('count', 6), { message: 'Cannot update keys from a non-ready settings instance.' });
 });
 
 ava('SettingsFolder#update (Unsynchronized)', async (test): Promise<void> => {
 	test.plan(1);
 
 	const { settings } = await createSettings('15');
-	await test.throwsAsync(() => settings.update('count', 6), 'Cannot update keys from a pending to synchronize settings instance. Perhaps you want to call `sync()` first.');
+	await test.throwsAsync(() => settings.update('count', 6), { message: 'Cannot update keys from a pending to synchronize settings instance. Perhaps you want to call `sync()` first.' });
 });
 
 ava('SettingsFolder#update (Invalid Key)', async (test): Promise<void> => {

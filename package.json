@@ -26,7 +26,7 @@
     "@types/ws": "^7.2.1",
     "@typescript-eslint/eslint-plugin": "^2.18.0",
     "@typescript-eslint/parser": "^2.18.0",
-    "ava": "^2.3.0",
+    "ava": "^3.0.0",
     "discord.js": "discordjs/discord.js",
     "eslint": "^6.8.0",
     "eslint-config-klasa": "dirigeants/klasa-lint",
@@ -40,7 +40,6 @@
     "url": "https://github.com/dirigeants/settings-gateway"
   },
   "ava": {
-    "compileEnhancements": false,
     "extensions": [
       "ts"
     ],
