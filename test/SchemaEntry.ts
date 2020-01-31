@@ -21,7 +21,7 @@ ava('schemaentry-basic', (test): void => {
 	test.is(schemaEntry.maximum, null);
 	test.is(schemaEntry.minimum, null);
 	test.is(schemaEntry.shouldResolve, true);
-	test.throws(() => schemaEntry.serializer, Error);
+	test.throws(() => schemaEntry.serializer, { instanceOf: Error });
 	test.deepEqual(schemaEntry.toJSON(), {
 		array: false,
 		configurable: true,
@@ -83,17 +83,17 @@ ava('schemaentry-check', (test): void => {
 
 	// #region Client
 	// No client
-	test.throws(throwsCheck, /Cannot retrieve serializers/i);
+	test.throws(throwsCheck, { message: /Cannot retrieve serializers/i });
 	schemaEntry.client = client;
 	// #endregion
 
 	// #region Type
 	// @ts-ignore
 	schemaEntry.type = null;
-	test.throws(throwsCheck, /Parameter 'type' must be a string/i);
+	test.throws(throwsCheck, { message: /Parameter 'type' must be a string/i });
 
 	schemaEntry.type = 'totallyaserializerpleasebelieveme';
-	test.throws(throwsCheck, /is not a valid type/i);
+	test.throws(throwsCheck, { message: /is not a valid type/i });
 
 	// Reset to a valid type
 	schemaEntry.type = 'string';
@@ -102,43 +102,43 @@ ava('schemaentry-check', (test): void => {
 	// #region Booleans
 	// @ts-ignore
 	schemaEntry.array = 'true';
-	test.throws(throwsCheck, /Parameter 'array' must be a boolean/i);
+	test.throws(throwsCheck, { message: /Parameter 'array' must be a boolean/i });
 	schemaEntry.array = false;
 
 	// @ts-ignore
 	schemaEntry.configurable = 'true';
-	test.throws(throwsCheck, /Parameter 'configurable' must be a boolean/i);
+	test.throws(throwsCheck, { message: /Parameter 'configurable' must be a boolean/i });
 	schemaEntry.configurable = true;
 
 	// @ts-ignore
 	schemaEntry.minimum = '123';
-	test.throws(throwsCheck, /Parameter 'minimum' must be a number or null/i);
+	test.throws(throwsCheck, { message: /Parameter 'minimum' must be a number or null/i });
 	schemaEntry.minimum = 123;
 
 	// @ts-ignore
 	schemaEntry.maximum = '100';
-	test.throws(throwsCheck, /Parameter 'maximum' must be a number or null/i);
+	test.throws(throwsCheck, { message: /Parameter 'maximum' must be a number or null/i });
 	schemaEntry.maximum = 100;
 
-	test.throws(throwsCheck, /Parameter 'minimum' must contain a value lower than the parameter 'maximum'/i);
+	test.throws(throwsCheck, { message: /Parameter 'minimum' must contain a value lower than the parameter 'maximum'/i });
 	schemaEntry.maximum = 200;
 	// #endregion
 
 	// @ts-ignore
 	schemaEntry.filter = 'true';
-	test.throws(throwsCheck, /Parameter 'filter' must be a function/i);
+	test.throws(throwsCheck, { message: /Parameter 'filter' must be a function/i });
 	schemaEntry.filter = null;
 
 	// Checking if the default is an array and the type is an array
 	schemaEntry.array = true;
 	schemaEntry.default = null;
-	test.throws(throwsCheck, /Default key must be an array if the key stores an array/i);
+	test.throws(throwsCheck, { message: /Default key must be an array if the key stores an array/i });
 
 	// Checking if the type is a string, but the default isn't
 	schemaEntry.array = false;
 	schemaEntry.type = 'string';
 	schemaEntry.default = true;
-	test.throws(throwsCheck, /Default key must be a/i);
+	test.throws(throwsCheck, { message: /Default key must be a/i });
 	/* eslint-enable @typescript-eslint/ban-ts-ignore */
 });
 
