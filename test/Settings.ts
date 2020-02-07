@@ -1,20 +1,35 @@
-import ava from 'ava';
-import { Settings, SettingsExistenceStatus, Schema, Gateway, Provider } from '../dist';
+import unknownTest, { TestInterface } from 'ava';
+import { Settings, SettingsExistenceStatus, Schema, Gateway, Provider, Client } from '../dist';
 import { createClient } from './lib/MockClient';
 
-const client = createClient();
-const gateway = new Gateway(client, 'settings-test', {
-	provider: 'Mock',
-	schema: new Schema()
+const ava = unknownTest as TestInterface<{
+	client: Client,
+	gateway: Gateway,
+	schema: Schema,
+	provider: Provider
+}>;
+
+ava.before(async (test): Promise<void> => {
+	const client = createClient();
+	const schema = new Schema()
 		.add('count', 'number')
 		.add('messages', folder => folder
-			.add('hello', 'string'))
-});
-const provider = gateway.provider as Provider;
+			.add('hello', 'string'));
+	const gateway = new Gateway(client, 'settings-test', {
+		provider: 'Mock',
+		schema
+	});
+	const provider = gateway.provider as Provider;
 
-client.gateways.register(gateway);
-ava.before(async (): Promise<void> => {
+	client.gateways.register(gateway);
 	await gateway.init();
+
+	test.context = {
+		client,
+		gateway,
+		schema,
+		provider
+	};
 });
 
 ava('settings-basic', (test): void => {
@@ -22,9 +37,9 @@ ava('settings-basic', (test): void => {
 
 	const id = '1';
 	const target = { id };
-	const settings = new Settings(gateway, target, id);
+	const settings = new Settings(test.context.gateway, target, id);
 	test.is(settings.id, id);
-	test.is(settings.gateway, gateway);
+	test.is(settings.gateway, test.context.gateway);
 	test.is(settings.target, target);
 	test.is(settings.existenceStatus, SettingsExistenceStatus.Unsynchronized);
 	test.deepEqual(settings.toJSON(), {
@@ -39,7 +54,7 @@ ava('settings-clone', (test): void => {
 	test.plan(4);
 
 	const id = '2';
-	const settings = new Settings(gateway, { id }, id);
+	const settings = new Settings(test.context.gateway, { id }, id);
 	const clone = settings.clone();
 	test.true(clone instanceof Settings);
 	test.is(settings.id, clone.id);
@@ -51,7 +66,7 @@ ava('settings-sync-not-exists', async (test): Promise<void> => {
 	test.plan(2);
 
 	const id = '3';
-	const settings = new Settings(gateway, { id }, id);
+	const settings = new Settings(test.context.gateway, { id }, id);
 
 	test.is(await settings.sync(), settings);
 	test.is(settings.existenceStatus, SettingsExistenceStatus.NotExists);
@@ -61,8 +76,8 @@ ava('settings-sync-exists', async (test): Promise<void> => {
 	test.plan(7);
 
 	const id = '4';
-	await provider.create(gateway.name, id, { count: 60 });
-	const settings = new Settings(gateway, { id }, id);
+	await test.context.provider.create(test.context.gateway.name, id, { count: 60 });
+	const settings = new Settings(test.context.gateway, { id }, id);
 	settings.client.once('settingsSync', (...args) => {
 		test.is(args.length, 1);
 
@@ -81,7 +96,7 @@ ava('settings-destroy-not-exists', async (test): Promise<void> => {
 	test.plan(2);
 
 	const id = '5';
-	const settings = new Settings(gateway, { id }, id);
+	const settings = new Settings(test.context.gateway, { id }, id);
 
 	test.is(await settings.destroy(), settings);
 	test.is(settings.existenceStatus, SettingsExistenceStatus.NotExists);
@@ -91,8 +106,8 @@ ava('settings-destroy-exists', async (test): Promise<void> => {
 	test.plan(9);
 
 	const id = '6';
-	await provider.create(gateway.name, id, { count: 120 });
-	const settings = new Settings(gateway, { id }, id);
+	await test.context.provider.create(test.context.gateway.name, id, { count: 120 });
+	const settings = new Settings(test.context.gateway, { id }, id);
 	settings.client.once('settingsDelete', (...args) => {
 		test.is(args.length, 1);
 
