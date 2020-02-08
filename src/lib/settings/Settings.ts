@@ -71,6 +71,7 @@ export class Settings extends SettingsFolder {
 		await this.sync();
 		if (this.existenceStatus === SettingsExistenceStatus.Exists) {
 			const { provider } = this.gateway;
+			/* istanbul ignore if: Hard to coverage test the catch */
 			if (provider === null) throw new Error('The provider was not available during the destroy operation.');
 			await provider.delete(this.gateway.name, this.id);
 			this.gateway.client.emit('settingsDelete', this);

@@ -307,9 +307,6 @@ export class SettingsFolder extends Map<string, unknown> {
 	 */
 	protected _patch(data: object): void {
 		for (const [key, value] of Object.entries(data)) {
-			// Undefined values are invalid values, skip.
-			if (typeof value === 'undefined') continue;
-
 			// Retrieve the key and guard it, if it's undefined, it's not in the schema.
 			const childValue = super.get(key);
 			if (typeof childValue === 'undefined') continue;
@@ -344,19 +341,20 @@ export class SettingsFolder extends Map<string, unknown> {
 			mergeObjects(updateObject, makeObject(change.entry.path, change.next));
 		}
 
-		if (this.base === null) throw new Error('Unreachable.');
+		const base = this.base as Settings;
+		const { gateway, id } = base;
 
-		const { gateway, id } = this.base;
+		/* istanbul ignore if: Extremely hard to reproduce in coverage testing */
 		if (gateway.provider === null) throw new Error('Cannot update due to the gateway missing a reference to the provider.');
-		if (this.base.existenceStatus === SettingsExistenceStatus.Exists) {
+		if (base.existenceStatus === SettingsExistenceStatus.Exists) {
 			await gateway.provider.update(gateway.name, id, updateObject);
 			this._patch(updateObject);
-			gateway.client.emit('settingsUpdate', this.base, updateObject, context);
+			gateway.client.emit('settingsUpdate', base, updateObject, context);
 		} else {
 			await gateway.provider.create(gateway.name, id, updateObject);
-			this.base.existenceStatus = SettingsExistenceStatus.Exists;
+			base.existenceStatus = SettingsExistenceStatus.Exists;
 			this._patch(updateObject);
-			gateway.client.emit('settingsCreate', this.base, updateObject, context);
+			gateway.client.emit('settingsCreate', base, updateObject, context);
 		}
 	}
 
@@ -564,8 +562,11 @@ export class SettingsFolder extends Map<string, unknown> {
 
 	private async _updateSchemaEntryValue(value: unknown, context: SerializerUpdateContext): Promise<unknown> {
 		const { serializer } = context.entry;
+
+		/* istanbul ignore if: Extremely hard to reproduce in coverage testing */
 		if (serializer === null) throw new TypeError('The serializer was not available during the update.');
 		const parsed = await serializer.validate(value, context);
+
 		if (context.entry.filter !== null && context.entry.filter(this.client, parsed, context)) throw context.language.get('SETTING_GATEWAY_INVALID_FILTERED_VALUE', context.entry, value);
 		return serializer.serialize(parsed);
 	}

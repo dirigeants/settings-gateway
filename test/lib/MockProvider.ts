@@ -1,4 +1,4 @@
-import { Provider, ReadonlyKeyedObject, SettingsUpdateResults } from '../../dist';
+import { Provider, ReadonlyKeyedObject } from '../../dist';
 import { mergeObjects } from '@klasa/utils';
 
 export class MockProvider extends Provider {
@@ -23,8 +23,7 @@ export class MockProvider extends Provider {
 		const resolvedTable = this.tables.get(table);
 		if (typeof resolvedTable === 'undefined') throw new Error('Table Not Exists');
 		if (resolvedTable.has(entry)) throw new Error('Entry Exists');
-		const resolved = this.parseUpdateInput(data);
-		resolvedTable.set(entry, { ...resolved, id: entry });
+		resolvedTable.set(entry, { ...data, id: entry });
 	}
 
 	public async delete(table: string, entry: string): Promise<void> {
@@ -68,27 +67,24 @@ export class MockProvider extends Provider {
 		return resolvedTable.has(entry);
 	}
 
-	public async update(table: string, entry: string, data: ReadonlyKeyedObject | SettingsUpdateResults): Promise<void> {
+	public async update(table: string, entry: string, data: ReadonlyKeyedObject): Promise<void> {
 		const resolvedTable = this.tables.get(table);
 		if (typeof resolvedTable === 'undefined') throw new Error('Table Not Exists');
 
 		const resolvedEntry = resolvedTable.get(entry);
 		if (typeof resolvedEntry === 'undefined') throw new Error('Entry Not Exists');
 
-		const resolved = this.parseUpdateInput(data);
-		const merged = mergeObjects({ ...resolvedEntry }, resolved);
+		const merged = mergeObjects({ ...resolvedEntry }, data);
 		resolvedTable.set(entry, merged);
 	}
 
-	public async replace(table: string, entry: string, data: ReadonlyKeyedObject | SettingsUpdateResults): Promise<void> {
+	public async replace(table: string, entry: string, data: ReadonlyKeyedObject): Promise<void> {
 		const resolvedTable = this.tables.get(table);
 		if (typeof resolvedTable === 'undefined') throw new Error('Table Not Exists');
 
 		const resolvedEntry = resolvedTable.get(entry);
 		if (typeof resolvedEntry === 'undefined') throw new Error('Entry Not Exists');
-
-		const resolved = this.parseUpdateInput(data);
-		resolvedTable.set(entry, { ...resolved, id: entry });
+		resolvedTable.set(entry, { ...data, id: entry });
 	}
 
 }

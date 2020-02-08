@@ -1,5 +1,4 @@
 import { Provider } from './Provider';
-import { SettingsUpdateResults } from '../settings/SettingsFolder';
 import { SchemaFolder } from '../schema/SchemaFolder';
 import { SchemaEntry } from '../schema/SchemaEntry';
 import { QueryBuilder } from '@klasa/querybuilder';
@@ -79,7 +78,7 @@ export abstract class SQLProvider extends Provider {
 	 * @param entry The entry's ID to update
 	 * @param data The data to update
 	 */
-	public abstract update(table: string, entry: string, data: object | SettingsUpdateResults): Promise<unknown>;
+	public abstract update(table: string, entry: string, data: object): Promise<unknown>;
 
 	/**
 	 * Overwrites the data from an entry in a table.
@@ -87,7 +86,7 @@ export abstract class SQLProvider extends Provider {
 	 * @param entry The entry's ID to update
 	 * @param data The new data for the entry
 	 */
-	public abstract replace(table: string, entry: string, data: object | SettingsUpdateResults): Promise<unknown>;
+	public abstract replace(table: string, entry: string, data: object): Promise<unknown>;
 
 	/**
 	 * The addColumn method which inserts/creates a new table to the database.
@@ -120,7 +119,7 @@ export abstract class SQLProvider extends Provider {
 	/**
 	 * The query builder debug check for errors in the QueryBuilder, if one exists in the extended SQLProvider instance
 	 */
-	public validateQueryBuilder(): void {
+	public async init(): Promise<void> {
 		if (!this.qb) return;
 		const errors = this.qb.debug();
 		if (errors) throw new Error(errors);
@@ -130,20 +129,13 @@ export abstract class SQLProvider extends Provider {
 	 * Parse the input from SettingsGateway for this
 	 * @param changes The data that has been updated
 	 */
-	protected parseTupleUpdateInput(changes: object | SettingsUpdateResults): SqlProviderParsedTupleUpdateInput {
+	protected parseTupleUpdateInput(changes: object): SqlProviderParsedTupleUpdateInput {
 		const keys: string[] = [];
 		const values: unknown[] = [];
 
-		if (Array.isArray(changes)) {
-			for (const change of changes) {
-				keys.push(change.entry.path);
-				values.push(change.next);
-			}
-		} else {
-			for (const [key, value] of objectToTuples(changes as Record<PropertyKey, unknown>)) {
-				keys.push(key);
-				values.push(value);
-			}
+		for (const [key, value] of objectToTuples(changes as Record<PropertyKey, unknown>)) {
+			keys.push(key);
+			values.push(value);
 		}
 
 		return { keys, values };

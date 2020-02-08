@@ -1,7 +1,4 @@
 import { Piece } from 'klasa';
-import { KeyedObject } from '../types';
-import { SettingsUpdateResults } from '../settings/SettingsFolder';
-import { mergeObjects, makeObject } from '@klasa/utils';
 import { SchemaFolder } from '../schema/SchemaFolder';
 import { SchemaEntry } from '../schema/SchemaEntry';
 
@@ -74,7 +71,7 @@ export abstract class Provider extends Piece {
 	 * @param entry The entry's ID to update
 	 * @param data The data to update
 	 */
-	public abstract update(table: string, entry: string, data: object | SettingsUpdateResults): Promise<unknown>;
+	public abstract update(table: string, entry: string, data: object): Promise<unknown>;
 
 	/**
 	 * Overwrites the data from an entry in a table.
@@ -82,7 +79,7 @@ export abstract class Provider extends Piece {
 	 * @param entry The entry's ID to update
 	 * @param data The new data for the entry
 	 */
-	public abstract replace(table: string, entry: string, data: object | SettingsUpdateResults): Promise<unknown>;
+	public abstract replace(table: string, entry: string, data: object): Promise<unknown>;
 
 	/**
 	 * Shutdown method, this is called before the piece is unloaded.
@@ -97,6 +94,7 @@ export abstract class Provider extends Piece {
 	 * @param table The table to check against
 	 * @param entry The SchemaFolder or SchemaEntry added to the schema
 	 */
+	/* istanbul ignore next: Implemented in SQLProvider, always unused. */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public async addColumn(_table: string, _entry: SchemaFolder | SchemaEntry): Promise<unknown> {
 		// Reserved for SQL databases
@@ -109,6 +107,7 @@ export abstract class Provider extends Piece {
 	 * @param table The table to check against
 	 * @param columns The column names to remove
 	 */
+	/* istanbul ignore next: Implemented in SQLProvider, always unused. */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public async removeColumn(_table: string, _columns: readonly string[]): Promise<unknown> {
 		// Reserved for SQL databases
@@ -120,6 +119,7 @@ export abstract class Provider extends Piece {
 	 * @param table The table to check against
 	 * @param entry The modified SchemaEntry
 	 */
+	/* istanbul ignore next: Implemented in SQLProvider, always unused. */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public async updateColumn(_table: string, _entry: SchemaEntry): Promise<unknown> {
 		// Reserved for SQL databases
@@ -134,17 +134,6 @@ export abstract class Provider extends Piece {
 	public async getColumns(_table: string): Promise<string[]> {
 		// Reserved for SQL databases
 		return [];
-	}
-
-	/**
-	 * Parse the input from SettingsGateway for this
-	 * @param changes The data that has been updated
-	 */
-	protected parseUpdateInput(changes: object | SettingsUpdateResults): KeyedObject {
-		if (!Array.isArray(changes)) return changes as KeyedObject;
-		const updated: KeyedObject = {};
-		for (const change of changes) mergeObjects(updated, makeObject(change.entry.path, change.next));
-		return updated;
 	}
 
 }

@@ -36,6 +36,7 @@ export class ProviderStore extends Store<string, Provider> {
 		const provider = this.resolve(name);
 		if (!provider) return false;
 
+		/* istanbul ignore next: Hard to coverage test the catch */
 		Promise.resolve(provider.shutdown()).catch((error) => this.client.emit('wtf', error));
 		return super.delete(provider);
 	}
