@@ -25,7 +25,13 @@ ava('schema-empty', (test): void => {
 	test.deepEqual([...schema.entries(true)], []);
 });
 
-ava('schema-simple', (test): void => {
+ava('schema-add', (test): void => {
+	const schema = new Schema();
+
+	test.is(schema.add('subkey', 'String'), schema);
+});
+
+ava('schema-add-inspect', (test): void => {
 	test.plan(19);
 
 	const schema = new Schema()
@@ -76,6 +82,70 @@ ava('schema-simple', (test): void => {
 	test.deepEqual([...schema.values(true)], [schemaEntry]);
 	test.deepEqual([...schema.entries()], [['test', schemaEntry]]);
 	test.deepEqual([...schema.entries(true)], [['test', schemaEntry]]);
+});
+
+ava('schema-add-edit-entry-to-entry', (test): void => {
+	test.plan(5);
+
+	const schema = new Schema().add('subkey', 'String');
+	test.is(schema.defaults.get('subkey'), null);
+	test.is((schema.get('subkey') as SchemaEntry).default, null);
+
+	test.is(schema.add('subkey', 'String', { default: 'Hello' }), schema);
+	test.is(schema.defaults.get('subkey'), 'Hello');
+	test.is((schema.get('subkey') as SchemaEntry).default, 'Hello');
+});
+
+ava('schema-add-edit-entry-to-folder', (test): void => {
+	const schema = new Schema().add('subkey', folder => folder.add('nested', 'String'));
+	test.throws(() => schema.add('subkey', 'String'), { message: 'The type for "subkey" conflicts with the previous value, expected a non-Folder, got "Folder".' });
+});
+
+ava('schema-add-edit-folder-to-entry', (test): void => {
+	const schema = new Schema().add('subkey', 'String');
+	test.throws(() => schema.add('subkey', folder => folder), { message: 'The type for "subkey" conflicts with the previous value, expected type "Folder", got "string".' });
+});
+
+ava('schema-add-edit-folder-to-folder', (test): void => {
+	test.plan(5);
+
+	const schema = new Schema().add('subkey', folder => folder.add('nested', 'String'));
+	test.is(schema.add('subkey', folder => folder.add('another', 'Number')), schema);
+	test.is(schema.size, 1);
+
+	const inner = schema.get('subkey') as SchemaFolder;
+	test.is(inner.size, 2);
+	test.truthy(inner.get('nested'));
+	test.truthy(inner.get('another'));
+});
+
+ava('schema-add-ready', (test): void => {
+	const schema = new Schema();
+	schema.ready = true;
+
+	test.throws(() => schema.add('subkey', 'String'), { message: 'Cannot modify the schema after being initialized.' });
+});
+
+ava('schema-get-entry', (test): void => {
+	const schema = new Schema().add('subkey', 'String');
+	test.true(schema.get('subkey') instanceof SchemaEntry);
+});
+
+ava('schema-get-folder', (test): void => {
+	const schema = new Schema().add('subkey', folder => folder);
+	test.true(schema.get('subkey') instanceof SchemaFolder);
+});
+
+ava('schema-get-folder-nested', (test): void => {
+	const schema = new Schema().add('subkey', folder => folder.add('nested', 'String'));
+	test.true(schema.get('subkey.nested') instanceof SchemaEntry);
+});
+
+ava('schema-get-folder-double-nested', (test): void => {
+	const schema = new Schema().add('subkey', folder => folder
+		.add('nested', subFolder => subFolder
+			.add('double', 'String')));
+	test.true(schema.get('subkey.nested.double') instanceof SchemaEntry);
 });
 
 ava('schema-folder-empty', (test): void => {
@@ -186,4 +256,26 @@ ava('schema-folder-filled', (test): void => {
 	test.deepEqual([...schema.values(true)], [schemaEntry]);
 	test.deepEqual([...schema.entries()], [['someFolder', schemaFolder]]);
 	test.deepEqual([...schema.entries(true)], [['someKey', schemaEntry]]);
+});
+
+ava('schema-delete', (test): void => {
+	test.plan(3);
+
+	const schema = new Schema().add('subkey', 'String');
+	test.is(schema.defaults.get('subkey'), null);
+
+	test.true(schema.delete('subkey'));
+	test.is(schema.defaults.get('subkey'), undefined);
+});
+
+ava('schema-delete-not-exists', (test): void => {
+	const schema = new Schema();
+	test.false(schema.delete('subkey'));
+});
+
+ava('schema-delete-ready', (test): void => {
+	const schema = new Schema();
+	schema.ready = true;
+
+	test.throws(() => schema.delete('subkey'), { message: 'Cannot modify the schema after being initialized.' });
 });

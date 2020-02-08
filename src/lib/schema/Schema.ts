@@ -122,7 +122,9 @@ export class Schema extends Map<string, SchemaFolder | SchemaEntry> {
 			}
 
 			// Edit the previous key
-			(previous as SchemaEntry).edit({ type, ...options });
+			const schemaEntry = previous as SchemaEntry;
+			schemaEntry.edit({ type, ...options });
+			this.defaults.set(key, schemaEntry.default);
 			return this;
 		}
 

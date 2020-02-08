@@ -30,6 +30,12 @@ ava('gateway-storage-schema', (test): void => {
 	test.is(gateway.schema, schema);
 });
 
+ava('gateway-storage-schema', async (test): Promise<void> => {
+	const schema = new Schema();
+	const gateway = new GatewayStorage(client, 'MockGateway', { schema: schema });
+	test.is(await gateway.sync(), gateway);
+});
+
 // TODO(kyranet): Add tests for the client options overrides
 // TODO(kyranet): Add tests for all the methods
 // TODO(kyranet): Test SQL mode as well

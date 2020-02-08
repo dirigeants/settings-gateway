@@ -8,6 +8,7 @@ function ObjectFromEntries<T = any>(entries: Iterable<readonly [PropertyKey, T]>
  * @param entries An iterable object that contains key-value entries for properties and methods.
  */
 function ObjectFromEntries(entries: Iterable<readonly unknown[]>): any;
+/* istanbul ignore next: Polyfill, only used in Node.js versions older than 12.4.0 */
 function ObjectFromEntries(entries: Iterable<readonly unknown[]>): unknown {
 	const obj = {};
 
@@ -29,4 +30,5 @@ function ObjectFromEntries(entries: Iterable<readonly unknown[]>): unknown {
 	return obj;
 }
 
+/* istanbul ignore next: Polyfill, first branch is used in Node.js 12.4.0 and newer, the other by older versions */
 export const fromEntries = typeof Object.fromEntries === 'function' ? Object.fromEntries : ObjectFromEntries;
