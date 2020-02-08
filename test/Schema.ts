@@ -26,16 +26,10 @@ ava('schema-empty', (test): void => {
 });
 
 ava('schema-add', (test): void => {
+	test.plan(20);
+
 	const schema = new Schema();
-
-	test.is(schema.add('subkey', 'String'), schema);
-});
-
-ava('schema-add-inspect', (test): void => {
-	test.plan(19);
-
-	const schema = new Schema()
-		.add('test', 'String');
+	test.is(schema.add('test', 'String'), schema);
 
 	test.true(schema instanceof Schema, '"add" method must be chainable.');
 	test.is(schema.path, '');
@@ -146,6 +140,11 @@ ava('schema-get-folder-double-nested', (test): void => {
 		.add('nested', subFolder => subFolder
 			.add('double', 'String')));
 	test.true(schema.get('subkey.nested.double') instanceof SchemaEntry);
+});
+
+ava('schema-get-folder-from-entry', (test): void => {
+	const schema = new Schema().add('key', 'String');
+	test.is(schema.get('key.non.existent.path'), undefined);
 });
 
 ava('schema-folder-empty', (test): void => {

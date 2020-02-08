@@ -107,8 +107,9 @@ export class Schema extends Map<string, SchemaFolder | SchemaEntry> {
 			if (type === 'Folder') {
 				if (previous.type === 'Folder') {
 					// Call the callback with the pre-existent Folder
-					// eslint-disable-next-line callback-return
-					if (callback !== null) callback(previous as SchemaFolder);
+					// eslint-disable-next-line callback-return, @typescript-eslint/ban-ts-ignore
+					// @ts-ignore
+					callback(previous as SchemaFolder);
 					return this;
 				}
 
@@ -160,8 +161,8 @@ export class Schema extends Map<string, SchemaFolder | SchemaEntry> {
 		// If the returned value is a SchemaFolder, return its result from SchemaFolder#get using remaining string
 		if (value.type === 'Folder') return (value as SchemaFolder).get(path.substring(index + 1));
 
-		// Return value
-		return value;
+		// Trying to access to a subkey of an entry, return undefined
+		return undefined;
 	}
 
 	/**

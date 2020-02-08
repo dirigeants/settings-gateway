@@ -1,12 +1,22 @@
-import ava from 'ava';
+import unknownTest, { TestInterface } from 'ava';
 import { createClient } from './lib/MockClient';
-import { GatewayStorage, Gateway, Settings, Provider, SettingsExistenceStatus } from '../dist';
+import { GatewayStorage, Gateway, Settings, Provider, SettingsExistenceStatus, Client } from '../dist';
 import Collection from '@discordjs/collection';
 import { RequestHandler } from '@klasa/request-handler';
 import { UserStore } from 'discord.js';
 
+const ava = unknownTest as TestInterface<{
+	client: Client
+}>;
+
+ava.beforeEach(async (test): Promise<void> => {
+	test.context = {
+		client: createClient()
+	};
+});
+
 ava('gateway-basic', (test): void => {
-	const gateway = new Gateway(createClient(), 'test', { provider: 'Mock' });
+	const gateway = new Gateway(test.context.client, 'test', { provider: 'Mock' });
 
 	test.true(gateway instanceof GatewayStorage);
 
@@ -20,21 +30,21 @@ ava('gateway-basic', (test): void => {
 ava('gateway-reverse-proxy', (test): void => {
 	test.plan(2);
 
-	const gateway = new Gateway(createClient(), 'users', { provider: 'Mock' });
+	const gateway = new Gateway(test.context.client, 'users', { provider: 'Mock' });
 
 	test.true(gateway.cache instanceof UserStore);
 	test.is(gateway.cache.size, 0);
 });
 
 ava('gateway-get', (test): void => {
-	const gateway = new Gateway(createClient(), 'test', { provider: 'Mock' });
+	const gateway = new Gateway(test.context.client, 'test', { provider: 'Mock' });
 	test.is(gateway.get('id'), null);
 });
 
 ava('gateway-create', (test): void => {
 	test.plan(2);
 
-	const gateway = new Gateway(createClient(), 'test', { provider: 'Mock' });
+	const gateway = new Gateway(test.context.client, 'test', { provider: 'Mock' });
 
 	const created = gateway.create({ id: 'id' });
 	test.true(created instanceof Settings);
@@ -44,7 +54,7 @@ ava('gateway-create', (test): void => {
 ava('gateway-acquire', (test): void => {
 	test.plan(2);
 
-	const gateway = new Gateway(createClient(), 'test', { provider: 'Mock' });
+	const gateway = new Gateway(test.context.client, 'test', { provider: 'Mock' });
 
 	const acquired = gateway.acquire({ id: 'id' });
 	test.true(acquired instanceof Settings);
@@ -54,7 +64,7 @@ ava('gateway-acquire', (test): void => {
 ava('gateway-init-database-existence', async (test): Promise<void> => {
 	test.plan(2);
 
-	const gateway = new Gateway(createClient(), 'test', { provider: 'Mock' });
+	const gateway = new Gateway(test.context.client, 'test', { provider: 'Mock' });
 	const provider = gateway.provider as Provider;
 
 	test.false(await provider.hasTable(gateway.name));
@@ -64,15 +74,45 @@ ava('gateway-init-database-existence', async (test): Promise<void> => {
 });
 
 ava('gateway-reverse-no-data', (test): void => {
-	const client = createClient();
+	const { client } = test.context;
 	const gateway = client.gateways.get('users') as Gateway;
 	test.is(gateway.get('339942739275677727'), null);
+});
+
+ava('gateway-reverse-no-provider', async (test): Promise<void> => {
+	test.plan(2);
+
+	const { client } = test.context;
+	client.providers.clear();
+
+	const gateway = client.gateways.get('users') as Gateway;
+	test.is(gateway.provider, null);
+
+	const settings = new Settings(gateway, { id: 'Mock' }, 'Mock');
+	await test.throwsAsync(() => settings.sync(), { message: 'Cannot run requests without a provider available.' });
+});
+
+ava('gateway-reverse-multiple-no-provider', async (test): Promise<void> => {
+	test.plan(2);
+
+	const { client } = test.context;
+	client.providers.clear();
+
+	const gateway = client.gateways.get('users') as Gateway;
+	test.is(gateway.provider, null);
+
+	const settings = [
+		new Settings(gateway, { id: 'Mock1' }, 'Mock1'),
+		new Settings(gateway, { id: 'Mock2' }, 'Mock2'),
+		new Settings(gateway, { id: 'Mock3' }, 'Mock3')
+	];
+	await test.throwsAsync(() => Promise.all(settings.map(instance => instance.sync())), { message: 'Cannot run requests without a provider available.' });
 });
 
 ava('gateway-reverse-data', (test): void => {
 	test.plan(2);
 
-	const client = createClient();
+	const { client } = test.context;
 	const gateway = client.gateways.get('users') as Gateway;
 
 	client.users.add({
@@ -90,7 +130,7 @@ ava('gateway-reverse-data', (test): void => {
 ava('gateway-reverse-sync', async (test): Promise<void> => {
 	test.plan(6);
 
-	const client = createClient();
+	const { client } = test.context;
 	const gateway = client.gateways.get('users') as Gateway;
 	const provider = gateway.provider as Provider;
 	gateway.schema.add('value', 'String');
