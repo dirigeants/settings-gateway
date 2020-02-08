@@ -186,7 +186,7 @@ export class SettingsFolder extends Map<string, unknown> {
 		const language = guild === null ? client.languages.default : guild.language;
 		const extra = options.extraContext;
 
-		const changes: SettingsUpdateResults = [];
+		const changes: SettingsUpdateResult[] = [];
 		for (const path of paths as readonly string[]) {
 			const entry = schema.get(path);
 
@@ -358,7 +358,7 @@ export class SettingsFolder extends Map<string, unknown> {
 		}
 	}
 
-	private async _resolveFolder(context: FolderUpdateContext): Promise<object> {
+	private async _resolveFolder(context: InternalFolderUpdateContext): Promise<object> {
 		const promises: Promise<[string, unknown]>[] = [];
 		for (const entry of context.folder.values()) {
 			if (entry.type === 'Folder') {
@@ -398,7 +398,7 @@ export class SettingsFolder extends Map<string, unknown> {
 		return serializer.resolve(values, context);
 	}
 
-	private _resetSchemaFolder(changes: SettingsUpdateResults, schemaFolder: SchemaFolder, key: string, language: Language, onlyConfigurable: boolean): void {
+	private _resetSchemaFolder(changes: SettingsUpdateResult[], schemaFolder: SchemaFolder, key: string, language: Language, onlyConfigurable: boolean): void {
 		let nonConfigurable = 0;
 		let skipped = 0;
 		let processed = 0;
@@ -435,7 +435,7 @@ export class SettingsFolder extends Map<string, unknown> {
 		if (processed === 0 && skipped === 0 && nonConfigurable !== 0) throw language.get('SETTING_GATEWAY_UNCONFIGURABLE_FOLDER');
 	}
 
-	private _resetSchemaEntry(changes: SettingsUpdateResults, schemaEntry: SchemaEntry, key: string, language: Language, onlyConfigurable: boolean): void {
+	private _resetSchemaEntry(changes: SettingsUpdateResult[], schemaEntry: SchemaEntry, key: string, language: Language, onlyConfigurable: boolean): void {
 		if (onlyConfigurable && !schemaEntry.configurable) {
 			throw language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', key);
 		}
@@ -573,61 +573,238 @@ export class SettingsFolder extends Map<string, unknown> {
 
 }
 
+/**
+ * The existence status of this settings entry. They're the possible values for {@link Settings#existenceStatus} and
+ * represents its status in disk.
+ * @memberof SettingsFolder
+ */
 export const enum SettingsExistenceStatus {
+	/**
+	 * The settings has not been synchronized, in this status, any update operation will error. To prevent this, call
+	 * `settings.sync()` first.
+	 */
 	Unsynchronized,
+	/**
+	 * The settings entry exists in disk, any disk operation will be done through an update.
+	 */
 	Exists,
+	/**
+	 * The settings entry does not exist in disk, the first disk operation will be done through a create. Afterwards it
+	 * sets itself to Exists.
+	 */
 	NotExists
 }
 
+/**
+ * The options for {@link SettingsFolder#reset}.
+ * @memberof SettingsFolder
+ */
 export interface SettingsFolderResetOptions {
+	/**
+	 * Whether or not the update should only update those configured with `configurable` set as `true` in the schema.
+	 */
 	onlyConfigurable?: boolean;
+	/**
+	 * The guild to use as the context. It's not required when the settings' target can be resolved into a Guild, e.g.
+	 * a TextChannel, a Role, a GuildMember, or a Guild instance.
+	 */
 	guild?: GuildResolvable;
+	/**
+	 * The extra context to be passed through resolvers and events.
+	 */
 	extraContext?: unknown;
 }
 
-export interface SettingsFolderUpdateOptionsOverwrite {
+/**
+ * The options for {@link SettingsFolder#update} when specifying `arrayAction` as overwrite.
+ * @memberof SettingsFolder
+ */
+export interface SettingsFolderUpdateOptionsOverwrite extends SettingsFolderResetOptions {
+	/**
+	 * The array action, in this case overwrite and not supporting `arrayIndex`.
+	 * @example
+	 * settings.get('words');
+	 * // -> ['foo', 'bar']
+	 *
+	 * await settings.update('words', ['hello', 'world'], { arrayAction: 'overwrite' });
+	 * settings.get('words');
+	 * // -> ['hello', 'world']
+	 */
 	arrayAction: ArrayActions.Overwrite | 'overwrite';
 }
 
-export interface SettingsFolderUpdateOptionsNonOverwrite {
-	arrayAction?: ArrayActions.Add | ArrayActions.Auto | ArrayActions.Remove | 'add' | 'auto' | 'remove';
+/**
+ * The options for {@link SettingsFolder#update} when not specifying `arrayAction` as overwrite or leaving it default.
+ * @memberof SettingsFolder
+ */
+export interface SettingsFolderUpdateOptionsNonOverwrite extends SettingsFolderResetOptions {
+	/**
+	 * The array action to take, check {@link ArrayActions} for the available actions.
+	 */
+	arrayAction?: Exclude<ArrayActions, ArrayActions.Overwrite> | Exclude<ArrayActionsString, 'overwrite'>;
+	/**
+	 * The index to do the array updates at. This is option is ignored when `arrayAction` is set to overwrite.
+	 */
 	arrayIndex?: number | null;
 }
 
-export type SettingsFolderUpdateOptions = (SettingsFolderUpdateOptionsOverwrite | SettingsFolderUpdateOptionsNonOverwrite) & SettingsFolderResetOptions;
+/**
+ * The options for {@link SettingsFolder#update}.
+ * @memberof SettingsFolder
+ */
+export type SettingsFolderUpdateOptions = SettingsFolderUpdateOptionsOverwrite | SettingsFolderUpdateOptionsNonOverwrite;
 
-export interface FolderUpdateContext extends Omit<SerializerUpdateContext, 'entry'> {
-	folder: SchemaFolder;
-}
-
+/**
+ * The update context that is passed to the {@link Client#settingsUpdate} and {@link Client#settingsCreate} events.
+ * @memberof SettingsFolder
+ */
 export interface SettingsUpdateContext extends Omit<SerializerUpdateContext, 'entry'> {
-	changes: SettingsUpdateResults;
+	/**
+	 * The changes done
+	 */
+	readonly changes: SettingsUpdateResults;
 }
 
+/**
+ * One of the update results from {@link Settings#update}, containing the previous and next values, and the
+ * {@link SchemaEntry} instance that controlled the value.
+ * @memberof SettingsFolder
+ */
 export interface SettingsUpdateResult {
-	previous: unknown;
-	next: unknown;
-	entry: SchemaEntry;
+	readonly previous: unknown;
+	readonly next: unknown;
+	readonly entry: SchemaEntry;
 }
 
-export interface InternalSettingsFolderUpdateOptions {
-	onlyConfigurable: boolean;
-	arrayAction: ArrayActions;
-	arrayIndex: number | null;
-}
+/**
+ * The update results from {@link Settings#update}, it contains an array of {@link SettingsUpdateResults results}.
+ * @memberof SettingsFolder
+ */
+export type SettingsUpdateResults = readonly SettingsUpdateResult[];
 
-export type SettingsUpdateResults = SettingsUpdateResult[];
+/**
+ * A plain object keyed by the schema's keys and containing serialized values. Nested folders will appear as an object
+ * of this type.
+ * @memberof SettingsFolder
+ */
 export type SettingsFolderJson = Record<string, unknown>;
 
+/**
+ * The actions to take on Settings#update calls.
+ * @memberof SettingsFolder
+ */
 export const enum ArrayActions {
+	/**
+	 * Override the insert/remove behaviour by pushing new keys to the array to the end or to the specified position.
+	 * @example
+	 * // Push to the end:
+	 *
+	 * settings.get('words');
+	 * // -> ['foo', 'bar']
+	 *
+	 * await settings.update('words', ['hello', 'world'], { arrayAction: 'add' });
+	 * settings.get('words');
+	 * // -> ['foo', 'bar', 'hello', 'world']
+	 *
+	 * @example
+	 * // Push to a position:
+	 *
+	 * settings.get('words');
+	 * // -> ['foo', 'bar']
+	 *
+	 * await settings.update('words', ['hello', 'world'], { arrayAction: 'add', arrayPosition: 1 });
+	 * settings.get('words');
+	 * // -> ['foo', 'hello', 'world', 'bar']
+	 */
 	Add = 'add',
+	/**
+	 * Override the insert/remove behaviour by removing keys to the array to the end or to the specified position.
+	 * @throws Throws an error when a value does not exist.
+	 * @example
+	 * // Remove:
+	 *
+	 * settings.get('words');
+	 * // -> ['foo', 'bar']
+	 *
+	 * await settings.update('words', ['foo'], { arrayAction: 'remove' });
+	 * settings.get('words');
+	 * // -> ['bar']
+	 *
+	 * @example
+	 * // Remove from position:
+	 *
+	 * settings.get('words');
+	 * // -> ['foo', 'hello', 'world', 'bar']
+	 *
+	 * await settings.update('words', [null, null], { arrayAction: 'remove', arrayPosition: 1 });
+	 * settings.get('words');
+	 * // -> ['foo', 'bar']
+	 */
 	Remove = 'remove',
+	/**
+	 * Set insert/remove behaviour, this is the value set by default.
+	 * @example
+	 * settings.get('words');
+	 * // -> ['foo', 'bar']
+	 *
+	 * await settings.update('words', ['foo', 'hello']);
+	 * settings.get('words');
+	 * // -> ['bar', 'hello']
+	 */
 	Auto = 'auto',
+	/**
+	 * Overwrite the array with newly set values. The `arrayIndex` option is ignored when specifying overwrite.
+	 * @example
+	 * settings.get('words');
+	 * // -> ['foo', 'bar']
+	 *
+	 * await settings.update('words', ['hello', 'world'], { arrayAction: 'overwrite' });
+	 * settings.get('words');
+	 * // -> ['hello', 'world']
+	 */
 	Overwrite = 'overwrite'
 }
 
+/**
+ * The actions as a string, done for retrocompatibility.
+ * @memberof SettingsFolder
+ * @internal
+ */
 export type ArrayActionsString = 'add' | 'remove' | 'auto' | 'overwrite';
 
+/**
+ * The update context for resolving the entry, it is used to retrieve the entry setting.
+ * @memberof SettingsFolder
+ * @internal
+ */
+interface InternalFolderUpdateContext extends Omit<SerializerUpdateContext, 'entry'> {
+	readonly folder: SchemaFolder;
+}
+
+/**
+ * The internal sanitized options created by {@link SettingsFolder#update} to avoid mutation of the original options.
+ * @memberof SettingsFolder
+ * @internal
+ */
+interface InternalSettingsFolderUpdateOptions {
+	readonly onlyConfigurable: boolean;
+	readonly arrayAction: ArrayActions;
+	readonly arrayIndex: number | null;
+}
+
+/**
+ * The values {@link SettingsFolder#reset} and {@link SettingsFolder#update} accept.
+ * @memberof SettingsFolder
+ */
 type PathOrEntries = string | [string, unknown][] | ReadonlyKeyedObject;
+
+/**
+ * The possible values or the options passed.
+ */
 type ValueOrOptions = unknown | SettingsFolderUpdateOptions;
+
+/**
+ * @memberof SettingsFolder
+ * @internal
+ */
 type InternalRawFolderUpdateOptions = SettingsFolderUpdateOptions & SettingsFolderUpdateOptionsNonOverwrite;
