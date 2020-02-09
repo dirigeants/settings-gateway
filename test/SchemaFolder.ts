@@ -1,7 +1,7 @@
 import ava from 'ava';
 import { Schema, SettingsFolder, SchemaFolder, SchemaEntry } from '../dist';
 
-ava('schemafolder-empty', (test): void => {
+ava('SchemaFolder Properties', (test): void => {
 	test.plan(5);
 
 	const schema = new Schema();
@@ -14,7 +14,7 @@ ava('schemafolder-empty', (test): void => {
 	test.deepEqual(schemaFolder.toJSON(), {});
 });
 
-ava('schemafolder-child', (test): void => {
+ava('SchemaFolder (Child)', (test): void => {
 	test.plan(4);
 
 	const schema = new Schema();

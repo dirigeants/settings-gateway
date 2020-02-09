@@ -3,7 +3,7 @@ import { createClient } from './lib/MockClient';
 import { GatewayDriver, Gateway } from '../dist';
 import Collection from '@discordjs/collection';
 
-ava('gatewaydriver-basic', (test): void => {
+ava('GatewayDriver Properties', (test): void => {
 	test.plan(3);
 
 	const client = createClient();
@@ -16,7 +16,7 @@ ava('gatewaydriver-basic', (test): void => {
 	test.is(gatewayDriver.size, 0);
 });
 
-ava('gatewaydriver-from-client', (test): void => {
+ava('GatewayDriver (From Client)', (test): void => {
 	test.plan(6);
 
 	const client = createClient();
@@ -31,7 +31,7 @@ ava('gatewaydriver-from-client', (test): void => {
 	test.true(client.gateways.get('users') instanceof Gateway);
 });
 
-ava('gatewaydriver-register', (test): void => {
+ava('GatewayDriver#register', (test): void => {
 	test.plan(2);
 
 	const client = createClient();
@@ -41,7 +41,7 @@ ava('gatewaydriver-register', (test): void => {
 	test.is(client.gateways.get('someCustomGateway'), gateway);
 });
 
-ava('gatewaydriver-init', async (test): Promise<void> => {
+ava('GatewayDriver#init', async (test): Promise<void> => {
 	test.plan(7);
 
 	const client = createClient();
@@ -57,7 +57,7 @@ ava('gatewaydriver-init', async (test): Promise<void> => {
 	test.true((client.gateways.get('clientStorage') as Gateway).ready);
 });
 
-ava('gatewaydriver-json', (test): void => {
+ava('GatewayDriver#toJSON', (test): void => {
 	const client = createClient();
 	test.deepEqual(client.gateways.toJSON(), {
 		guilds: {

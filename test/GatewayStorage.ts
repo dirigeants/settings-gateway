@@ -14,7 +14,7 @@ ava.beforeEach(async (test): Promise<void> => {
 	};
 });
 
-ava('gateway-storage-empty', (test): void => {
+ava('GatewayStorage Properties', (test): void => {
 	test.plan(9);
 
 	const gateway = new GatewayStorage(test.context.client, 'MockGateway', { provider: 'Mock' });
@@ -34,12 +34,12 @@ ava('gateway-storage-empty', (test): void => {
 	});
 });
 
-ava('gateway-storage-schema', (test): void => {
+ava('GatewayStorage#schema', (test): void => {
 	const gateway = new GatewayStorage(test.context.client, 'MockGateway', { schema: test.context.schema });
 	test.is(gateway.schema, test.context.schema);
 });
 
-ava('gateway-storage-init', async (test): Promise<void> => {
+ava('GatewayStorage#init', async (test): Promise<void> => {
 	test.plan(7);
 
 	const gateway = new GatewayStorage(test.context.client, 'MockGateway', { schema: test.context.schema, provider: 'Mock' });
@@ -59,7 +59,7 @@ ava('gateway-storage-init', async (test): Promise<void> => {
 	test.true(await provider.hasTable(gateway.name));
 });
 
-ava('gateway-storage-init-no-provider', async (test): Promise<void> => {
+ava('GatewayStorage#init (No Provider)', async (test): Promise<void> => {
 	test.plan(2);
 
 	const gateway = new GatewayStorage(test.context.client, 'MockGateway', { schema: test.context.schema, provider: 'Mock' });
@@ -69,13 +69,13 @@ ava('gateway-storage-init-no-provider', async (test): Promise<void> => {
 	await test.throwsAsync(() => gateway.init(), { message: 'The gateway "MockGateway" could not find the provider "Mock".' });
 });
 
-ava('gateway-storage-init-already-ready', async (test): Promise<void> => {
+ava('GatewayStorage#init (Ready)', async (test): Promise<void> => {
 	const gateway = new GatewayStorage(test.context.client, 'MockGateway', { schema: test.context.schema, provider: 'Mock' });
 	await gateway.init();
 	await test.throwsAsync(() => gateway.init(), { message: 'The gateway "MockGateway" has already been initialized.' });
 });
 
-ava('gateway-storage-init-broken-schema', async (test): Promise<void> => {
+ava('GatewayStorage#init (Broken Schema)', async (test): Promise<void> => {
 	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 	// @ts-ignore
 	test.context.schema.add('key', 'String', { array: null });
@@ -88,7 +88,7 @@ ava('gateway-storage-init-broken-schema', async (test): Promise<void> => {
 	].join('\n') });
 });
 
-ava('gateway-storage-sync', async (test): Promise<void> => {
+ava('GatewayStorage#sync', async (test): Promise<void> => {
 	const gateway = new GatewayStorage(test.context.client, 'MockGateway', { schema: test.context.schema, provider: 'Mock' });
 	test.is(await gateway.sync(), gateway);
 });

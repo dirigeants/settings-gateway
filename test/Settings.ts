@@ -32,7 +32,7 @@ ava.before(async (test): Promise<void> => {
 	};
 });
 
-ava('settings-basic', (test): void => {
+ava('Settings Properties', (test): void => {
 	test.plan(5);
 
 	const id = '1';
@@ -50,7 +50,7 @@ ava('settings-basic', (test): void => {
 	});
 });
 
-ava('settings-clone', (test): void => {
+ava('Settings#clone', (test): void => {
 	test.plan(4);
 
 	const id = '2';
@@ -62,7 +62,7 @@ ava('settings-clone', (test): void => {
 	test.deepEqual(clone.toJSON(), settings.toJSON());
 });
 
-ava('settings-sync-not-exists', async (test): Promise<void> => {
+ava('Settings#sync (Not Exists)', async (test): Promise<void> => {
 	test.plan(2);
 
 	const id = '3';
@@ -72,7 +72,7 @@ ava('settings-sync-not-exists', async (test): Promise<void> => {
 	test.is(settings.existenceStatus, SettingsExistenceStatus.NotExists);
 });
 
-ava('settings-sync-exists', async (test): Promise<void> => {
+ava('Settings#sync (Exists)', async (test): Promise<void> => {
 	test.plan(7);
 
 	const id = '4';
@@ -92,7 +92,7 @@ ava('settings-sync-exists', async (test): Promise<void> => {
 	test.is(settings.get('count'), 60);
 });
 
-ava('settings-destroy-not-exists', async (test): Promise<void> => {
+ava('Settings#destroy (Not Exists)', async (test): Promise<void> => {
 	test.plan(2);
 
 	const id = '5';
@@ -102,7 +102,7 @@ ava('settings-destroy-not-exists', async (test): Promise<void> => {
 	test.is(settings.existenceStatus, SettingsExistenceStatus.NotExists);
 });
 
-ava('settings-destroy-exists', async (test): Promise<void> => {
+ava('Settings#destroy (Exists)', async (test): Promise<void> => {
 	test.plan(9);
 
 	const id = '6';

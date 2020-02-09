@@ -15,7 +15,7 @@ ava.beforeEach(async (test): Promise<void> => {
 	};
 });
 
-ava('gateway-basic', (test): void => {
+ava('Gateway Properties', (test): void => {
 	const gateway = new Gateway(test.context.client, 'test', { provider: 'Mock' });
 
 	test.true(gateway instanceof GatewayStorage);
@@ -27,7 +27,7 @@ ava('gateway-basic', (test): void => {
 	test.true(gateway.requestHandler.available);
 });
 
-ava('gateway-reverse-proxy', (test): void => {
+ava('Gateway (Reverse Proxy Sync)', (test): void => {
 	test.plan(2);
 
 	const gateway = new Gateway(test.context.client, 'users', { provider: 'Mock' });
@@ -36,12 +36,12 @@ ava('gateway-reverse-proxy', (test): void => {
 	test.is(gateway.cache.size, 0);
 });
 
-ava('gateway-get', (test): void => {
+ava('Gateway#get', (test): void => {
 	const gateway = new Gateway(test.context.client, 'test', { provider: 'Mock' });
 	test.is(gateway.get('id'), null);
 });
 
-ava('gateway-create', (test): void => {
+ava('Gateway#create', (test): void => {
 	test.plan(2);
 
 	const gateway = new Gateway(test.context.client, 'test', { provider: 'Mock' });
@@ -51,7 +51,7 @@ ava('gateway-create', (test): void => {
 	test.is(created.id, 'id');
 });
 
-ava('gateway-acquire', (test): void => {
+ava('Gateway#acquire', (test): void => {
 	test.plan(2);
 
 	const gateway = new Gateway(test.context.client, 'test', { provider: 'Mock' });
@@ -61,7 +61,7 @@ ava('gateway-acquire', (test): void => {
 	test.is(acquired.id, 'id');
 });
 
-ava('gateway-init-database-existence', async (test): Promise<void> => {
+ava('Gateway#init (Table Existence In Database)', async (test): Promise<void> => {
 	test.plan(2);
 
 	const gateway = new Gateway(test.context.client, 'test', { provider: 'Mock' });
@@ -73,13 +73,7 @@ ava('gateway-init-database-existence', async (test): Promise<void> => {
 	test.true(await provider.hasTable(gateway.name));
 });
 
-ava('gateway-reverse-no-data', (test): void => {
-	const { client } = test.context;
-	const gateway = client.gateways.get('users') as Gateway;
-	test.is(gateway.get('339942739275677727'), null);
-});
-
-ava('gateway-reverse-no-provider', async (test): Promise<void> => {
+ava('Gateway (Direct Sync | No Provider)', async (test): Promise<void> => {
 	test.plan(2);
 
 	const { client } = test.context;
@@ -92,7 +86,7 @@ ava('gateway-reverse-no-provider', async (test): Promise<void> => {
 	await test.throwsAsync(() => settings.sync(), { message: 'Cannot run requests without a provider available.' });
 });
 
-ava('gateway-reverse-multiple-no-provider', async (test): Promise<void> => {
+ava('Gateway (Multiple Direct Sync | No Provider)', async (test): Promise<void> => {
 	test.plan(2);
 
 	const { client } = test.context;
@@ -109,7 +103,7 @@ ava('gateway-reverse-multiple-no-provider', async (test): Promise<void> => {
 	await test.throwsAsync(() => Promise.all(settings.map(instance => instance.sync())), { message: 'Cannot run requests without a provider available.' });
 });
 
-ava('gateway-reverse-data', (test): void => {
+ava('Gateway (Reverse Proxy Sync | With Data)', (test): void => {
 	test.plan(2);
 
 	const { client } = test.context;
@@ -127,7 +121,7 @@ ava('gateway-reverse-data', (test): void => {
 	test.is(retrieved.id, '339942739275677727');
 });
 
-ava('gateway-reverse-sync', async (test): Promise<void> => {
+ava('Gateway (Multiple Reverse Proxy Sync | With Data)', async (test): Promise<void> => {
 	test.plan(6);
 
 	const { client } = test.context;

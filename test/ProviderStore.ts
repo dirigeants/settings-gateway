@@ -12,7 +12,7 @@ ava.beforeEach(async (test): Promise<void> => {
 	};
 });
 
-ava('providerstore-properties', (test): void => {
+ava('ProviderStore Properties', (test): void => {
 	test.plan(6);
 
 	const { providers } = test.context.client;
@@ -28,7 +28,7 @@ ava('providerstore-properties', (test): void => {
 	test.true(providers.has('Mock'));
 });
 
-ava('providerstore-default', (test): void => {
+ava('ProviderStore#default', (test): void => {
 	test.plan(2);
 
 	const { providers } = test.context.client;
@@ -39,7 +39,7 @@ ava('providerstore-default', (test): void => {
 	test.is(providers.default, null);
 });
 
-ava('providerstore-clear', (test): void => {
+ava('ProviderStore#clear', (test): void => {
 	test.plan(2);
 
 	const { providers } = test.context.client;
@@ -49,7 +49,7 @@ ava('providerstore-clear', (test): void => {
 	test.is(providers.size, 0);
 });
 
-ava('providerstore-delete-from-name', (test): void => {
+ava('ProviderStore#delete (From Name)', (test): void => {
 	test.plan(2);
 
 	const { providers } = test.context.client;
@@ -58,7 +58,7 @@ ava('providerstore-delete-from-name', (test): void => {
 	test.is(providers.size, 0);
 });
 
-ava('providerstore-delete-from-instance', (test): void => {
+ava('ProviderStore#delete (From Instance)', (test): void => {
 	test.plan(2);
 
 	const { providers } = test.context.client;
@@ -67,7 +67,7 @@ ava('providerstore-delete-from-instance', (test): void => {
 	test.is(providers.size, 0);
 });
 
-ava('providerstore-delete-invalid', (test): void => {
+ava('ProviderStore#delete (Invalid)', (test): void => {
 	test.plan(2);
 
 	const { providers } = test.context.client;

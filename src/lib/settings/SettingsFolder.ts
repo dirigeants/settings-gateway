@@ -483,7 +483,7 @@ export class SettingsFolder extends Map<string, unknown> {
 				throw language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', path);
 			}
 
-			promises.push(this._updateSchemaEntry(path, value, { entry: entry as SchemaEntry, language, guild, extraContext: extra }, internalOptions));
+			promises.push(this._updateSettingsEntry(path, value, { entry: entry as SchemaEntry, language, guild, extraContext: extra }, internalOptions));
 		}
 
 		const changes = await Promise.all(promises);
@@ -491,76 +491,103 @@ export class SettingsFolder extends Map<string, unknown> {
 		return changes;
 	}
 
-	// eslint-disable-next-line complexity
-	private async _updateSchemaEntry(key: string, value: unknown, context: SerializerUpdateContext, options: InternalSettingsFolderUpdateOptions): Promise<SettingsUpdateResult> {
+	private async _updateSettingsEntry(key: string, rawValue: unknown, context: SerializerUpdateContext, options: InternalSettingsFolderUpdateOptions): Promise<SettingsUpdateResult> {
 		const previous = this.get(key);
 
 		// If null or undefined, return the default value instead
-		if (value === null || typeof value === 'undefined') {
+		if (rawValue === null || typeof rawValue === 'undefined') {
 			return { previous, next: context.entry.default, entry: context.entry };
 		}
 
+		// If the entry doesn't take an array, all the extra steps should be skipped
 		if (!context.entry.array) {
-			value = await this._updateSchemaEntryValue(value, context);
-			return { previous, next: value, entry: context.entry };
+			const values = await this._updateSchemaEntryValue(rawValue, context, true);
+			return { previous, next: this._resolveNextValue(values, context), entry: context.entry };
 		}
 
-		value = Array.isArray(value) ?
-			await Promise.all(value.map(val => this._updateSchemaEntryValue(val, context))) :
-			[await this._updateSchemaEntryValue(value, context)];
-
+		// If the action is overwrite, resolve values accepting null, afterwards filter them out
 		if (options.arrayAction === ArrayActions.Overwrite) {
-			return { previous, next: value, entry: context.entry };
+			return { previous, next: this._resolveNextValue(await this._resolveValues(rawValue, context, true), context), entry: context.entry };
 		}
 
-		const next = value as readonly unknown[];
-		const clone = (previous as readonly unknown[]).slice(0);
+		// The next value depends on whether arrayIndex was set or not
+		const next = options.arrayIndex === null ?
+			this._updateSettingsEntryNotIndexed(previous as unknown[], await this._resolveValues(rawValue, context, false), context, options) :
+			this._updateSettingsEntryAtIndex(previous as unknown[], await this._resolveValues(rawValue, context, options.arrayAction === ArrayActions.Remove), options.arrayIndex, options.arrayAction);
+
+		return {
+			previous,
+			next,
+			entry: context.entry
+		};
+	}
+
+	private _updateSettingsEntryNotIndexed(previous: readonly unknown[], values: readonly unknown[], context: SerializerUpdateContext, options: InternalSettingsFolderUpdateOptions): unknown[] {
+		const clone = previous.slice(0);
 		const serializer = context.entry.serializer as Serializer;
-
-		if (options.arrayIndex !== null) {
-			if (options.arrayIndex < 0 || options.arrayIndex > clone.length + 1) {
-				throw new RangeError(`The index ${options.arrayIndex} is bigger than the current array. It must be a value in the range of 0..${clone.length + 1}.`);
-			}
-
-			if (options.arrayAction === ArrayActions.Add) {
-				clone.splice(options.arrayIndex, 0, ...next);
-			} else if (options.arrayAction === ArrayActions.Remove || next.every(nv => nv === null)) {
-				clone.splice(options.arrayIndex, next.length);
-			} else {
-				clone.splice(options.arrayIndex, next.length, ...next);
-			}
-		} else if (options.arrayAction === ArrayActions.Auto) {
+		if (options.arrayAction === ArrayActions.Auto) {
 			// Array action auto must add or remove values, depending on their existence
-			for (const val of next) {
-				const index = clone.indexOf(val);
-				if (index === -1) clone.push(val);
+			for (const value of values) {
+				const index = clone.indexOf(value);
+				if (index === -1) clone.push(value);
 				else clone.splice(index, 1);
 			}
 		} else if (options.arrayAction === ArrayActions.Add) {
 			// Array action add must add values, throw on existent
-			for (const val of next) {
-				if (clone.includes(val)) throw new Error(context.language.get('SETTING_GATEWAY_DUPLICATE_VALUE', context.entry, serializer.stringify(val, context.guild)));
-				clone.push(val);
+			for (const value of values) {
+				if (clone.includes(value)) throw new Error(context.language.get('SETTING_GATEWAY_DUPLICATE_VALUE', context.entry, serializer.stringify(value, context.guild)));
+				clone.push(value);
 			}
 		} else if (options.arrayAction === ArrayActions.Remove) {
 			// Array action remove must add values, throw on non-existent
-			for (const val of next) {
-				const index = clone.indexOf(val);
-				if (index === -1) throw new Error(context.language.get('SETTING_GATEWAY_MISSING_VALUE', context.entry, serializer.stringify(val, context.guild)));
+			for (const value of values) {
+				const index = clone.indexOf(value);
+				if (index === -1) throw new Error(context.language.get('SETTING_GATEWAY_MISSING_VALUE', context.entry, serializer.stringify(value, context.guild)));
 				clone.splice(index, 1);
 			}
 		} else {
 			throw new TypeError(`The ${options.arrayAction} array action is not a valid array action.`);
 		}
 
-		return {
-			previous,
-			next: clone,
-			entry: context.entry
-		};
+		return clone;
 	}
 
-	private async _updateSchemaEntryValue(value: unknown, context: SerializerUpdateContext): Promise<unknown> {
+	private _updateSettingsEntryAtIndex(previous: readonly unknown[], values: readonly unknown[], arrayIndex: number, arrayAction: ArrayActions | null): unknown[] {
+		if (arrayIndex < 0 || arrayIndex > previous.length) {
+			throw new RangeError(`The index ${arrayIndex} is bigger than the current array. It must be a value in the range of 0..${previous.length}.`);
+		}
+
+		let clone = previous.slice();
+		if (arrayAction === ArrayActions.Add) {
+			clone.splice(arrayIndex, 0, ...values);
+		} else if (arrayAction === ArrayActions.Remove || values.every(nv => nv === null)) {
+			clone.splice(arrayIndex, values.length);
+		} else {
+			clone.splice(arrayIndex, values.length, ...values);
+			clone = clone.filter(nv => nv !== null);
+		}
+
+		return clone;
+	}
+
+	private async _resolveValues(value: unknown, context: SerializerUpdateContext, acceptNull: boolean): Promise<unknown[]> {
+		return Array.isArray(value) ?
+			await Promise.all(value.map(val => this._updateSchemaEntryValue(val, context, acceptNull))) :
+			[await this._updateSchemaEntryValue(value, context, acceptNull)];
+	}
+
+	private _resolveNextValue(value: unknown, context: SerializerUpdateContext): unknown {
+		if (Array.isArray(value)) {
+			const filtered = value.filter(nv => nv !== null);
+			return filtered.length === 0 ? context.entry.default : filtered;
+		}
+
+		return value === null ? context.entry.default : value;
+	}
+
+	private async _updateSchemaEntryValue(value: unknown, context: SerializerUpdateContext, acceptNull: boolean): Promise<unknown> {
+		if (acceptNull && value === null) return null;
+
 		const { serializer } = context.entry;
 
 		/* istanbul ignore if: Extremely hard to reproduce in coverage testing */

@@ -1,7 +1,7 @@
 import ava from 'ava';
 import { Schema, SettingsFolder, SchemaEntry, SchemaFolder } from '../dist';
 
-ava('schema-empty', (test): void => {
+ava('Schema Properties', (test): void => {
 	test.plan(13);
 
 	const schema = new Schema();
@@ -25,7 +25,7 @@ ava('schema-empty', (test): void => {
 	test.deepEqual([...schema.entries(true)], []);
 });
 
-ava('schema-add', (test): void => {
+ava('Schema#add', (test): void => {
 	test.plan(20);
 
 	const schema = new Schema();
@@ -78,7 +78,7 @@ ava('schema-add', (test): void => {
 	test.deepEqual([...schema.entries(true)], [['test', schemaEntry]]);
 });
 
-ava('schema-add-edit-entry-to-entry', (test): void => {
+ava('Schema#add (Edit | Entry To Entry)', (test): void => {
 	test.plan(5);
 
 	const schema = new Schema().add('subkey', 'String');
@@ -90,17 +90,17 @@ ava('schema-add-edit-entry-to-entry', (test): void => {
 	test.is((schema.get('subkey') as SchemaEntry).default, 'Hello');
 });
 
-ava('schema-add-edit-entry-to-folder', (test): void => {
+ava('Schema#add (Edit | Entry To Folder)', (test): void => {
 	const schema = new Schema().add('subkey', folder => folder.add('nested', 'String'));
 	test.throws(() => schema.add('subkey', 'String'), { message: 'The type for "subkey" conflicts with the previous value, expected a non-Folder, got "Folder".' });
 });
 
-ava('schema-add-edit-folder-to-entry', (test): void => {
+ava('Schema#add (Edit | Folder To Entry)', (test): void => {
 	const schema = new Schema().add('subkey', 'String');
 	test.throws(() => schema.add('subkey', folder => folder), { message: 'The type for "subkey" conflicts with the previous value, expected type "Folder", got "string".' });
 });
 
-ava('schema-add-edit-folder-to-folder', (test): void => {
+ava('Schema#add (Edit | Folder To Folder)', (test): void => {
 	test.plan(5);
 
 	const schema = new Schema().add('subkey', folder => folder.add('nested', 'String'));
@@ -113,41 +113,41 @@ ava('schema-add-edit-folder-to-folder', (test): void => {
 	test.truthy(inner.get('another'));
 });
 
-ava('schema-add-ready', (test): void => {
+ava('Schema#add (Ready)', (test): void => {
 	const schema = new Schema();
 	schema.ready = true;
 
 	test.throws(() => schema.add('subkey', 'String'), { message: 'Cannot modify the schema after being initialized.' });
 });
 
-ava('schema-get-entry', (test): void => {
+ava('Schema#get (Entry)', (test): void => {
 	const schema = new Schema().add('subkey', 'String');
 	test.true(schema.get('subkey') instanceof SchemaEntry);
 });
 
-ava('schema-get-folder', (test): void => {
+ava('Schema#get (Folder)', (test): void => {
 	const schema = new Schema().add('subkey', folder => folder);
 	test.true(schema.get('subkey') instanceof SchemaFolder);
 });
 
-ava('schema-get-folder-nested', (test): void => {
+ava('Schema#get (Folder Nested)', (test): void => {
 	const schema = new Schema().add('subkey', folder => folder.add('nested', 'String'));
 	test.true(schema.get('subkey.nested') instanceof SchemaEntry);
 });
 
-ava('schema-get-folder-double-nested', (test): void => {
+ava('Schema#get (Folder Double Nested)', (test): void => {
 	const schema = new Schema().add('subkey', folder => folder
 		.add('nested', subFolder => subFolder
 			.add('double', 'String')));
 	test.true(schema.get('subkey.nested.double') instanceof SchemaEntry);
 });
 
-ava('schema-get-folder-from-entry', (test): void => {
+ava('Schema#get (Folder From Entry)', (test): void => {
 	const schema = new Schema().add('key', 'String');
 	test.is(schema.get('key.non.existent.path'), undefined);
 });
 
-ava('schema-folder-empty', (test): void => {
+ava('SchemaFolder (Empty)', (test): void => {
 	test.plan(22);
 
 	const schema = new Schema()
@@ -187,7 +187,7 @@ ava('schema-folder-empty', (test): void => {
 	test.deepEqual([...schema.entries(true)], []);
 });
 
-ava('schema-folder-filled', (test): void => {
+ava('SchemaFolder (Filled)', (test): void => {
 	test.plan(29);
 
 	const schema = new Schema()
@@ -257,7 +257,7 @@ ava('schema-folder-filled', (test): void => {
 	test.deepEqual([...schema.entries(true)], [['someKey', schemaEntry]]);
 });
 
-ava('schema-delete', (test): void => {
+ava('Schema#delete', (test): void => {
 	test.plan(3);
 
 	const schema = new Schema().add('subkey', 'String');
@@ -267,12 +267,12 @@ ava('schema-delete', (test): void => {
 	test.is(schema.defaults.get('subkey'), undefined);
 });
 
-ava('schema-delete-not-exists', (test): void => {
+ava('Schema#delete (Not Exists)', (test): void => {
 	const schema = new Schema();
 	test.false(schema.delete('subkey'));
 });
 
-ava('schema-delete-ready', (test): void => {
+ava('Schema#delete (Ready)', (test): void => {
 	const schema = new Schema();
 	schema.ready = true;
 

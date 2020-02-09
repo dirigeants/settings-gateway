@@ -2,7 +2,7 @@ import ava from 'ava';
 import { Schema, SchemaEntry } from '../dist';
 import { createClient } from './lib/MockClient';
 
-ava('schemaentry-basic', (test): void => {
+ava('SchemaEntry Properties', (test): void => {
 	test.plan(15);
 
 	const schema = new Schema();
@@ -34,7 +34,7 @@ ava('schemaentry-basic', (test): void => {
 	});
 });
 
-ava('schemaentry-edit', (test): void => {
+ava('SchemaEntry#edit', (test): void => {
 	test.plan(8);
 
 	const schema = new Schema();
@@ -71,7 +71,7 @@ ava('schemaentry-edit', (test): void => {
 	test.deepEqual(schemaEntry.default, [1]);
 });
 
-ava('schemaentry-check', (test): void => {
+ava('SchemaEntry#check', (test): void => {
 	test.plan(11);
 
 	const client = createClient();
@@ -142,7 +142,7 @@ ava('schemaentry-check', (test): void => {
 	/* eslint-enable @typescript-eslint/ban-ts-ignore */
 });
 
-ava('schemaentry-json', (test): void => {
+ava('SchemaEntry#toJSON', (test): void => {
 	test.plan(1);
 
 	const schema = new Schema();
@@ -170,7 +170,7 @@ ava('schemaentry-json', (test): void => {
 	});
 });
 
-ava('schemaentry-default-generator', (test): void => {
+ava('SchemaEntry#default (Automatic)', (test): void => {
 	test.plan(3);
 
 	const schema = new Schema();

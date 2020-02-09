@@ -672,6 +672,22 @@ ava('SettingsFolder#update (ArrayAction | Filled | Remove)', async (test): Promi
 	test.deepEqual(await provider.get(gateway.name, settings.id), { id: settings.id, uses: [4] });
 });
 
+ava('SettingsFolder#update (ArrayAction | Filled | Remove With Nulls)', async (test): Promise<void> => {
+	test.plan(5);
+
+	const { settings, gateway, provider } = test.context;
+	await provider.create(gateway.name, settings.id, { uses: [1, 2, 3, 4] });
+	await settings.sync();
+
+	const schemaEntry = gateway.schema.get('uses') as SchemaEntry;
+	const results = await settings.update('uses', [null, null], { arrayAction: 'remove', arrayIndex: 1 });
+	test.is(results.length, 1);
+	test.deepEqual(results[0].previous, [1, 2, 3, 4]);
+	test.deepEqual(results[0].next, [1, 4]);
+	test.is(results[0].entry, schemaEntry);
+	test.deepEqual(await provider.get(gateway.name, settings.id), { id: settings.id, uses: [1, 4] });
+});
+
 ava('SettingsFolder#update (ArrayAction | Empty | Overwrite)', async (test): Promise<void> => {
 	test.plan(5);
 
