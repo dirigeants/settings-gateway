@@ -75,7 +75,7 @@ export class SettingsFolder extends Map<string, unknown> {
 	 * @param paths The paths to resolve
 	 */
 	public resolve(...paths: readonly string[]): Promise<unknown[]> {
-		if (this.base === null) throw new Error('Cannot retrieve guild from a non-ready settings instance.');
+		if (this.base === null) return Promise.reject(new Error('Cannot retrieve guild from a non-ready settings instance.'));
 
 		const guild = this.client.guilds.resolve(this.base.target as GuildResolvable);
 		const language = guild === null ? this.base.gateway.client.languages.default : guild.language;
@@ -192,8 +192,8 @@ export class SettingsFolder extends Map<string, unknown> {
 
 			// If the key does not exist, throw
 			if (typeof entry === 'undefined') throw language.get('SETTING_GATEWAY_KEY_NOEXT', path);
-			if (entry.type === 'Folder') this._resetSchemaFolder(changes, entry as SchemaFolder, path, language, onlyConfigurable);
-			else this._resetSchemaEntry(changes, entry as SchemaEntry, path, language, onlyConfigurable);
+			if (entry.type === 'Folder') this._resetSettingsFolder(changes, entry as SchemaFolder, language, onlyConfigurable);
+			else this._resetSettingsEntry(changes, entry as SchemaEntry, language, onlyConfigurable);
 		}
 
 		if (changes.length !== 0) await this._save({ changes, guild, language, extraContext: extra });
@@ -398,12 +398,10 @@ export class SettingsFolder extends Map<string, unknown> {
 		return serializer.resolve(values, context);
 	}
 
-	private _resetSchemaFolder(changes: SettingsUpdateResult[], schemaFolder: SchemaFolder, key: string, language: Language, onlyConfigurable: boolean): void {
+	private _resetSettingsFolder(changes: SettingsUpdateResult[], schemaFolder: SchemaFolder, language: Language, onlyConfigurable: boolean): void {
 		let nonConfigurable = 0;
 		let skipped = 0;
 		let processed = 0;
-
-		const localPathPrefix = schemaFolder.path === '' ? '' : this.schema.path === '' ? `${schemaFolder.path}.` : `${schemaFolder.path.slice(this.schema.path.length + 1)}.`;
 
 		// Recurse to all sub-pieces
 		for (const entry of schemaFolder.values(true)) {
@@ -412,8 +410,7 @@ export class SettingsFolder extends Map<string, unknown> {
 				continue;
 			}
 
-			const localPath = entry.path.slice(key.length + 1);
-			const previous = this.get(localPathPrefix + localPath);
+			const previous = (this.base as Settings).get(entry.path);
 			const next = entry.default;
 			const equals = entry.array ?
 				arraysStrictEquals(previous as unknown as readonly unknown[], next as readonly unknown[]) :
@@ -435,12 +432,12 @@ export class SettingsFolder extends Map<string, unknown> {
 		if (processed === 0 && skipped === 0 && nonConfigurable !== 0) throw language.get('SETTING_GATEWAY_UNCONFIGURABLE_FOLDER');
 	}
 
-	private _resetSchemaEntry(changes: SettingsUpdateResult[], schemaEntry: SchemaEntry, key: string, language: Language, onlyConfigurable: boolean): void {
+	private _resetSettingsEntry(changes: SettingsUpdateResult[], schemaEntry: SchemaEntry, language: Language, onlyConfigurable: boolean): void {
 		if (onlyConfigurable && !schemaEntry.configurable) {
-			throw language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', key);
+			throw language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', schemaEntry.key);
 		}
 
-		const previous = this.get(key);
+		const previous = (this.base as Settings).get(schemaEntry.path);
 		const next = schemaEntry.default;
 
 		const equals = schemaEntry.array ?
@@ -687,7 +684,7 @@ export type SettingsFolderUpdateOptions = SettingsFolderUpdateOptionsOverwrite |
  */
 export interface SettingsUpdateContext extends Omit<SerializerUpdateContext, 'entry'> {
 	/**
-	 * The changes done
+	 * The changes done.
 	 */
 	readonly changes: SettingsUpdateResults;
 }
@@ -698,8 +695,17 @@ export interface SettingsUpdateContext extends Omit<SerializerUpdateContext, 'en
  * @memberof SettingsFolder
  */
 export interface SettingsUpdateResult {
+	/**
+	 * The value prior to the update.
+	 */
 	readonly previous: unknown;
+	/**
+	 * The serialized value that has been set.
+	 */
 	readonly next: unknown;
+	/**
+	 * The SchemaEntry instance that contains the metadata for this update result.
+	 */
 	readonly entry: SchemaEntry;
 }
 
