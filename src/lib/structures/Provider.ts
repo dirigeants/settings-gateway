@@ -1,6 +1,9 @@
 import { Piece } from 'klasa';
 import { SchemaFolder } from '../schema/SchemaFolder';
 import { SchemaEntry } from '../schema/SchemaEntry';
+import { mergeObjects, makeObject } from '@klasa/utils';
+import { SettingsUpdateResults } from '../settings/SettingsFolder';
+import { KeyedObject } from '../types';
 
 export abstract class Provider extends Piece {
 
@@ -29,7 +32,7 @@ export abstract class Provider extends Piece {
 	 * @param entry The entry's ID to create
 	 * @param data The data to insert
 	 */
-	public abstract create(table: string, entry: string, data: object): Promise<unknown>;
+	public abstract create(table: string, entry: string, data: object | SettingsUpdateResults): Promise<unknown>;
 
 	/**
 	 * Removes entries from a table.
@@ -71,7 +74,7 @@ export abstract class Provider extends Piece {
 	 * @param entry The entry's ID to update
 	 * @param data The data to update
 	 */
-	public abstract update(table: string, entry: string, data: object): Promise<unknown>;
+	public abstract update(table: string, entry: string, data: object | SettingsUpdateResults): Promise<unknown>;
 
 	/**
 	 * Overwrites the data from an entry in a table.
@@ -79,7 +82,7 @@ export abstract class Provider extends Piece {
 	 * @param entry The entry's ID to update
 	 * @param data The new data for the entry
 	 */
-	public abstract replace(table: string, entry: string, data: object): Promise<unknown>;
+	public abstract replace(table: string, entry: string, data: object | SettingsUpdateResults): Promise<unknown>;
 
 	/**
 	 * Shutdown method, this is called before the piece is unloaded.
@@ -134,6 +137,19 @@ export abstract class Provider extends Piece {
 	public async getColumns(_table: string): Promise<string[]> {
 		// Reserved for SQL databases
 		return [];
+	}
+
+	/**
+	 * Process the input from {@link Settings#update} or {@link Settings#reset} into a plain object that can be used for
+	 * document-based database drivers. If it receives a non-array, it returns the value without further processing.
+	 * @param changes The data that has been updated
+	 */
+	protected parseUpdateInput(changes: object | SettingsUpdateResults): KeyedObject {
+		if (!Array.isArray(changes)) return changes as KeyedObject;
+
+		const updated: KeyedObject = {};
+		for (const change of changes) mergeObjects(updated, makeObject(change.entry.path, change.next));
+		return updated;
 	}
 
 }

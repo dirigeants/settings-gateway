@@ -1,4 +1,4 @@
-import { Provider, ReadonlyKeyedObject } from '../../dist';
+import { Provider, SettingsUpdateResults } from '../../dist';
 import { mergeObjects } from '@klasa/utils';
 
 export class MockProvider extends Provider {
@@ -19,11 +19,11 @@ export class MockProvider extends Provider {
 		return this.tables.has(table);
 	}
 
-	public async create(table: string, entry: string, data: ReadonlyKeyedObject): Promise<void> {
+	public async create(table: string, entry: string, data: object | SettingsUpdateResults): Promise<void> {
 		const resolvedTable = this.tables.get(table);
 		if (typeof resolvedTable === 'undefined') throw new Error('Table Not Exists');
 		if (resolvedTable.has(entry)) throw new Error('Entry Exists');
-		resolvedTable.set(entry, { ...data, id: entry });
+		resolvedTable.set(entry, { ...this.parseUpdateInput(data), id: entry });
 	}
 
 	public async delete(table: string, entry: string): Promise<void> {
@@ -67,24 +67,24 @@ export class MockProvider extends Provider {
 		return resolvedTable.has(entry);
 	}
 
-	public async update(table: string, entry: string, data: ReadonlyKeyedObject): Promise<void> {
+	public async update(table: string, entry: string, data: object | SettingsUpdateResults): Promise<void> {
 		const resolvedTable = this.tables.get(table);
 		if (typeof resolvedTable === 'undefined') throw new Error('Table Not Exists');
 
 		const resolvedEntry = resolvedTable.get(entry);
 		if (typeof resolvedEntry === 'undefined') throw new Error('Entry Not Exists');
 
-		const merged = mergeObjects({ ...resolvedEntry }, data);
-		resolvedTable.set(entry, merged);
+		resolvedTable.set(entry, mergeObjects({ ...resolvedEntry }, this.parseUpdateInput(data)));
 	}
 
-	public async replace(table: string, entry: string, data: ReadonlyKeyedObject): Promise<void> {
+	public async replace(table: string, entry: string, data: object | SettingsUpdateResults): Promise<void> {
 		const resolvedTable = this.tables.get(table);
 		if (typeof resolvedTable === 'undefined') throw new Error('Table Not Exists');
 
 		const resolvedEntry = resolvedTable.get(entry);
 		if (typeof resolvedEntry === 'undefined') throw new Error('Entry Not Exists');
-		resolvedTable.set(entry, { ...data, id: entry });
+
+		resolvedTable.set(entry, { ...this.parseUpdateInput(data), id: entry });
 	}
 
 }

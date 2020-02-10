@@ -347,11 +347,11 @@ export class SettingsFolder extends Map<string, unknown> {
 		/* istanbul ignore if: Extremely hard to reproduce in coverage testing */
 		if (gateway.provider === null) throw new Error('Cannot update due to the gateway missing a reference to the provider.');
 		if (base.existenceStatus === SettingsExistenceStatus.Exists) {
-			await gateway.provider.update(gateway.name, id, updateObject);
+			await gateway.provider.update(gateway.name, id, context.changes);
 			this._patch(updateObject);
 			gateway.client.emit('settingsUpdate', base, updateObject, context);
 		} else {
-			await gateway.provider.create(gateway.name, id, updateObject);
+			await gateway.provider.create(gateway.name, id, context.changes);
 			base.existenceStatus = SettingsExistenceStatus.Exists;
 			this._patch(updateObject);
 			gateway.client.emit('settingsCreate', base, updateObject, context);

@@ -3,6 +3,7 @@ import { SchemaFolder } from '../schema/SchemaFolder';
 import { SchemaEntry } from '../schema/SchemaEntry';
 import { QueryBuilder } from '@klasa/querybuilder';
 import { objectToTuples } from '@klasa/utils';
+import { SettingsUpdateResults } from '../settings/SettingsFolder';
 
 export abstract class SQLProvider extends Provider {
 
@@ -126,16 +127,25 @@ export abstract class SQLProvider extends Provider {
 	}
 
 	/**
-	 * Parse the input from SettingsGateway for this
-	 * @param changes The data that has been updated
+	 * Process the input from {@link Settings#update} or {@link Settings#reset} into an object with the keys and values
+	 * that can be used for schema-based (SQL) database drivers. If it receives a non-array, it is flattened into a
+	 * dotted object notation. Please note that this behaviour may be tricky when working with a {@link SchemaEntry}
+	 * which type accepts an object and it's not an array, as it'll be flattened into as many keys as properties it has.
 	 */
-	protected parseTupleUpdateInput(changes: object): SqlProviderParsedTupleUpdateInput {
+	protected parseTupleUpdateInput(changes: object | SettingsUpdateResults): SqlProviderParsedTupleUpdateInput {
 		const keys: string[] = [];
 		const values: unknown[] = [];
 
-		for (const [key, value] of objectToTuples(changes as Record<PropertyKey, unknown>)) {
-			keys.push(key);
-			values.push(value);
+		if (Array.isArray(changes)) {
+			for (const change of changes as SettingsUpdateResults) {
+				keys.push(change.entry.path);
+				values.push(change.next);
+			}
+		} else {
+			for (const [key, value] of objectToTuples(changes as Record<PropertyKey, unknown>)) {
+				keys.push(key);
+				values.push(value);
+			}
 		}
 
 		return { keys, values };
