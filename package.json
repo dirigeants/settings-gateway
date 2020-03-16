@@ -57,7 +57,7 @@
     ]
   },
   "dependencies": {
-    "@discordjs/collection": "^0.1.3",
+    "@discordjs/collection": "^0.1.5",
     "@klasa/querybuilder": "^0.0.1",
     "@klasa/request-handler": "^0.0.3",
     "@klasa/utils": "^0.0.4"
