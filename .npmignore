@@ -1,10 +1,23 @@
 # .npmignore
 .github/
-coverage/
+.get/
 node_modules/
-src/
 test/
+docs/
+scripts/
+src/
+.docstrap.json
 .eslintrc.json
-package-lock.json
+tslint.json
+.travis.yml
+appveyor.yml
 tsconfig.json
+package-lock.json
+README.md
 yarn.lock
+coverage/
+.nyc_output/
+azure-pipelines.yml
+test-results.xml
+.nycrc.json
+.typedoc.json
