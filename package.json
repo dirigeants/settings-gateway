@@ -60,6 +60,6 @@
     "@discordjs/collection": "^0.1.3",
     "@klasa/querybuilder": "^0.0.1",
     "@klasa/request-handler": "^0.0.3",
-    "@klasa/utils": "^0.0.4"
+    "@klasa/utils": "^0.0.5"
   }
 }
