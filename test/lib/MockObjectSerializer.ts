@@ -1,4 +1,4 @@
-import { Serializer, SerializerStore } from '../../dist';
+import { Serializer, SerializerStore } from '../../src';
 
 export class MockObjectSerializer extends Serializer {
 

@@ -1,6 +1,6 @@
 import ava from 'ava';
 import { createClient } from './lib/MockClient';
-import { GatewayDriver, Gateway } from '../dist';
+import { GatewayDriver, Gateway } from '../src';
 import Collection from '@discordjs/collection';
 
 ava('GatewayDriver Properties', (test): void => {

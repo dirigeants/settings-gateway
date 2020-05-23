@@ -1,5 +1,5 @@
 import ava from 'ava';
-import { Schema, SchemaEntry } from '../dist';
+import { Schema, SchemaEntry } from '../src';
 import { createClient } from './lib/MockClient';
 
 ava('SchemaEntry Properties', (test): void => {

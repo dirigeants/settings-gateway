@@ -1,4 +1,4 @@
-import { Provider, SettingsUpdateResults } from '../../dist';
+import { Provider, SettingsUpdateResults } from '../../src';
 import { mergeObjects } from '@klasa/utils';
 
 export class MockProvider extends Provider {

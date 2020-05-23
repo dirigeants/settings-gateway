@@ -1,5 +1,5 @@
 import { Language, LanguageStore } from 'klasa';
-import { SchemaEntry } from '../../dist';
+import { SchemaEntry } from '../../src';
 
 export class MockLanguage extends Language {
 

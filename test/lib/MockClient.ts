@@ -1,5 +1,5 @@
 import { Client } from 'klasa';
-import { ProviderStore, SerializerStore, GatewayDriver, Gateway, Client as InternalClient } from '../../dist';
+import { ProviderStore, SerializerStore, GatewayDriver, Gateway, Client as InternalClient } from '../../src';
 import { ClientOptions } from 'discord.js';
 import { MockProvider } from './MockProvider';
 import { MockStringSerializer } from './MockStringSerializer';

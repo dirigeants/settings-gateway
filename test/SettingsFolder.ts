@@ -1,5 +1,5 @@
 import unknownTest, { TestInterface } from 'ava';
-import { Schema, SettingsFolder, Gateway, Provider, Client, Settings, SchemaEntry, KeyedObject, SettingsUpdateContext, SettingsExistenceStatus } from '../dist';
+import { Schema, SettingsFolder, Gateway, Provider, Client, Settings, SchemaEntry, KeyedObject, SettingsUpdateContext, SettingsExistenceStatus } from '../src';
 import { createClient } from './lib/MockClient';
 
 const ava = unknownTest as TestInterface<{

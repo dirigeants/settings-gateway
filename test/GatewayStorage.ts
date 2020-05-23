@@ -1,6 +1,6 @@
 import unknownTest, { TestInterface } from 'ava';
 import { createClient } from './lib/MockClient';
-import { GatewayStorage, Schema, Client, Provider } from '../dist';
+import { GatewayStorage, Schema, Client, Provider } from '../src';
 
 const ava = unknownTest as TestInterface<{
 	client: Client,

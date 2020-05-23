@@ -1,5 +1,5 @@
 import ava from 'ava';
-import { Schema, SettingsFolder, SchemaFolder, SchemaEntry } from '../dist';
+import { Schema, SettingsFolder, SchemaFolder, SchemaEntry } from '../src';
 
 ava('SchemaFolder Properties', (test): void => {
 	test.plan(5);

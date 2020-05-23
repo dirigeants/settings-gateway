@@ -1,6 +1,6 @@
 import unknownTest, { TestInterface } from 'ava';
 import { createClient } from './lib/MockClient';
-import { Client, ProviderStore, Provider } from '../dist';
+import { Client, ProviderStore, Provider } from '../src';
 
 const ava = unknownTest as TestInterface<{
 	client: Client
