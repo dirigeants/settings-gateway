@@ -1,9 +1,7 @@
 import unknownTest, { TestInterface } from 'ava';
 import { createClient } from './lib/MockClient';
-import { GatewayStorage, Gateway, Settings, Provider, SettingsExistenceStatus, Client } from '../dist';
-import Collection from '@discordjs/collection';
+import { GatewayStorage, Gateway, Settings, Provider, SettingsExistenceStatus, Client } from '../src';
 import { RequestHandler } from '@klasa/request-handler';
-import { UserStore } from 'discord.js';
 
 const ava = unknownTest as TestInterface<{
 	client: Client

@@ -11,4 +11,6 @@ export * from './lib/structures/SQLProvider';
 export * from './lib/structures/ProviderStore';
 export * from './lib/structures/Serializer';
 export * from './lib/structures/SerializerStore';
+export * from './lib/QueryBuilder';
+export * as constants from './lib/constants';
 export * from './lib/types';

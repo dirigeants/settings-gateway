@@ -1,15 +1,9 @@
 import { Schema } from './Schema';
 import { isNumber, isFunction } from '@klasa/utils';
 import { SchemaFolder } from './SchemaFolder';
-import { Client } from '../types';
 import { Serializer, SerializerUpdateContext } from '../structures/Serializer';
 
 export class SchemaEntry {
-
-	/**
-	 * The KlasaClient for this SchemaEntry.
-	 */
-	public client: Client | null = null;
 
 	/**
 	 * The schema that manages this instance.
@@ -72,7 +66,6 @@ export class SchemaEntry {
 	public shouldResolve: boolean;
 
 	public constructor(parent: Schema | SchemaFolder, key: string, type: string, options: SchemaEntryOptions = {}) {
-		this.client = null;
 		this.parent = parent;
 		this.key = key;
 		this.path = this.parent.path.length === 0 ? this.key : `${this.parent.path}.${this.key}`;

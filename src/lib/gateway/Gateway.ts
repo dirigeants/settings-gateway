@@ -1,8 +1,7 @@
 import { RequestHandler, IdKeyed } from '@klasa/request-handler';
-import Collection from '@discordjs/collection';
+import { Cache } from '@klasa/cache';
 import { GatewayStorage } from './GatewayStorage';
 import { Settings } from '../settings/Settings';
-import { Client } from '../types';
 
 export class Gateway extends GatewayStorage {
 
@@ -12,7 +11,7 @@ export class Gateway extends GatewayStorage {
 	 */
 	public cache: ProxyMap = (this.name in this.client) && (this.client[this.name as keyof Client] instanceof Map) ?
 		this.client[this.name as keyof Client] as ProxyMap :
-		new Collection<string, ProxyMapEntry>();
+		new Cache<string, ProxyMapEntry>();
 
 	/**
 	 * The request handler that manages the synchronization queue.

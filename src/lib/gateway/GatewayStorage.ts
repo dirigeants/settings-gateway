@@ -1,13 +1,13 @@
-import { Client } from '../types';
 import { Schema, SchemaJson } from '../schema/Schema';
 import { Provider } from '../structures/Provider';
+import { GatewayDriver } from './GatewayDriver';
 
 export class GatewayStorage {
 
 	/**
-	 * The client this gateway was created with.
+	 * The driver that manages this instance.
 	 */
-	public readonly client: Client;
+	public readonly driver: GatewayDriver;
 
 	/**
 	 * The name of this gateway.
@@ -29,18 +29,18 @@ export class GatewayStorage {
 	 */
 	private readonly _provider: string;
 
-	public constructor(client: Client, name: string, options: GatewayStorageOptions = {}) {
-		this.client = client;
+	public constructor(driver: GatewayDriver, name: string, options: GatewayStorageOptions = {}) {
+		this.driver = driver;
 		this.name = name;
 		this.schema = options.schema || new Schema();
-		this._provider = options.provider || client.options.providers.default || '';
+		this._provider = options.provider || options.providers.default || '';
 	}
 
 	/**
 	 * The provider that manages this gateway's persistent data.
 	 */
 	public get provider(): Provider | null {
-		return this.client.providers.get(this._provider) || null;
+		return this.driver.providers.get(this._provider) || null;
 	}
 
 	/**

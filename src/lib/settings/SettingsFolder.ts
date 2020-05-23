@@ -1,12 +1,9 @@
+import { isObject, objectToTuples, mergeObjects, makeObject, arrayStrictEquals } from '@klasa/utils';
 import { Schema } from '../schema/Schema';
 import { Settings } from './Settings';
 import { SchemaFolder } from '../schema/SchemaFolder';
 import { SchemaEntry } from '../schema/SchemaEntry';
-import { Language } from 'klasa';
-import { Client, ReadonlyKeyedObject, KeyedObject } from '../types';
-import { GuildResolvable } from 'discord.js';
-import { isObject, objectToTuples, mergeObjects, makeObject } from '@klasa/utils';
-import arraysStrictEquals from '@klasa/utils/dist/lib/arrayStrictEquals';
+import { ReadonlyKeyedObject, KeyedObject, BaseLanguage, BaseGuild } from '../types';
 import { SerializerUpdateContext, Serializer } from '../structures/Serializer';
 import { fromEntries } from '../polyfills';
 
@@ -28,14 +25,6 @@ export class SettingsFolder extends Map<string, unknown> {
 		super();
 		this.base = null;
 		this.schema = schema;
-	}
-
-	/**
-	 * The client that manages this instance.
-	 */
-	public get client(): Client {
-		if (this.base === null) throw new Error('Cannot retrieve gateway from a non-ready settings instance.');
-		return this.base.gateway.client;
 	}
 
 	/**
@@ -77,7 +66,7 @@ export class SettingsFolder extends Map<string, unknown> {
 	public resolve(...paths: readonly string[]): Promise<unknown[]> {
 		if (this.base === null) return Promise.reject(new Error('Cannot retrieve guild from a non-ready settings instance.'));
 
-		const guild = this.client.guilds.resolve(this.base.target as GuildResolvable);
+		const guild = this.client.guilds.resolve(this.base.target);
 		const language = guild === null ? this.base.gateway.client.languages.default : guild.language;
 		return Promise.all(paths.map(path => {
 			const entry = this.schema.get(path);
@@ -87,13 +76,13 @@ export class SettingsFolder extends Map<string, unknown> {
 					folder: entry as SchemaFolder,
 					language,
 					guild,
-					extraContext: null
+					extra: null
 				}) :
 				this._resolveEntry({
 					entry: entry as SchemaEntry,
 					language,
 					guild,
-					extraContext: null
+					extra: null
 				});
 		}));
 	}
@@ -182,7 +171,7 @@ export class SettingsFolder extends Map<string, unknown> {
 
 		const { client, schema } = this;
 		const onlyConfigurable = typeof options.onlyConfigurable === 'undefined' ? false : options.onlyConfigurable;
-		const guild = client.guilds.resolve(typeof options.guild === 'undefined' ? this.base.target as GuildResolvable : options.guild);
+		const guild = client.guilds.resolve(typeof options.guild === 'undefined' ? this.base.target : options.guild);
 		const language = guild === null ? client.languages.default : guild.language;
 		const extra = options.extraContext;
 
@@ -196,7 +185,7 @@ export class SettingsFolder extends Map<string, unknown> {
 			else this._resetSettingsEntry(changes, entry as SchemaEntry, language, onlyConfigurable);
 		}
 
-		if (changes.length !== 0) await this._save({ changes, guild, language, extraContext: extra });
+		if (changes.length !== 0) await this._save({ changes, language, guild, extra });
 		return changes;
 	}
 
@@ -366,14 +355,14 @@ export class SettingsFolder extends Map<string, unknown> {
 					folder: entry as SchemaFolder,
 					language: context.language,
 					guild: context.guild,
-					extraContext: context.extraContext
+					extra: context.extra
 				}).then(value => [entry.key, value]));
 			} else {
 				promises.push(this._resolveEntry({
 					entry: entry as SchemaEntry,
 					language: context.language,
 					guild: context.guild,
-					extraContext: context.extraContext
+					extra: context.extra
 				}).then(value => [entry.key, value]));
 			}
 		}
@@ -398,7 +387,7 @@ export class SettingsFolder extends Map<string, unknown> {
 		return serializer.resolve(values, context);
 	}
 
-	private _resetSettingsFolder(changes: SettingsUpdateResult[], schemaFolder: SchemaFolder, language: Language, onlyConfigurable: boolean): void {
+	private _resetSettingsFolder(changes: SettingsUpdateResult[], schemaFolder: SchemaFolder, language: BaseLanguage, onlyConfigurable: boolean): void {
 		let nonConfigurable = 0;
 		let skipped = 0;
 		let processed = 0;
@@ -413,7 +402,7 @@ export class SettingsFolder extends Map<string, unknown> {
 			const previous = (this.base as Settings).get(entry.path);
 			const next = entry.default;
 			const equals = entry.array ?
-				arraysStrictEquals(previous as unknown as readonly unknown[], next as readonly unknown[]) :
+				arrayStrictEquals(previous as unknown as readonly unknown[], next as readonly unknown[]) :
 				previous === entry.default;
 
 			if (equals) {
@@ -432,7 +421,7 @@ export class SettingsFolder extends Map<string, unknown> {
 		if (processed === 0 && skipped === 0 && nonConfigurable !== 0) throw language.get('SETTING_GATEWAY_UNCONFIGURABLE_FOLDER');
 	}
 
-	private _resetSettingsEntry(changes: SettingsUpdateResult[], schemaEntry: SchemaEntry, language: Language, onlyConfigurable: boolean): void {
+	private _resetSettingsEntry(changes: SettingsUpdateResult[], schemaEntry: SchemaEntry, language: BaseLanguage, onlyConfigurable: boolean): void {
 		if (onlyConfigurable && !schemaEntry.configurable) {
 			throw language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', schemaEntry.key);
 		}
@@ -441,7 +430,7 @@ export class SettingsFolder extends Map<string, unknown> {
 		const next = schemaEntry.default;
 
 		const equals = schemaEntry.array ?
-			arraysStrictEquals(previous as unknown as readonly unknown[], next as readonly unknown[]) :
+			arrayStrictEquals(previous as unknown as readonly unknown[], next as readonly unknown[]) :
 			previous === next;
 
 		if (!equals) {
@@ -458,7 +447,7 @@ export class SettingsFolder extends Map<string, unknown> {
 		const onlyConfigurable = typeof options.onlyConfigurable === 'undefined' ? false : options.onlyConfigurable;
 		const arrayAction = typeof options.arrayAction === 'undefined' ? ArrayActions.Auto : options.arrayAction as ArrayActions;
 		const arrayIndex = typeof options.arrayIndex === 'undefined' ? null : options.arrayIndex;
-		const guild = client.guilds.resolve(typeof options.guild === 'undefined' ? (this.base as Settings).target as GuildResolvable : options.guild);
+		const guild = client.guilds.resolve(typeof options.guild === 'undefined' ? (this.base as Settings).target : options.guild);
 		const language = guild === null ? client.languages.default : guild.language;
 		const extra = options.extraContext;
 		const internalOptions: InternalSettingsFolderUpdateOptions = { arrayAction, arrayIndex, onlyConfigurable };
@@ -480,11 +469,11 @@ export class SettingsFolder extends Map<string, unknown> {
 				throw language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', path);
 			}
 
-			promises.push(this._updateSettingsEntry(path, value, { entry: entry as SchemaEntry, language, guild, extraContext: extra }, internalOptions));
+			promises.push(this._updateSettingsEntry(path, value, { entry: entry as SchemaEntry, language, guild, extra }, internalOptions));
 		}
 
 		const changes = await Promise.all(promises);
-		if (changes.length !== 0) await this._save({ changes, guild, language, extraContext: extra });
+		if (changes.length !== 0) await this._save({ changes, language, guild, extra });
 		return changes;
 	}
 
@@ -532,14 +521,14 @@ export class SettingsFolder extends Map<string, unknown> {
 		} else if (options.arrayAction === ArrayActions.Add) {
 			// Array action add must add values, throw on existent
 			for (const value of values) {
-				if (clone.includes(value)) throw new Error(context.language.get('SETTING_GATEWAY_DUPLICATE_VALUE', context.entry, serializer.stringify(value, context.guild)));
+				if (clone.includes(value)) throw new Error(context.language.get('SETTING_GATEWAY_DUPLICATE_VALUE', context.entry, serializer.stringify(value, context.guild)) as string);
 				clone.push(value);
 			}
 		} else if (options.arrayAction === ArrayActions.Remove) {
 			// Array action remove must add values, throw on non-existent
 			for (const value of values) {
 				const index = clone.indexOf(value);
-				if (index === -1) throw new Error(context.language.get('SETTING_GATEWAY_MISSING_VALUE', context.entry, serializer.stringify(value, context.guild)));
+				if (index === -1) throw new Error(context.language.get('SETTING_GATEWAY_MISSING_VALUE', context.entry, serializer.stringify(value, context.guild)) as string);
 				clone.splice(index, 1);
 			}
 		} else {
@@ -632,7 +621,7 @@ export interface SettingsFolderResetOptions {
 	 * The guild to use as the context. It's not required when the settings' target can be resolved into a Guild, e.g.
 	 * a TextChannel, a Role, a GuildMember, or a Guild instance.
 	 */
-	guild?: GuildResolvable;
+	guild?: BaseGuild;
 	/**
 	 * The extra context to be passed through resolvers and events.
 	 */
