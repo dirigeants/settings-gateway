@@ -2,7 +2,7 @@
   "name": "@klasa/settings-gateway",
   "version": "0.0.10",
   "description": "The centralized settings system designed for the Klasa framework.",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "prepublishOnly": "yarn build",
@@ -10,7 +10,7 @@
     "test": "ava",
     "test:lint": "eslint --ext ts src test",
     "test:coverage": "yarn coverage && nyc check-coverage --lines 90 --functions 90 --branches 90",
-    "coverage": "npx nyc --require ts-node/register --require source-map-support/register npm test",
+    "coverage": "npx nyc --require source-map-support/register npm test",
     "coverage:report": "npx nyc report --reporter=html",
     "lint": "eslint --fix --ext ts src test"
   },
@@ -43,17 +43,18 @@
     "url": "https://github.com/dirigeants/settings-gateway"
   },
   "ava": {
-    "extensions": [
-      "ts"
-    ],
     "files": [
       "test/**/*.ts",
       "!test/lib"
     ],
-    "require": [
-      "ts-node/register",
-      "source-map-support/register"
-    ]
+    "typescript": {
+      "extensions": [
+        "ts"
+      ],
+      "rewritePaths": {
+        "test/": "dist/test/"
+      }
+    }
   },
   "dependencies": {
     "@discordjs/collection": "^0.1.3",
