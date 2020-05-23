@@ -8,3 +8,8 @@ dist/
 docs/
 **/*.xml
 **/*.log
+
+.idea/
+.vscode/
+.vs/
+yarn-error.log
