@@ -101,7 +101,7 @@ class SettingsFolder extends Map {
             const entry = schema.get(path);
             // If the key does not exist, throw
             if (typeof entry === 'undefined')
-                throw new Error(language.get('SETTING_GATEWAY_KEY_NOEXT', { path }));
+                throw new Error(language.get('SETTING_GATEWAY_KEY_NOEXT', { key: path }));
             if (entry.type === 'Folder')
                 this._resetSettingsFolder(changes, entry, language, onlyConfigurable);
             else
@@ -264,7 +264,7 @@ class SettingsFolder extends Map {
     }
     _resetSettingsEntry(changes, schemaEntry, language, onlyConfigurable) {
         if (onlyConfigurable && !schemaEntry.configurable) {
-            throw new Error(language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', { path: schemaEntry.path }));
+            throw new Error(language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', { key: schemaEntry.path }));
         }
         const previous = this.base.get(schemaEntry.path);
         const next = schemaEntry.default;
@@ -293,7 +293,7 @@ class SettingsFolder extends Map {
             const entry = schema.get(path);
             // If the key does not exist, throw
             if (typeof entry === 'undefined')
-                throw new Error(language.get('SETTING_GATEWAY_KEY_NOEXT', { path }));
+                throw new Error(language.get('SETTING_GATEWAY_KEY_NOEXT', { key: path }));
             if (entry.type === 'Folder') {
                 const keys = onlyConfigurable
                     ? [...entry.values()]
@@ -303,7 +303,7 @@ class SettingsFolder extends Map {
                 throw new Error(keys.length > 0 ? language.get('SETTING_GATEWAY_CHOOSE_KEY', { keys }) : language.get('SETTING_GATEWAY_UNCONFIGURABLE_FOLDER'));
             }
             else if (!entry.configurable && onlyConfigurable) {
-                throw new Error(language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', { path }));
+                throw new Error(language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', { key: path }));
             }
             promises.push(this._updateSettingsEntry(path, value, { entry: entry, language, guild, extraContext: extra }, internalOptions));
         }
