@@ -682,7 +682,7 @@
         "affectsGlobalScope": false
       },
       "../src/lib/structures/Serializer.ts": {
-        "version": "86b40ed62e84b3d6479953cc15a587abb3c645c58b20ac9d2a2e3db5c90e9a50",
+        "version": "3e54fb85b2b640bb9363568352b50f3adb1e7b5a812bc7d690fbde0afb481128",
         "signature": "a7147a1a0272289703c24be268e506c16bf45d3d25df1d6d2f06b3f425f0da24",
         "affectsGlobalScope": false
       },
@@ -727,7 +727,7 @@
         "affectsGlobalScope": false
       },
       "../src/lib/settings/SettingsFolder.ts": {
-        "version": "24286e7b4551251e69ed56233dc208e4e28d3994a625a5f8be1d8a3e689f3bf6",
+        "version": "b4d539e84688b5063014d561489167cfa3e4ac9d1512a8cb74a1ec6052e63052",
         "signature": "64ba9b65e268ccfc281501a1dddb4de4fa36956c177019cacc6b8fc9fb7f8cdd",
         "affectsGlobalScope": false
       },
