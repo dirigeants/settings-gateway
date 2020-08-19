@@ -5,7 +5,7 @@
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/skyra-project/settings-gateway.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/skyra-project/settings-gateway/context:javascript)
 [![Coverage Status](https://coveralls.io/repos/github/skyra-project/settings-gateway/badge.svg?branch=main)](https://coveralls.io/github/skyra-project/settings-gateway?branch=main)
 [![npm](https://img.shields.io/npm/v/@skyra/settings-gateway?color=crimson&logo=npm&style=flat-square)](https://www.npmjs.com/package/@skyra/settings-gateway)
-[![Depfu](https://badges.depfu.com/badges/e367f2c68b857253ca23e1e8d73d1e14/count.svg)](https://depfu.com/github/skyra-project/settings-gateway?project_id=14147)
+[![Depfu](https://badges.depfu.com/badges/584fe5fc42eeab0a493643264219cbe2/count.svg)](https://depfu.com/github/skyra-project/settings-gateway?project_id=15054)
 
 SettingsGateway is a tool made to perform high-performance data persistence and cache management tasks while allowing
 untrusted input to be safely parsed and processed before it goes to the database.
