@@ -1,5 +1,5 @@
 {
-	"name": "@skyra/settings-gateway",
+	"name": "@klasa/settings-gateway",
 	"version": "1.0.0",
 	"description": "The centralized settings system designed for the Klasa framework.",
 	"main": "dist/index.js",
