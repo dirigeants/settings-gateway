@@ -57,18 +57,18 @@ class Serializer extends klasa_1.AliasPiece {
             if ((value >= minimum && value <= maximum && inclusive) || (value > minimum && value < maximum && !inclusive))
                 return true;
             if (minimum === maximum)
-                throw new RangeError(language.get('RESOLVER_MINMAX_EXACTLY', { key, minimum, inclusive }));
-            throw new RangeError(language.get('RESOLVER_MINMAX_BOTH', { key, minimum, maximum, inclusive }));
+                throw new RangeError(language.get('RESOLVER_MINMAX_EXACTLY', { name: key, minimum, inclusive }));
+            throw new RangeError(language.get('RESOLVER_MINMAX_BOTH', { name: key, minimum, maximum, inclusive }));
         }
         else if (minimum) {
             if ((value >= minimum && inclusive) || (value > minimum && !inclusive))
                 return true;
-            throw new RangeError(language.get('RESOLVER_MINMAX_MIN', { key, minimum, inclusive }));
+            throw new RangeError(language.get('RESOLVER_MINMAX_MIN', { name: key, minimum, inclusive }));
         }
         else if (maximum) {
             if ((value <= maximum && inclusive) || (value < maximum && !inclusive))
                 return true;
-            throw new RangeError(language.get('RESOLVER_MINMAX_MAX', { key, maximum, inclusive }));
+            throw new RangeError(language.get('RESOLVER_MINMAX_MAX', { name: key, maximum, inclusive }));
         }
         return true;
     }
