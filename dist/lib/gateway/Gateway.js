@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Gateway = void 0;
-const cache_1 = require("@klasa/cache");
+const collection_1 = require("@discordjs/collection");
 const request_handler_1 = require("@klasa/request-handler");
 const Settings_1 = require("../settings/Settings");
 const GatewayStorage_1 = require("./GatewayStorage");
@@ -14,7 +14,7 @@ class Gateway extends GatewayStorage_1.GatewayStorage {
          */
         this.cache = Reflect.has(this.client, this.name) && this.client[this.name] instanceof Map
             ? this.client[this.name]
-            : new cache_1.Cache();
+            : new collection_1.default();
         /**
          * The request handler that manages the synchronization queue.
          */

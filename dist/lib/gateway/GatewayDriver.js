@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GatewayDriver = void 0;
-const cache_1 = require("@klasa/cache");
-class GatewayDriver extends cache_1.Cache {
+const collection_1 = require("@discordjs/collection");
+class GatewayDriver extends collection_1.default {
     /**
      * Constructs a new instance of GatewayDriver.
      * @param client The client that manages this instance

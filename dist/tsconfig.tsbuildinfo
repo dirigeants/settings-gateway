@@ -196,19 +196,9 @@
         "signature": "cd6efb9467a8b6338ece2e2855e37765700f2cd061ca54b01b33878cf5c7677e",
         "affectsGlobalScope": true
       },
-      "../node_modules/@klasa/cache/dist/Cache.d.ts": {
-        "version": "59a112eb5cc0be56f985ed9a70f18f687438ee9e798419c06678c50cda049752",
-        "signature": "59a112eb5cc0be56f985ed9a70f18f687438ee9e798419c06678c50cda049752",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@klasa/cache/dist/ProxyCache.d.ts": {
-        "version": "f0a81e34c7c58052656182f87c2e898ab9d04505c0e0f64c19aba57147e0c6c6",
-        "signature": "f0a81e34c7c58052656182f87c2e898ab9d04505c0e0f64c19aba57147e0c6c6",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@klasa/cache/dist/index.d.ts": {
-        "version": "1a5c0722409e12388ebbc47de80191207af989314a353238a54fd5486a9060c4",
-        "signature": "1a5c0722409e12388ebbc47de80191207af989314a353238a54fd5486a9060c4",
+      "../node_modules/@discordjs/collection/dist/index.d.ts": {
+        "version": "7be7f76b784383fa84812ca7eb8ad10315c9d482c0d25f178645365405509d44",
+        "signature": "7be7f76b784383fa84812ca7eb8ad10315c9d482c0d25f178645365405509d44",
         "affectsGlobalScope": false
       },
       "../node_modules/@klasa/request-handler/dist/index.d.ts": {
@@ -581,11 +571,6 @@
         "signature": "0c575e81da5fc2790111d5c110c008a3b0296e3e1e91b79bebe1add4a89fe670",
         "affectsGlobalScope": false
       },
-      "../node_modules/@discordjs/collection/dist/index.d.ts": {
-        "version": "7be7f76b784383fa84812ca7eb8ad10315c9d482c0d25f178645365405509d44",
-        "signature": "7be7f76b784383fa84812ca7eb8ad10315c9d482c0d25f178645365405509d44",
-        "affectsGlobalScope": false
-      },
       "../node_modules/@types/ws/index.d.ts": {
         "version": "81361d2b8ba5b6bae26d65a42c01cb163e49dc626fd5c151b8b337f5d44d3bf8",
         "signature": "81361d2b8ba5b6bae26d65a42c01cb163e49dc626fd5c151b8b337f5d44d3bf8",
@@ -712,8 +697,8 @@
         "affectsGlobalScope": false
       },
       "../src/lib/gateway/GatewayDriver.ts": {
-        "version": "01ebb8fe47e2712e7590549c7b1b4a657e94631e7cc8e5f764a85edb2b0a78e7",
-        "signature": "946f3552ee3a3d8b5c5cc93b2e2963923a41903356f6b4ff98e40fa6fce72c94",
+        "version": "bd8f992fe04f0888b9da892350ce1ca7e3e0b40266360cd1c7c06fe90f9531c4",
+        "signature": "0f491d6c34549a47df66a029b05f8edce487502aa9f63a13ee44a0976ee3afa6",
         "affectsGlobalScope": false
       },
       "../src/lib/structures/ProviderStore.ts": {
@@ -752,7 +737,7 @@
         "affectsGlobalScope": false
       },
       "../src/lib/gateway/Gateway.ts": {
-        "version": "f0ce32e91db3bcdc07122b2621bddd258622138537c3babea093be68600ae644",
+        "version": "1e8215f6b6c1097328968131fbe715deb02c9be64c9e7e519774e3b4e31e77d1",
         "signature": "84270fc728b733c379c1c3ecc568ee174497358a1cfa642912ab30524c9529ba",
         "affectsGlobalScope": false
       },
@@ -960,36 +945,6 @@
         "../node_modules/@types/node/util.d.ts"
       ],
       "../node_modules/@discordjs/collection/dist/index.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@klasa/cache/dist/Cache.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@klasa/cache/dist/ProxyCache.d.ts": [
-        "../node_modules/@klasa/cache/dist/Cache.d.ts",
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@klasa/cache/dist/index.d.ts": [
-        "../node_modules/@klasa/cache/dist/Cache.d.ts",
-        "../node_modules/@klasa/cache/dist/ProxyCache.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -2699,7 +2654,7 @@
         "../src/lib/types.ts"
       ],
       "../src/lib/gateway/Gateway.ts": [
-        "../node_modules/@klasa/cache/dist/index.d.ts",
+        "../node_modules/@discordjs/collection/dist/index.d.ts",
         "../node_modules/@klasa/request-handler/dist/index.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
@@ -2713,7 +2668,7 @@
         "../src/lib/types.ts"
       ],
       "../src/lib/gateway/GatewayDriver.ts": [
-        "../node_modules/@klasa/cache/dist/index.d.ts",
+        "../node_modules/@discordjs/collection/dist/index.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -2903,36 +2858,6 @@
         "../node_modules/@types/node/util.d.ts"
       ],
       "../node_modules/@discordjs/collection/dist/index.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@klasa/cache/dist/Cache.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@klasa/cache/dist/ProxyCache.d.ts": [
-        "../node_modules/@klasa/cache/dist/Cache.d.ts",
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@klasa/cache/dist/index.d.ts": [
-        "../node_modules/@klasa/cache/dist/Cache.d.ts",
-        "../node_modules/@klasa/cache/dist/ProxyCache.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -4640,7 +4565,7 @@
         "../src/lib/settings/Settings.ts"
       ],
       "../src/lib/gateway/GatewayDriver.ts": [
-        "../node_modules/@klasa/cache/dist/index.d.ts",
+        "../node_modules/@discordjs/collection/dist/index.d.ts",
         "../src/lib/gateway/GatewayStorage.ts",
         "../src/lib/types.ts"
       ],
@@ -4716,9 +4641,6 @@
       "../node_modules/@babel/parser/typings/babel-parser.d.ts",
       "../node_modules/@babel/types/lib/index.d.ts",
       "../node_modules/@discordjs/collection/dist/index.d.ts",
-      "../node_modules/@klasa/cache/dist/Cache.d.ts",
-      "../node_modules/@klasa/cache/dist/ProxyCache.d.ts",
-      "../node_modules/@klasa/cache/dist/index.d.ts",
       "../node_modules/@klasa/querybuilder/dist/QueryBuilder.d.ts",
       "../node_modules/@klasa/querybuilder/dist/index.d.ts",
       "../node_modules/@klasa/querybuilder/dist/lib/constants.d.ts",

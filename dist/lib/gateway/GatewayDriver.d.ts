@@ -1,7 +1,7 @@
-import { Cache } from '@klasa/cache';
+import Collection from '@discordjs/collection';
 import type { Client } from '../types';
 import type { GatewayStorage, GatewayStorageJson } from './GatewayStorage';
-export declare class GatewayDriver extends Cache<string, GatewayStorage> {
+export declare class GatewayDriver extends Collection<string, GatewayStorage> {
     /**
      * The client this GatewayDriver was created with.
      */
