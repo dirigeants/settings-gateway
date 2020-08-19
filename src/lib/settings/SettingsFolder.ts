@@ -194,7 +194,7 @@ export class SettingsFolder extends Map<string, unknown> {
 			const entry = schema.get(path);
 
 			// If the key does not exist, throw
-			if (typeof entry === 'undefined') throw new Error(language.get('SETTING_GATEWAY_KEY_NOEXT', { path }));
+			if (typeof entry === 'undefined') throw new Error(language.get('SETTING_GATEWAY_KEY_NOEXT', { key: path }));
 			if (entry.type === 'Folder') this._resetSettingsFolder(changes, entry as SchemaFolder, language, onlyConfigurable);
 			else this._resetSettingsEntry(changes, entry as SchemaEntry, language, onlyConfigurable);
 		}
@@ -445,7 +445,7 @@ export class SettingsFolder extends Map<string, unknown> {
 
 	private _resetSettingsEntry(changes: SettingsUpdateResult[], schemaEntry: SchemaEntry, language: Language, onlyConfigurable: boolean): void {
 		if (onlyConfigurable && !schemaEntry.configurable) {
-			throw new Error(language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', { path: schemaEntry.path }));
+			throw new Error(language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', { key: schemaEntry.path }));
 		}
 
 		const previous = (this.base as Settings).get(schemaEntry.path);
@@ -481,7 +481,7 @@ export class SettingsFolder extends Map<string, unknown> {
 			const entry = schema.get(path);
 
 			// If the key does not exist, throw
-			if (typeof entry === 'undefined') throw new Error(language.get('SETTING_GATEWAY_KEY_NOEXT', { path }));
+			if (typeof entry === 'undefined') throw new Error(language.get('SETTING_GATEWAY_KEY_NOEXT', { key: path }));
 			if (entry.type === 'Folder') {
 				const keys = onlyConfigurable
 					? [...(entry as SchemaFolder).values()]
@@ -492,7 +492,7 @@ export class SettingsFolder extends Map<string, unknown> {
 					keys.length > 0 ? language.get('SETTING_GATEWAY_CHOOSE_KEY', { keys }) : language.get('SETTING_GATEWAY_UNCONFIGURABLE_FOLDER')
 				);
 			} else if (!(entry as SchemaEntry).configurable && onlyConfigurable) {
-				throw new Error(language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', { path }));
+				throw new Error(language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', { key: path }));
 			}
 
 			promises.push(

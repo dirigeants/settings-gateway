@@ -65,14 +65,14 @@ export abstract class Serializer extends AliasPiece {
 	protected static minOrMax(value: number, { minimum, maximum, inclusive, key }: SchemaEntry, language: Language): boolean {
 		if (minimum && maximum) {
 			if ((value >= minimum && value <= maximum && inclusive) || (value > minimum && value < maximum && !inclusive)) return true;
-			if (minimum === maximum) throw new RangeError(language.get('RESOLVER_MINMAX_EXACTLY', { name: key, minimum, inclusive }));
-			throw new RangeError(language.get('RESOLVER_MINMAX_BOTH', { name: key, minimum, maximum, inclusive }));
+			if (minimum === maximum) throw new RangeError(language.get('RESOLVER_MINMAX_EXACTLY', { key, min: minimum, inclusive }));
+			throw new RangeError(language.get('RESOLVER_MINMAX_BOTH', { key, min: minimum, max: maximum, inclusive }));
 		} else if (minimum) {
 			if ((value >= minimum && inclusive) || (value > minimum && !inclusive)) return true;
-			throw new RangeError(language.get('RESOLVER_MINMAX_MIN', { name: key, minimum, inclusive }));
+			throw new RangeError(language.get('RESOLVER_MINMAX_MIN', { key, min: minimum, inclusive }));
 		} else if (maximum) {
 			if ((value <= maximum && inclusive) || (value < maximum && !inclusive)) return true;
-			throw new RangeError(language.get('RESOLVER_MINMAX_MAX', { name: key, maximum, inclusive }));
+			throw new RangeError(language.get('RESOLVER_MINMAX_MAX', { key, max: maximum, inclusive }));
 		}
 		return true;
 	}
