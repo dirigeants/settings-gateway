@@ -1,0 +1,1 @@
+{"version":3,"file":"SchemaFolder.d.ts","sourceRoot":"","sources":["../../../src/lib/schema/SchemaFolder.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,MAAM,UAAU,CAAC;AAElC,qBAAa,YAAa,SAAQ,MAAM;IACvC;;OAEG;IACH,SAAgB,MAAM,EAAE,MAAM,GAAG,YAAY,CAAC;IAE9C;;OAEG;IACH,SAAgB,GAAG,EAAE,MAAM,CAAC;IAE5B;;;;OAIG;gBACgB,MAAM,EAAE,MAAM,EAAE,GAAG,EAAE,MAAM;CAK9C"}
