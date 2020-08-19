@@ -194,7 +194,7 @@ export class SettingsFolder extends Map<string, unknown> {
 			const entry = schema.get(path);
 
 			// If the key does not exist, throw
-			if (typeof entry === 'undefined') throw new Error(language.get('SETTING_GATEWAY_KEY_NOEXT', path));
+			if (typeof entry === 'undefined') throw new Error(language.get('SETTING_GATEWAY_KEY_NOEXT', { path }));
 			if (entry.type === 'Folder') this._resetSettingsFolder(changes, entry as SchemaFolder, language, onlyConfigurable);
 			else this._resetSettingsEntry(changes, entry as SchemaEntry, language, onlyConfigurable);
 		}
@@ -440,12 +440,12 @@ export class SettingsFolder extends Map<string, unknown> {
 		}
 
 		// If there are no changes, no skipped entries, and it only triggered non-configurable entries, throw.
-		if (processed === 0 && skipped === 0 && nonConfigurable !== 0) throw language.get('SETTING_GATEWAY_UNCONFIGURABLE_FOLDER');
+		if (processed === 0 && skipped === 0 && nonConfigurable !== 0) throw new Error(language.get('SETTING_GATEWAY_UNCONFIGURABLE_FOLDER'));
 	}
 
 	private _resetSettingsEntry(changes: SettingsUpdateResult[], schemaEntry: SchemaEntry, language: Language, onlyConfigurable: boolean): void {
 		if (onlyConfigurable && !schemaEntry.configurable) {
-			throw new Error(language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', schemaEntry.key));
+			throw new Error(language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', { path: schemaEntry.path }));
 		}
 
 		const previous = (this.base as Settings).get(schemaEntry.path);
@@ -481,7 +481,7 @@ export class SettingsFolder extends Map<string, unknown> {
 			const entry = schema.get(path);
 
 			// If the key does not exist, throw
-			if (typeof entry === 'undefined') throw new Error(language.get('SETTING_GATEWAY_KEY_NOEXT', path));
+			if (typeof entry === 'undefined') throw new Error(language.get('SETTING_GATEWAY_KEY_NOEXT', { path }));
 			if (entry.type === 'Folder') {
 				const keys = onlyConfigurable
 					? [...(entry as SchemaFolder).values()]
@@ -489,10 +489,10 @@ export class SettingsFolder extends Map<string, unknown> {
 							.map((val) => val.key)
 					: [...(entry as SchemaFolder).keys()];
 				throw new Error(
-					keys.length > 0 ? language.get('SETTING_GATEWAY_CHOOSE_KEY', keys) : language.get('SETTING_GATEWAY_UNCONFIGURABLE_FOLDER')
+					keys.length > 0 ? language.get('SETTING_GATEWAY_CHOOSE_KEY', { keys }) : language.get('SETTING_GATEWAY_UNCONFIGURABLE_FOLDER')
 				);
 			} else if (!(entry as SchemaEntry).configurable && onlyConfigurable) {
-				throw new Error(language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', path));
+				throw new Error(language.get('SETTING_GATEWAY_UNCONFIGURABLE_KEY', { path }));
 			}
 
 			promises.push(
@@ -567,7 +567,10 @@ export class SettingsFolder extends Map<string, unknown> {
 			for (const value of values) {
 				if (clone.includes(value))
 					throw new Error(
-						context.language.get('SETTING_GATEWAY_DUPLICATE_VALUE', context.entry, serializer.stringify(value, context.guild))
+						context.language.get('SETTING_GATEWAY_DUPLICATE_VALUE', {
+							entry: context.entry,
+							value: serializer.stringify(value, context.guild)
+						})
 					);
 				clone.push(value);
 			}
@@ -576,7 +579,12 @@ export class SettingsFolder extends Map<string, unknown> {
 			for (const value of values) {
 				const index = clone.indexOf(value);
 				if (index === -1)
-					throw new Error(context.language.get('SETTING_GATEWAY_MISSING_VALUE', context.entry, serializer.stringify(value, context.guild)));
+					throw new Error(
+						context.language.get('SETTING_GATEWAY_MISSING_VALUE', {
+							entry: context.entry,
+							value: serializer.stringify(value, context.guild)
+						})
+					);
 				clone.splice(index, 1);
 			}
 		} else {
@@ -637,7 +645,7 @@ export class SettingsFolder extends Map<string, unknown> {
 		const parsed = await serializer.validate(value, context);
 
 		if (context.entry.filter !== null && context.entry.filter(this.client, parsed, context))
-			throw new Error(context.language.get('SETTING_GATEWAY_INVALID_FILTERED_VALUE', context.entry, value));
+			throw new Error(context.language.get('SETTING_GATEWAY_INVALID_FILTERED_VALUE', { entry: context.entry, value }));
 		return serializer.serialize(parsed);
 	}
 }
