@@ -15,12 +15,12 @@ export class MockNumberSerializer extends Serializer {
 			case 'integer':
 				parsed = parseInt(data as string, 10);
 				if (Number.isInteger(parsed) && Serializer.minOrMax(parsed, entry, language)) return parsed;
-				throw new RangeError(language.get('RESOLVER_INVALID_INT', { key: entry.key }));
+				throw new RangeError(language.get('resolverInvalidInt', { key: entry.key }));
 			case 'number':
 			case 'float':
 				parsed = parseFloat(data as string);
 				if (!isNaN(parsed) && Serializer.minOrMax(parsed, entry, language)) return parsed;
-				throw new RangeError(language.get('RESOLVER_INVALID_FLOAT', { key: entry.key }));
+				throw new RangeError(language.get('resolverInvalidFloat', { key: entry.key }));
 		}
 		// noop
 		return null;

@@ -364,7 +364,7 @@ describe('SettingsFolder', () => {
 		await settings.sync();
 
 		const resetResult = settings.reset('invalid.path');
-		await expect(resetResult).rejects.toThrowError('[SETTING_GATEWAY_KEY_NOEXT]: invalid.path');
+		await expect(resetResult).rejects.toThrowError('[settingGatewayKeyNoext]: invalid.path');
 	});
 
 	test('SettingsFolder#reset (Unconfigurable)', async () => {
@@ -372,7 +372,7 @@ describe('SettingsFolder', () => {
 		await settings.sync();
 
 		const resetResult = settings.reset('count', { onlyConfigurable: true });
-		await expect(resetResult).rejects.toThrowError('[SETTING_GATEWAY_UNCONFIGURABLE_KEY]: count');
+		await expect(resetResult).rejects.toThrowError('[settingGatewayUnconfigurableKey]: count');
 	});
 
 	test('SettingsFolder#update (Single)', async () => {
@@ -436,7 +436,7 @@ describe('SettingsFolder', () => {
 		await settings.sync();
 
 		const updateResult = settings.update('messages', 420);
-		await expect(updateResult).rejects.toThrowError('[SETTING_GATEWAY_CHOOSE_KEY]: ignoring hello');
+		await expect(updateResult).rejects.toThrowError('[settingGatewayChooseKey]: ignoring hello');
 	});
 
 	test('SettingsFolder#update (Not Exists | Default Value)', async () => {
@@ -546,7 +546,7 @@ describe('SettingsFolder', () => {
 	test('SettingsFolder#update (ArrayAction | Empty | Remove)', async () => {
 		await settings.sync();
 		const updateResult = settings.update('uses', [1, 2], { arrayAction: 'remove' });
-		await expect(updateResult).rejects.toThrowError('[SETTING_GATEWAY_MISSING_VALUE]: uses 1');
+		await expect(updateResult).rejects.toThrowError('[settingGatewayMissingValue]: uses 1');
 		expect(await provider.get(gateway.name, settings.id)).toBe(null);
 	});
 
@@ -656,7 +656,7 @@ describe('SettingsFolder', () => {
 		await settings.sync();
 
 		const updateResult = settings.update('uses', 4, { arrayAction: 'add' });
-		await expect(updateResult).rejects.toThrowError('[SETTING_GATEWAY_DUPLICATE_VALUE]: uses 4');
+		await expect(updateResult).rejects.toThrowError('[settingGatewayDuplicateValue]: uses 4');
 		expect(await provider.get(gateway.name, settings.id)).toEqual({ id: settings.id, uses: [1, 2, 4] });
 	});
 
@@ -690,7 +690,7 @@ describe('SettingsFolder', () => {
 		await settings.sync();
 
 		const updateResult = settings.update('uses', 3, { arrayAction: 'remove' });
-		await expect(updateResult).rejects.toThrowError('[SETTING_GATEWAY_MISSING_VALUE]: uses 3');
+		await expect(updateResult).rejects.toThrowError('[settingGatewayMissingValue]: uses 3');
 		expect(await provider.get(gateway.name, settings.id)).toEqual({ id: settings.id, uses: [1, 2, 4] });
 	});
 
@@ -832,7 +832,7 @@ describe('SettingsFolder', () => {
 		await settings.sync();
 
 		const updateResult = settings.update('invalid.path', 420);
-		await expect(updateResult).rejects.toThrowError('[SETTING_GATEWAY_KEY_NOEXT]: invalid.path');
+		await expect(updateResult).rejects.toThrowError('[settingGatewayKeyNoext]: invalid.path');
 	});
 
 	test('SettingsFolder#update (Unconfigurable)', async () => {
@@ -840,7 +840,7 @@ describe('SettingsFolder', () => {
 		await settings.sync();
 
 		const updateResult = settings.update('count', 4, { onlyConfigurable: true });
-		await expect(updateResult).rejects.toThrowError('[SETTING_GATEWAY_UNCONFIGURABLE_KEY]: count');
+		await expect(updateResult).rejects.toThrowError('[settingGatewayUnconfigurableKey]: count');
 	});
 
 	test('SettingsFolder#toJSON', async () => {

@@ -5,25 +5,25 @@ export class MockLanguage extends Language {
 	public constructor(store: LanguageStore, file: string[], directory: string) {
 		super(store, file, directory, { name: 'en-US' });
 		this.language = {
-			DEFAULT: (key: string, ...args: unknown[]): string => `[DEFAULT]: ${key} ${args.join(' ')}`,
-			SETTING_GATEWAY_KEY_NOEXT: ({ key: path }: { key: string }): string => `[SETTING_GATEWAY_KEY_NOEXT]: ${path}`,
-			SETTING_GATEWAY_CHOOSE_KEY: ({ keys }: { keys: string[] }): string => `[SETTING_GATEWAY_CHOOSE_KEY]: ${keys.join(' ')}`,
-			SETTING_GATEWAY_UNCONFIGURABLE_FOLDER: '[SETTING_GATEWAY_UNCONFIGURABLE_FOLDER]',
-			SETTING_GATEWAY_UNCONFIGURABLE_KEY: ({ key: path }: { key: string }): string => `[SETTING_GATEWAY_UNCONFIGURABLE_KEY]: ${path}`,
-			SETTING_GATEWAY_MISSING_VALUE: ({ entry, value }: { entry: SchemaEntry; value: string }): string =>
-				`[SETTING_GATEWAY_MISSING_VALUE]: ${entry.path} ${value}`,
-			SETTING_GATEWAY_DUPLICATE_VALUE: ({ entry, value }: { entry: SchemaEntry; value: string }): string =>
-				`[SETTING_GATEWAY_DUPLICATE_VALUE]: ${entry.path} ${value}`,
-			SETTING_GATEWAY_INVALID_FILTERED_VALUE: ({ entry, value }: { entry: SchemaEntry; value: string }): string =>
-				`[SETTING_GATEWAY_INVALID_FILTERED_VALUE]: ${entry.path} ${value}`,
-			RESOLVER_MINMAX_EXACTLY: ({ key, min, inclusive }: { key: string; min: number; inclusive: boolean }): string =>
-				`[RESOLVER_MINMAX_EXACTLY]: ${key} ${min} ${inclusive}`,
-			RESOLVER_MINMAX_BOTH: ({ key, min, max, inclusive }: { key: string; min: number; max: number; inclusive: boolean }): string =>
-				`[RESOLVER_MINMAX_BOTH]: ${key} ${min} ${max} ${inclusive}`,
-			RESOLVER_MINMAX_MIN: ({ key, min, inclusive }: { key: string; min: number; inclusive: number }): string =>
-				`[RESOLVER_MINMAX_MIN]: ${key} ${min} ${inclusive}`,
-			RESOLVER_MINMAX_MAX: ({ key, max, inclusive }: { key: string; max: number; inclusive: number }): string =>
-				`[RESOLVER_MINMAX_MAX]: ${key} ${max} ${inclusive}`
+			default: (key: string, ...args: unknown[]): string => `[DEFAULT]: ${key} ${args.join(' ')}`,
+			settingGatewayKeyNoext: ({ key: path }: { key: string }): string => `[settingGatewayKeyNoext]: ${path}`,
+			settingGatewayChooseKey: ({ keys }: { keys: string[] }): string => `[settingGatewayChooseKey]: ${keys.join(' ')}`,
+			settingGatewayUnconfigurableFolder: '[settingGatewayUnconfigurableFolder]',
+			settingGatewayUnconfigurableKey: ({ key: path }: { key: string }): string => `[settingGatewayUnconfigurableKey]: ${path}`,
+			settingGatewayMissingValue: ({ entry, value }: { entry: SchemaEntry; value: string }): string =>
+				`[settingGatewayMissingValue]: ${entry.path} ${value}`,
+			settingGatewayDuplicateValue: ({ entry, value }: { entry: SchemaEntry; value: string }): string =>
+				`[settingGatewayDuplicateValue]: ${entry.path} ${value}`,
+			settingGatewayInvalidFilteredValue: ({ entry, value }: { entry: SchemaEntry; value: string }): string =>
+				`[settingGatewayInvalidFilteredValue]: ${entry.path} ${value}`,
+			resolverMinmaxExactly: ({ key, min, inclusive }: { key: string; min: number; inclusive: boolean }): string =>
+				`[resolverMinmaxExactly]: ${key} ${min} ${inclusive}`,
+			resolverMinmaxBoth: ({ key, min, max, inclusive }: { key: string; min: number; max: number; inclusive: boolean }): string =>
+				`[resolverMinmaxBoth]: ${key} ${min} ${max} ${inclusive}`,
+			resolverMinmaxMin: ({ key, min, inclusive }: { key: string; min: number; inclusive: number }): string =>
+				`[resolverMinmaxMin]: ${key} ${min} ${inclusive}`,
+			resolverMinmaxMax: ({ key, max, inclusive }: { key: string; max: number; inclusive: number }): string =>
+				`[resolverMinmaxMax]: ${key} ${max} ${inclusive}`
 		};
 	}
 }
