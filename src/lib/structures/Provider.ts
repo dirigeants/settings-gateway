@@ -1,4 +1,4 @@
-import { makeObject, mergeObjects } from '@klasa/utils';
+import { makeObject, mergeObjects } from '@sapphire/utilities';
 import { Piece } from 'klasa';
 import type { SchemaEntry } from '../schema/SchemaEntry';
 import type { SchemaFolder } from '../schema/SchemaFolder';

@@ -1,4 +1,4 @@
-import { isFunction } from '@klasa/utils';
+import { isFunction } from '@sapphire/utilities';
 import { SettingsFolder } from '../settings/SettingsFolder';
 
 /* eslint-disable no-dupe-class-members */
