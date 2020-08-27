@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SQLProvider = void 0;
-const utils_1 = require("@klasa/utils");
+const utilities_1 = require("@sapphire/utilities");
 const Provider_1 = require("./Provider");
 class SQLProvider extends Provider_1.Provider {
     /**
@@ -30,7 +30,7 @@ class SQLProvider extends Provider_1.Provider {
             }
         }
         else {
-            for (const [key, value] of utils_1.objectToTuples(changes)) {
+            for (const [key, value] of utilities_1.objectToTuples(changes)) {
                 keys.push(key);
                 values.push(value);
             }

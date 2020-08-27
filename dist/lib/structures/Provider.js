@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Provider = void 0;
-const utils_1 = require("@klasa/utils");
+const utilities_1 = require("@sapphire/utilities");
 const klasa_1 = require("klasa");
 class Provider extends klasa_1.Piece {
     /**
@@ -64,7 +64,7 @@ class Provider extends klasa_1.Piece {
             return changes;
         const updated = {};
         for (const change of changes)
-            utils_1.mergeObjects(updated, utils_1.makeObject(change.entry.path, change.next));
+            utilities_1.mergeObjects(updated, utilities_1.makeObject(change.entry.path, change.next));
         return updated;
     }
 }
