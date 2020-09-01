@@ -1,5 +1,5 @@
 import type { QueryBuilder } from '@klasa/querybuilder';
-import { objectToTuples } from '@sapphire/utilities';
+import { objectToTuples } from '@klasa/utils';
 import type { SchemaEntry } from '../schema/SchemaEntry';
 import type { SchemaFolder } from '../schema/SchemaFolder';
 import type { SettingsUpdateResults } from '../settings/SettingsFolder';

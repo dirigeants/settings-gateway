@@ -1,4 +1,4 @@
-import { mergeObjects } from '@sapphire/utilities';
+import { mergeObjects } from '@klasa/utils';
 import { Provider, SettingsUpdateResults } from '../../src';
 
 export class MockProvider extends Provider {

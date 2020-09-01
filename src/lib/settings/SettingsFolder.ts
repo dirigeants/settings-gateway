@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/unified-signatures */
-import { arrayStrictEquals, isObject, makeObject, mergeObjects, objectToTuples } from '@sapphire/utilities';
+import { arrayStrictEquals, isObject, makeObject, mergeObjects, objectToTuples } from '@klasa/utils';
 import type { GuildResolvable } from 'discord.js';
 import type { Language } from 'klasa';
 import type { Schema } from '../schema/Schema';

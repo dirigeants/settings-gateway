@@ -26,6 +26,7 @@
 		"@discordjs/collection": "^0.1.6",
 		"@klasa/querybuilder": "^0.0.1",
 		"@klasa/request-handler": "^0.0.3",
+		"@klasa/utils": "^0.1.0",
 		"@sapphire/utilities": "github:sapphire-project/utilities#build-utilities"
 	},
 	"devDependencies": {

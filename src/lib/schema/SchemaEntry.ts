@@ -1,4 +1,4 @@
-import { isFunction, isNumber } from '@sapphire/utilities';
+import { isFunction, isNumber } from '@klasa/utils';
 import type { Serializer, SerializerUpdateContext } from '../structures/Serializer';
 import type { Client } from '../types';
 import type { Schema } from './Schema';
