@@ -1,9 +1,5 @@
 import { isFunction } from '@klasa/utils';
 import { SettingsFolder } from '../settings/SettingsFolder';
-import { SchemaEntry, SchemaEntryJson, SchemaEntryOptions } from './SchemaEntry';
-import { SchemaFolder } from './SchemaFolder';
-
-/* eslint-disable no-dupe-class-members */
 
 export class Schema extends Map<string, SchemaFolder | SchemaEntry> {
 	/**
@@ -242,3 +238,6 @@ export interface SchemaAddCallback {
 export interface SchemaFolderJson extends Record<string, SchemaFolderJson | SchemaEntryJson> {}
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SchemaJson extends Record<string, SchemaFolderJson | SchemaEntryJson> {}
+
+import { SchemaEntry, SchemaEntryJson, SchemaEntryOptions } from './SchemaEntry';
+import { SchemaFolder } from './SchemaFolder';
