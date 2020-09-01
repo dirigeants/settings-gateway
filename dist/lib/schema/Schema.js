@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Schema = void 0;
-const utilities_1 = require("@sapphire/utilities");
+const utils_1 = require("@klasa/utils");
 const SettingsFolder_1 = require("../settings/SettingsFolder");
+const SchemaEntry_1 = require("./SchemaEntry");
+const SchemaFolder_1 = require("./SchemaFolder");
 /* eslint-disable no-dupe-class-members */
 class Schema extends Map {
     /**
@@ -40,7 +42,7 @@ class Schema extends Map {
         let SchemaCtor;
         let type;
         let callback = null;
-        if (utilities_1.isFunction(typeOrCallback)) {
+        if (utils_1.isFunction(typeOrCallback)) {
             type = 'Folder';
             SchemaCtor = SchemaFolder_1.SchemaFolder;
             callback = typeOrCallback;
@@ -156,6 +158,4 @@ class Schema extends Map {
     }
 }
 exports.Schema = Schema;
-const SchemaFolder_1 = require("./SchemaFolder");
-const SchemaEntry_1 = require("./SchemaEntry");
 //# sourceMappingURL=Schema.js.map

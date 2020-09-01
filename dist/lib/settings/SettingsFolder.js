@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArrayActions = exports.SettingsExistenceStatus = exports.SettingsFolder = void 0;
 /* eslint-disable @typescript-eslint/unified-signatures */
-const utilities_1 = require("@sapphire/utilities");
+const utils_1 = require("@klasa/utils");
 /* eslint-disable no-dupe-class-members */
 class SettingsFolder extends Map {
     constructor(schema) {
@@ -89,8 +89,8 @@ class SettingsFolder extends Map {
         }
         if (typeof paths === 'string')
             paths = [paths];
-        else if (utilities_1.isObject(paths))
-            paths = utilities_1.objectToTuples(paths).map((entries) => entries[0]);
+        else if (utils_1.isObject(paths))
+            paths = utils_1.objectToTuples(paths).map((entries) => entries[0]);
         const { client, schema } = this;
         const onlyConfigurable = typeof options.onlyConfigurable === 'undefined' ? false : options.onlyConfigurable;
         const guild = client.guilds.resolve(typeof options.guild === 'undefined' ? this.base.target : options.guild);
@@ -123,8 +123,8 @@ class SettingsFolder extends Map {
             entries = [[pathOrEntries, valueOrOptions]];
             options = typeof options === 'undefined' ? {} : options;
         }
-        else if (utilities_1.isObject(pathOrEntries)) {
-            entries = utilities_1.objectToTuples(pathOrEntries);
+        else if (utils_1.isObject(pathOrEntries)) {
+            entries = utils_1.objectToTuples(pathOrEntries);
             options = typeof valueOrOptions === 'undefined' ? {} : valueOrOptions;
         }
         else {
@@ -176,7 +176,7 @@ class SettingsFolder extends Map {
     async _save(context) {
         const updateObject = {};
         for (const change of context.changes) {
-            utilities_1.mergeObjects(updateObject, utilities_1.makeObject(change.entry.path, change.next));
+            utils_1.mergeObjects(updateObject, utils_1.makeObject(change.entry.path, change.next));
         }
         const base = this.base;
         const { gateway, id } = base;
@@ -244,7 +244,7 @@ class SettingsFolder extends Map {
             const previous = this.base.get(entry.path);
             const next = entry.default;
             const equals = entry.array
-                ? utilities_1.arrayStrictEquals(previous, next)
+                ? utils_1.arrayStrictEquals(previous, next)
                 : previous === entry.default;
             if (equals) {
                 ++skipped;
@@ -269,7 +269,7 @@ class SettingsFolder extends Map {
         const previous = this.base.get(schemaEntry.path);
         const next = schemaEntry.default;
         const equals = schemaEntry.array
-            ? utilities_1.arrayStrictEquals(previous, next)
+            ? utils_1.arrayStrictEquals(previous, next)
             : previous === next;
         if (!equals) {
             changes.push({

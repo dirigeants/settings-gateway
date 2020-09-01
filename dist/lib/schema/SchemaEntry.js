@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SchemaEntry = void 0;
-const utilities_1 = require("@sapphire/utilities");
+const utils_1 = require("@klasa/utils");
 class SchemaEntry {
     constructor(parent, key, type, options = {}) {
         /**
@@ -91,15 +91,15 @@ class SchemaEntry {
         if (typeof this.configurable !== 'boolean')
             throw new TypeError(`[KEY] ${this.path} - Parameter 'configurable' must be a boolean.`);
         // Check limits
-        if (this.minimum !== null && !utilities_1.isNumber(this.minimum))
+        if (this.minimum !== null && !utils_1.isNumber(this.minimum))
             throw new TypeError(`[KEY] ${this.path} - Parameter 'minimum' must be a number or null.`);
-        if (this.maximum !== null && !utilities_1.isNumber(this.maximum))
+        if (this.maximum !== null && !utils_1.isNumber(this.maximum))
             throw new TypeError(`[KEY] ${this.path} - Parameter 'maximum' must be a number or null.`);
         if (this.minimum !== null && this.maximum !== null && this.minimum > this.maximum) {
             throw new TypeError(`[KEY] ${this.path} - Parameter 'minimum' must contain a value lower than the parameter 'maximum'.`);
         }
         // Check filter
-        if (this.filter !== null && !utilities_1.isFunction(this.filter))
+        if (this.filter !== null && !utils_1.isFunction(this.filter))
             throw new TypeError(`[KEY] ${this.path} - Parameter 'filter' must be a function`);
         // Check default
         if (this.array) {

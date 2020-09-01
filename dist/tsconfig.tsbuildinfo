@@ -211,139 +211,24 @@
         "signature": "99c128ee48e7c7d77424e26f501a59aa88ceccaee4d815b21fb6641657273a92",
         "affectsGlobalScope": false
       },
-      "../node_modules/@sapphire/utilities/dist/lib/arrayStrictEquals.d.ts": {
-        "version": "e97508dee939ae29977082f5bb1b8cf9c1cf45d3fdeb337039562182c51533f2",
-        "signature": "e97508dee939ae29977082f5bb1b8cf9c1cf45d3fdeb337039562182c51533f2",
+      "../node_modules/@klasa/utils/dist/src/lib/arrayStrictEquals.d.ts": {
+        "version": "ab318edaac6f7ddbe7063a95acfd75d756c9f7769451883e97e0b74efc9b4039",
+        "signature": "ab318edaac6f7ddbe7063a95acfd75d756c9f7769451883e97e0b74efc9b4039",
         "affectsGlobalScope": false
       },
-      "../node_modules/@sapphire/utilities/dist/lib/chunk.d.ts": {
-        "version": "d29b5fb22613d6b42b190b2768f3ff238236978791ad05ba36b28623444fd309",
-        "signature": "d29b5fb22613d6b42b190b2768f3ff238236978791ad05ba36b28623444fd309",
+      "../node_modules/@klasa/utils/dist/src/lib/chunk.d.ts": {
+        "version": "fc7f9ae37a2249ae9c3552fbfcc0c9eb3f543786566b2dc0ac2c64e38dd8c06c",
+        "signature": "fc7f9ae37a2249ae9c3552fbfcc0c9eb3f543786566b2dc0ac2c64e38dd8c06c",
         "affectsGlobalScope": false
       },
-      "../node_modules/@sapphire/utilities/dist/lib/utilityTypes.d.ts": {
-        "version": "a2025f5c728fc17da736f3831f872f4692b880c19981b62dbc86721b77010ef6",
-        "signature": "a2025f5c728fc17da736f3831f872f4692b880c19981b62dbc86721b77010ef6",
+      "../node_modules/@klasa/utils/dist/src/lib/codeBlock.d.ts": {
+        "version": "2cf553d462772fc3f9b1728590c7abb84040318f233851ea06566d191a58a29e",
+        "signature": "2cf553d462772fc3f9b1728590c7abb84040318f233851ea06566d191a58a29e",
         "affectsGlobalScope": false
       },
-      "../node_modules/@sapphire/utilities/dist/lib/classExtends.d.ts": {
-        "version": "f96cf46e0a882edbd46e1938d23e0fded20e8f86a94e3060d5864a19bcc30953",
-        "signature": "f96cf46e0a882edbd46e1938d23e0fded20e8f86a94e3060d5864a19bcc30953",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/codeBlock.d.ts": {
-        "version": "14c7a76ae160b09a75e5ec05a389697bf4ad6901d99fb7ec85a0eff4b980b051",
-        "signature": "14c7a76ae160b09a75e5ec05a389697bf4ad6901d99fb7ec85a0eff4b980b051",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/cutText.d.ts": {
-        "version": "8a85d79cf5f5a0ea032306dd255f1d4d8ba792368faa69eae57056c3e5d89786",
-        "signature": "8a85d79cf5f5a0ea032306dd255f1d4d8ba792368faa69eae57056c3e5d89786",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/deepClone.d.ts": {
-        "version": "721b522722a1fb5807698552ed1b974cd169ec344118a5cc1a176b042a94f430",
-        "signature": "721b522722a1fb5807698552ed1b974cd169ec344118a5cc1a176b042a94f430",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/inlineCodeBlock.d.ts": {
-        "version": "09a3993362e573e7a07c81c23a642f71406361ea650f2660744bc1fa712f1c60",
-        "signature": "09a3993362e573e7a07c81c23a642f71406361ea650f2660744bc1fa712f1c60",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/isClass.d.ts": {
-        "version": "e05cafa4d712ae34e8ce084eda1f707fbe1008777d9ff6272123ed848938aac7",
-        "signature": "e05cafa4d712ae34e8ce084eda1f707fbe1008777d9ff6272123ed848938aac7",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/isFunction.d.ts": {
-        "version": "e28344b607d9e005588c5710393eb70bf4179db89f2c2b6c29579581ff5b1f2e",
-        "signature": "e28344b607d9e005588c5710393eb70bf4179db89f2c2b6c29579581ff5b1f2e",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/isNullOrUndefined.d.ts": {
-        "version": "93e9824a93c313c517119eff2bea318087af05004851591673ce735cc40b89b1",
-        "signature": "93e9824a93c313c517119eff2bea318087af05004851591673ce735cc40b89b1",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/isNumber.d.ts": {
-        "version": "7af4ec36327a8acc60de69c6755d5547fec214bc308eb38279506c94d7f30dfb",
-        "signature": "7af4ec36327a8acc60de69c6755d5547fec214bc308eb38279506c94d7f30dfb",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/isObject.d.ts": {
-        "version": "a46f65e8ea7f7b60053f8fad9732d390bfdbd2a506901ea59f0243630be4bdd9",
-        "signature": "a46f65e8ea7f7b60053f8fad9732d390bfdbd2a506901ea59f0243630be4bdd9",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/isPrimitive.d.ts": {
-        "version": "7ebd4edb74da24068c80d55154f5599c208c7ef268f14075f19980f0dedaee7e",
-        "signature": "7ebd4edb74da24068c80d55154f5599c208c7ef268f14075f19980f0dedaee7e",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/isThenable.d.ts": {
-        "version": "77777be0f9f1de16cea711e2b67e8cb4424fb5800e7eca31578f56367167272d",
-        "signature": "77777be0f9f1de16cea711e2b67e8cb4424fb5800e7eca31578f56367167272d",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/makeObject.d.ts": {
-        "version": "aea9363b86441a6946f5e8eac3160f4cc81e96df3e65ad341294f68bd006b3eb",
-        "signature": "aea9363b86441a6946f5e8eac3160f4cc81e96df3e65ad341294f68bd006b3eb",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/mergeDefault.d.ts": {
-        "version": "10afe3662ff26a6ccf22fc305561f80136b94d4df5383d1158003b5565f194a5",
-        "signature": "10afe3662ff26a6ccf22fc305561f80136b94d4df5383d1158003b5565f194a5",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/mergeObjects.d.ts": {
-        "version": "664bc7dd4497999693e26940b95dc42cfcf4df00ad184319b2651ef84d014773",
-        "signature": "664bc7dd4497999693e26940b95dc42cfcf4df00ad184319b2651ef84d014773",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/noop.d.ts": {
-        "version": "96e6bf811343caab5112b68880905c5d20d9257054afac6c18e718a4c549ed27",
-        "signature": "96e6bf811343caab5112b68880905c5d20d9257054afac6c18e718a4c549ed27",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/objectToTuples.d.ts": {
-        "version": "868cc469f2b9da79f82251bce3fb57c02d4817ee27aeb44c03db41e5c7b1e584",
-        "signature": "868cc469f2b9da79f82251bce3fb57c02d4817ee27aeb44c03db41e5c7b1e584",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/parseUrl.d.ts": {
-        "version": "4aa2f55a8353ff629ff129e4bb6ff695effd2bf93264a0e578429c6810510b2b",
-        "signature": "4aa2f55a8353ff629ff129e4bb6ff695effd2bf93264a0e578429c6810510b2b",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/regExpEsc.d.ts": {
-        "version": "d96b859f46d14dd872f252a80069a53d2ebdb721e176cdfcd4482291effb6580",
-        "signature": "d96b859f46d14dd872f252a80069a53d2ebdb721e176cdfcd4482291effb6580",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/roundNumber.d.ts": {
-        "version": "bb849fb2df7228406d101bd3991c3abf8ad348d1b07b7e1cfa1551ade89d7e9b",
-        "signature": "bb849fb2df7228406d101bd3991c3abf8ad348d1b07b7e1cfa1551ade89d7e9b",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/splitText.d.ts": {
-        "version": "fd31e6544f0f7dc9db92faa6e473a59f53cc3f9e35dc0e3db47c513480953f30",
-        "signature": "fd31e6544f0f7dc9db92faa6e473a59f53cc3f9e35dc0e3db47c513480953f30",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/toTitleCase.d.ts": {
-        "version": "191aac95ca4c06261f5440b8b4874664ca9247c82f26000bfeb79b0b9bbd2d7b",
-        "signature": "191aac95ca4c06261f5440b8b4874664ca9247c82f26000bfeb79b0b9bbd2d7b",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/lib/tryParse.d.ts": {
-        "version": "858b4aeb7ea5dd90650811b071b7e5b41729606d2ee77a3afdb2f899280afdc8",
-        "signature": "858b4aeb7ea5dd90650811b071b7e5b41729606d2ee77a3afdb2f899280afdc8",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@sapphire/utilities/dist/index.d.ts": {
-        "version": "7772d57ae88bc876222d242998a932edfd9497113a966ff886faa46c354b9571",
-        "signature": "7772d57ae88bc876222d242998a932edfd9497113a966ff886faa46c354b9571",
+      "../node_modules/@klasa/utils/dist/src/lib/deepClone.d.ts": {
+        "version": "1966b8d58071a6459015714b2e0a365ca5cb0a6b7621d8883427291b39ec8a15",
+        "signature": "1966b8d58071a6459015714b2e0a365ca5cb0a6b7621d8883427291b39ec8a15",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/node/globals.d.ts": {
@@ -606,6 +491,91 @@
         "signature": "d522314e80ed71b57e3c2939d3c9594eaae63a4adf028559e6574f6b270b0fee",
         "affectsGlobalScope": false
       },
+      "../node_modules/@klasa/utils/dist/src/lib/exec.d.ts": {
+        "version": "cdbfea776a7bfbeeef03170ae47ec6bfab22db0da09367ea0ecf4666c5bec2b8",
+        "signature": "cdbfea776a7bfbeeef03170ae47ec6bfab22db0da09367ea0ecf4666c5bec2b8",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/isClass.d.ts": {
+        "version": "9f6e93aceeb5639c3af4f6c868157a34b8a4d298fde614bb1841b130ab6fd155",
+        "signature": "9f6e93aceeb5639c3af4f6c868157a34b8a4d298fde614bb1841b130ab6fd155",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/isFunction.d.ts": {
+        "version": "cdad2f43033f5699bce53edbe0743ad58cdfc10740d5e97df57f3b6d8fe91427",
+        "signature": "cdad2f43033f5699bce53edbe0743ad58cdfc10740d5e97df57f3b6d8fe91427",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/isNumber.d.ts": {
+        "version": "1d22015f9cc82c77ef4ed47422350891981e77b2bc5d999e2fb5550b940ce8c6",
+        "signature": "1d22015f9cc82c77ef4ed47422350891981e77b2bc5d999e2fb5550b940ce8c6",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/isObject.d.ts": {
+        "version": "7924d99e6d541b8e2687cb292e39360048aec44feddbbb92d445f34389ee3279",
+        "signature": "7924d99e6d541b8e2687cb292e39360048aec44feddbbb92d445f34389ee3279",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/isPrimitive.d.ts": {
+        "version": "63a369cf4b6aaf06998d12d6489481a4dbeebc10eec3135e36f8a76976077b95",
+        "signature": "63a369cf4b6aaf06998d12d6489481a4dbeebc10eec3135e36f8a76976077b95",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/isThenable.d.ts": {
+        "version": "36ab5630f0d0b5cc55e0c0633e31ee37b48c4eadb9c20e034f6a5794d8cbabbf",
+        "signature": "36ab5630f0d0b5cc55e0c0633e31ee37b48c4eadb9c20e034f6a5794d8cbabbf",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/makeObject.d.ts": {
+        "version": "595be811328f0d80db9957575d4a450656b41ee254f71ee13062545214c4984e",
+        "signature": "595be811328f0d80db9957575d4a450656b41ee254f71ee13062545214c4984e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/utilityTypes.d.ts": {
+        "version": "1502663bdea0cdd65b7c6790c213ea8d527754c18f6a1cfdb156dddd24e3ee2e",
+        "signature": "1502663bdea0cdd65b7c6790c213ea8d527754c18f6a1cfdb156dddd24e3ee2e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/mergeDefault.d.ts": {
+        "version": "7f9177c1a6149cc528f354abf00a2f55e8759fda893d90c1cdc38071fe9e2cf4",
+        "signature": "7f9177c1a6149cc528f354abf00a2f55e8759fda893d90c1cdc38071fe9e2cf4",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/mergeObjects.d.ts": {
+        "version": "666e6c1039051400fc538fd0cd5fb3376e06597262a365934b62be0acf857844",
+        "signature": "666e6c1039051400fc538fd0cd5fb3376e06597262a365934b62be0acf857844",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/objectToTuples.d.ts": {
+        "version": "995ba4de11812b22e3f684ecbb7770dfbd6c6b8eb558ecba5cdc9deeb38be7e0",
+        "signature": "995ba4de11812b22e3f684ecbb7770dfbd6c6b8eb558ecba5cdc9deeb38be7e0",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/regExpEsc.d.ts": {
+        "version": "c7388e2a32ee5573608c65cf87623af35632982dd21d0c86048ca38e8f50c5e6",
+        "signature": "c7388e2a32ee5573608c65cf87623af35632982dd21d0c86048ca38e8f50c5e6",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/sleep.d.ts": {
+        "version": "d906325ed1d433dc6e55e9fb045c3861b237c17ea8583936308d649bb847581d",
+        "signature": "d906325ed1d433dc6e55e9fb045c3861b237c17ea8583936308d649bb847581d",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/toTitleCase.d.ts": {
+        "version": "d63cecb422a9b6fd0be19d1638723e7149483bbf4ba1a9670b25620a0c294623",
+        "signature": "d63cecb422a9b6fd0be19d1638723e7149483bbf4ba1a9670b25620a0c294623",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/tryParse.d.ts": {
+        "version": "dc52af874744a5145703b8f39bd48a65a6d5f482b6a2a6b5e16b5006bfeb6db4",
+        "signature": "dc52af874744a5145703b8f39bd48a65a6d5f482b6a2a6b5e16b5006bfeb6db4",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/index.d.ts": {
+        "version": "0c575e81da5fc2790111d5c110c008a3b0296e3e1e91b79bebe1add4a89fe670",
+        "signature": "0c575e81da5fc2790111d5c110c008a3b0296e3e1e91b79bebe1add4a89fe670",
+        "affectsGlobalScope": false
+      },
       "../node_modules/@types/ws/index.d.ts": {
         "version": "81361d2b8ba5b6bae26d65a42c01cb163e49dc626fd5c151b8b337f5d44d3bf8",
         "signature": "81361d2b8ba5b6bae26d65a42c01cb163e49dc626fd5c151b8b337f5d44d3bf8",
@@ -711,18 +681,18 @@
         "signature": "5dbd8559515f80013a38160c8e82f3376034b3922cf4e608f65df840fa700075",
         "affectsGlobalScope": false
       },
-      "../src/lib/schema/SchemaFolder.ts": {
-        "version": "6a6a33c472ff2b1165901de111e265d3eafa0f148279a4153436e4292fa87c7a",
-        "signature": "8c6cc368d271822fac11959d7f18b06153b551c19635e2dd7262e053b511c30f",
-        "affectsGlobalScope": false
-      },
       "../src/lib/structures/Serializer.ts": {
         "version": "18f6bf5a55b8f759a1c7ac7b440bbafe2611d0e084fe2fffda8801ac4012318b",
         "signature": "a7147a1a0272289703c24be268e506c16bf45d3d25df1d6d2f06b3f425f0da24",
         "affectsGlobalScope": false
       },
+      "../src/lib/schema/SchemaFolder.ts": {
+        "version": "6a6a33c472ff2b1165901de111e265d3eafa0f148279a4153436e4292fa87c7a",
+        "signature": "8c6cc368d271822fac11959d7f18b06153b551c19635e2dd7262e053b511c30f",
+        "affectsGlobalScope": false
+      },
       "../src/lib/structures/Provider.ts": {
-        "version": "1e27400c44632f529c6126ac5e2c6ae3287800f044c93ae97294a509ada11140",
+        "version": "a912ba8747ea457cfe6d8ca9d89bd95d860e22b3285982493ffeb07d12593660",
         "signature": "8da6862e059b9dd1e1a07e1e079f7b2cbeffb86dfe977d5fc927239d7774533e",
         "affectsGlobalScope": false
       },
@@ -752,17 +722,17 @@
         "affectsGlobalScope": false
       },
       "../src/lib/schema/SchemaEntry.ts": {
-        "version": "0d36c1a7c92424604738ff532bf53207445ae01127d308adc3c682bdc0a6dabd",
+        "version": "8e07a963d4ec980af4524f0c3e47092786322e233304e28e1e6c4e43513074c6",
         "signature": "4f3af1ffc729f797b4ddd12a4aa07bcf5b44254a1ae8101416cf1acd0a7d3d2e",
         "affectsGlobalScope": false
       },
       "../src/lib/schema/Schema.ts": {
-        "version": "8111c812c957316ca9364439c3fd55e565ecb1d3bb29679caf8600f54a3a52fe",
-        "signature": "dacd4a036f55b5a0a9cab985a1189d10304dc07be7a3a1719e60c9e08a38e0c4",
+        "version": "a4d016ca00b15d05572974985b00fc6066ea2ca21f0fe0bfef34bb215abeb7a2",
+        "signature": "4683e30e833caec224e8a73095ac3aa3adb320d089168b0fdf56e0db643f30b6",
         "affectsGlobalScope": false
       },
       "../src/lib/settings/SettingsFolder.ts": {
-        "version": "b1597eedd5cdb92a29b2d43c324f21a66ad0762efc9e1fed42ec4581c2339ee2",
+        "version": "2ed7d71cbdf9c6a78b9e09a349273917789863e81b4cbb721bff3312401a686b",
         "signature": "64ba9b65e268ccfc281501a1dddb4de4fa36956c177019cacc6b8fc9fb7f8cdd",
         "affectsGlobalScope": false
       },
@@ -777,7 +747,7 @@
         "affectsGlobalScope": false
       },
       "../src/lib/structures/SQLProvider.ts": {
-        "version": "56c181791fee1743cc001fbf8e4cca06b0bf163e681fab9c0d7c20ad471a5a4d",
+        "version": "b14ac3d37aead063761d5492957d8ee6eb00a668430834f0ae1fa4bd7d383adc",
         "signature": "dae8ba04daf903fa8690f11cae2ff8fb76213954a84aa402010647a18dc8f580",
         "affectsGlobalScope": false
       },
@@ -1231,33 +1201,27 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/discord.js/typings/index.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/index.d.ts": [
-        "../node_modules/@sapphire/utilities/dist/lib/arrayStrictEquals.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/chunk.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/classExtends.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/codeBlock.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/cutText.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/deepClone.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/inlineCodeBlock.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/isClass.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/isFunction.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/isNullOrUndefined.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/isNumber.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/isObject.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/isPrimitive.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/isThenable.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/makeObject.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/mergeDefault.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/mergeObjects.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/noop.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/objectToTuples.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/parseUrl.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/regExpEsc.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/roundNumber.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/splitText.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/toTitleCase.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/tryParse.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/utilityTypes.d.ts",
+      "../node_modules/@klasa/utils/dist/src/index.d.ts": [
+        "../node_modules/@klasa/utils/dist/src/lib/arrayStrictEquals.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/chunk.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/codeBlock.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/deepClone.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/exec.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/isClass.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/isFunction.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/isNumber.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/isObject.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/isPrimitive.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/isThenable.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/makeObject.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/mergeDefault.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/mergeObjects.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/objectToTuples.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/regExpEsc.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/sleep.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/toTitleCase.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/tryParse.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/utilityTypes.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1266,7 +1230,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/arrayStrictEquals.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/arrayStrictEquals.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1275,7 +1239,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/chunk.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/chunk.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1284,8 +1248,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/classExtends.d.ts": [
-        "../node_modules/@sapphire/utilities/dist/lib/utilityTypes.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/codeBlock.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1294,7 +1257,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/codeBlock.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/deepClone.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1303,7 +1266,18 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/cutText.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/exec.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/process.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/process.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/ts3.7/index.d.ts",
+        "../node_modules/@types/node/util.d.ts"
+      ],
+      "../node_modules/@klasa/utils/dist/src/lib/isClass.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1312,7 +1286,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/deepClone.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/isFunction.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1321,7 +1295,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/inlineCodeBlock.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/isNumber.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1330,8 +1304,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/isClass.d.ts": [
-        "../node_modules/@sapphire/utilities/dist/lib/utilityTypes.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/isObject.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1340,7 +1313,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/isFunction.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/isPrimitive.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1349,7 +1322,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/isNullOrUndefined.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/isThenable.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1358,7 +1331,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/isNumber.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/makeObject.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1367,7 +1340,8 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/isObject.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/mergeDefault.d.ts": [
+        "../node_modules/@klasa/utils/dist/src/lib/utilityTypes.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1376,7 +1350,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/isPrimitive.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/mergeObjects.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1385,7 +1359,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/isThenable.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/objectToTuples.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1394,7 +1368,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/makeObject.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/regExpEsc.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1403,8 +1377,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/mergeDefault.d.ts": [
-        "../node_modules/@sapphire/utilities/dist/lib/utilityTypes.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/sleep.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1413,7 +1386,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/mergeObjects.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/toTitleCase.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1422,7 +1395,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/noop.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/tryParse.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -1431,70 +1404,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/objectToTuples.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@sapphire/utilities/dist/lib/parseUrl.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@sapphire/utilities/dist/lib/regExpEsc.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@sapphire/utilities/dist/lib/roundNumber.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@sapphire/utilities/dist/lib/splitText.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@sapphire/utilities/dist/lib/toTitleCase.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@sapphire/utilities/dist/lib/tryParse.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@sapphire/utilities/dist/lib/utilityTypes.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/utilityTypes.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -2809,7 +2719,7 @@
         "../src/lib/types.ts"
       ],
       "../src/lib/schema/Schema.ts": [
-        "../node_modules/@sapphire/utilities/dist/index.d.ts",
+        "../node_modules/@klasa/utils/dist/src/index.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -2822,7 +2732,7 @@
         "../src/lib/settings/SettingsFolder.ts"
       ],
       "../src/lib/schema/SchemaEntry.ts": [
-        "../node_modules/@sapphire/utilities/dist/index.d.ts",
+        "../node_modules/@klasa/utils/dist/src/index.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -2857,7 +2767,7 @@
         "../src/lib/settings/SettingsFolder.ts"
       ],
       "../src/lib/settings/SettingsFolder.ts": [
-        "../node_modules/@sapphire/utilities/dist/index.d.ts",
+        "../node_modules/@klasa/utils/dist/src/index.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -2875,7 +2785,7 @@
         "../src/lib/types.ts"
       ],
       "../src/lib/structures/Provider.ts": [
-        "../node_modules/@sapphire/utilities/dist/index.d.ts",
+        "../node_modules/@klasa/utils/dist/src/index.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -2903,7 +2813,7 @@
       ],
       "../src/lib/structures/SQLProvider.ts": [
         "../node_modules/@klasa/querybuilder/dist/index.d.ts",
-        "../node_modules/@sapphire/utilities/dist/index.d.ts",
+        "../node_modules/@klasa/utils/dist/src/index.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3221,33 +3131,27 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/discord.js/typings/index.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/index.d.ts": [
-        "../node_modules/@sapphire/utilities/dist/lib/arrayStrictEquals.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/chunk.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/classExtends.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/codeBlock.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/cutText.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/deepClone.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/inlineCodeBlock.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/isClass.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/isFunction.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/isNullOrUndefined.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/isNumber.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/isObject.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/isPrimitive.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/isThenable.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/makeObject.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/mergeDefault.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/mergeObjects.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/noop.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/objectToTuples.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/parseUrl.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/regExpEsc.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/roundNumber.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/splitText.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/toTitleCase.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/tryParse.d.ts",
-        "../node_modules/@sapphire/utilities/dist/lib/utilityTypes.d.ts",
+      "../node_modules/@klasa/utils/dist/src/index.d.ts": [
+        "../node_modules/@klasa/utils/dist/src/lib/arrayStrictEquals.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/chunk.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/codeBlock.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/deepClone.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/exec.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/isClass.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/isFunction.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/isNumber.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/isObject.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/isPrimitive.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/isThenable.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/makeObject.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/mergeDefault.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/mergeObjects.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/objectToTuples.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/regExpEsc.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/sleep.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/toTitleCase.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/tryParse.d.ts",
+        "../node_modules/@klasa/utils/dist/src/lib/utilityTypes.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3256,7 +3160,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/arrayStrictEquals.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/arrayStrictEquals.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3265,7 +3169,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/chunk.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/chunk.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3274,8 +3178,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/classExtends.d.ts": [
-        "../node_modules/@sapphire/utilities/dist/lib/utilityTypes.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/codeBlock.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3284,7 +3187,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/codeBlock.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/deepClone.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3293,7 +3196,18 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/cutText.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/exec.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/process.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/process.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/ts3.7/index.d.ts",
+        "../node_modules/@types/node/util.d.ts"
+      ],
+      "../node_modules/@klasa/utils/dist/src/lib/isClass.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3302,7 +3216,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/deepClone.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/isFunction.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3311,7 +3225,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/inlineCodeBlock.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/isNumber.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3320,8 +3234,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/isClass.d.ts": [
-        "../node_modules/@sapphire/utilities/dist/lib/utilityTypes.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/isObject.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3330,7 +3243,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/isFunction.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/isPrimitive.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3339,7 +3252,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/isNullOrUndefined.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/isThenable.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3348,7 +3261,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/isNumber.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/makeObject.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3357,7 +3270,8 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/isObject.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/mergeDefault.d.ts": [
+        "../node_modules/@klasa/utils/dist/src/lib/utilityTypes.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3366,7 +3280,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/isPrimitive.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/mergeObjects.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3375,7 +3289,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/isThenable.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/objectToTuples.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3384,7 +3298,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/makeObject.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/regExpEsc.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3393,8 +3307,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/mergeDefault.d.ts": [
-        "../node_modules/@sapphire/utilities/dist/lib/utilityTypes.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/sleep.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3403,7 +3316,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/mergeObjects.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/toTitleCase.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3412,7 +3325,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/noop.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/tryParse.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -3421,70 +3334,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../node_modules/@sapphire/utilities/dist/lib/objectToTuples.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@sapphire/utilities/dist/lib/parseUrl.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@sapphire/utilities/dist/lib/regExpEsc.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@sapphire/utilities/dist/lib/roundNumber.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@sapphire/utilities/dist/lib/splitText.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@sapphire/utilities/dist/lib/toTitleCase.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@sapphire/utilities/dist/lib/tryParse.d.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/process.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/process.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@sapphire/utilities/dist/lib/utilityTypes.d.ts": [
+      "../node_modules/@klasa/utils/dist/src/lib/utilityTypes.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/process.d.ts",
@@ -4854,33 +4704,27 @@
       "../node_modules/@klasa/settings-gateway/dist/lib/structures/Serializer.d.ts",
       "../node_modules/@klasa/settings-gateway/dist/lib/structures/SerializerStore.d.ts",
       "../node_modules/@klasa/settings-gateway/dist/lib/types.d.ts",
-      "../node_modules/@sapphire/utilities/dist/index.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/arrayStrictEquals.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/chunk.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/classExtends.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/codeBlock.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/cutText.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/deepClone.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/inlineCodeBlock.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/isClass.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/isFunction.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/isNullOrUndefined.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/isNumber.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/isObject.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/isPrimitive.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/isThenable.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/makeObject.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/mergeDefault.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/mergeObjects.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/noop.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/objectToTuples.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/parseUrl.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/regExpEsc.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/roundNumber.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/splitText.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/toTitleCase.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/tryParse.d.ts",
-      "../node_modules/@sapphire/utilities/dist/lib/utilityTypes.d.ts",
+      "../node_modules/@klasa/utils/dist/src/index.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/arrayStrictEquals.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/chunk.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/codeBlock.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/deepClone.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/exec.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/isClass.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/isFunction.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/isNumber.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/isObject.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/isPrimitive.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/isThenable.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/makeObject.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/mergeDefault.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/mergeObjects.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/objectToTuples.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/regExpEsc.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/sleep.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/toTitleCase.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/tryParse.d.ts",
+      "../node_modules/@klasa/utils/dist/src/lib/utilityTypes.d.ts",
       "../node_modules/@types/babel__core/index.d.ts",
       "../node_modules/@types/babel__generator/index.d.ts",
       "../node_modules/@types/babel__template/index.d.ts",
