@@ -489,7 +489,9 @@ export class SettingsFolder extends Map<string, unknown> {
 							.map((val) => val.key)
 					: [...(entry as SchemaFolder).keys()];
 				throw new Error(
-					keys.length > 0 ? language.get('settingGatewayChooseKey', { keys }) : language.get('settingGatewayUnconfigurableFolder')
+					keys.length > 0
+						? language.get('settingGatewayChooseKey', { keys: keys.join('", "') })
+						: language.get('settingGatewayUnconfigurableFolder')
 				);
 			} else if (!(entry as SchemaEntry).configurable && onlyConfigurable) {
 				throw new Error(language.get('settingGatewayUnconfigurableKey', { key: path }));

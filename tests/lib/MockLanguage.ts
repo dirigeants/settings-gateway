@@ -7,7 +7,7 @@ export class MockLanguage extends Language {
 		this.language = {
 			default: (key: string, ...args: unknown[]): string => `[DEFAULT]: ${key} ${args.join(' ')}`,
 			settingGatewayKeyNoext: ({ key: path }: { key: string }): string => `[settingGatewayKeyNoext]: ${path}`,
-			settingGatewayChooseKey: ({ keys }: { keys: string[] }): string => `[settingGatewayChooseKey]: ${keys.join(' ')}`,
+			settingGatewayChooseKey: ({ keys }: { keys: string }): string => `[settingGatewayChooseKey]: ${keys}`,
 			settingGatewayUnconfigurableFolder: '[settingGatewayUnconfigurableFolder]',
 			settingGatewayUnconfigurableKey: ({ key: path }: { key: string }): string => `[settingGatewayUnconfigurableKey]: ${path}`,
 			settingGatewayMissingValue: ({ entry, value }: { entry: SchemaEntry; value: string }): string =>
