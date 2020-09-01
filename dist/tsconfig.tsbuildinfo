@@ -727,8 +727,8 @@
         "affectsGlobalScope": false
       },
       "../src/lib/schema/Schema.ts": {
-        "version": "a4d016ca00b15d05572974985b00fc6066ea2ca21f0fe0bfef34bb215abeb7a2",
-        "signature": "4683e30e833caec224e8a73095ac3aa3adb320d089168b0fdf56e0db643f30b6",
+        "version": "884bd612b307dc855af14243ffb7307348357b951b19abe64c6b1dba9adc6fde",
+        "signature": "dbfb35afb91fc8ab39f75f6ae6e120262c8da570757b8b78132ea30ac3b3b2ab",
         "affectsGlobalScope": false
       },
       "../src/lib/settings/SettingsFolder.ts": {

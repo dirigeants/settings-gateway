@@ -1,6 +1,4 @@
 import { SettingsFolder } from '../settings/SettingsFolder';
-import { SchemaEntry, SchemaEntryJson, SchemaEntryOptions } from './SchemaEntry';
-import { SchemaFolder } from './SchemaFolder';
 export declare class Schema extends Map<string, SchemaFolder | SchemaEntry> {
     /**
      * The base path for this schema.
@@ -116,4 +114,6 @@ export interface SchemaFolderJson extends Record<string, SchemaFolderJson | Sche
 }
 export interface SchemaJson extends Record<string, SchemaFolderJson | SchemaEntryJson> {
 }
+import { SchemaEntry, SchemaEntryJson, SchemaEntryOptions } from './SchemaEntry';
+import { SchemaFolder } from './SchemaFolder';
 //# sourceMappingURL=Schema.d.ts.map

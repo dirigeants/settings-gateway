@@ -3,9 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Schema = void 0;
 const utils_1 = require("@klasa/utils");
 const SettingsFolder_1 = require("../settings/SettingsFolder");
-const SchemaEntry_1 = require("./SchemaEntry");
-const SchemaFolder_1 = require("./SchemaFolder");
-/* eslint-disable no-dupe-class-members */
 class Schema extends Map {
     /**
      * Constructs the schema
@@ -158,4 +155,6 @@ class Schema extends Map {
     }
 }
 exports.Schema = Schema;
+const SchemaEntry_1 = require("./SchemaEntry");
+const SchemaFolder_1 = require("./SchemaFolder");
 //# sourceMappingURL=Schema.js.map
