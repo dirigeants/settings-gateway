@@ -490,7 +490,7 @@ export class SettingsFolder extends Map<string, unknown> {
 					: [...(entry as SchemaFolder).keys()];
 				throw new Error(
 					keys.length > 0
-						? language.get('settingGatewayChooseKey', { keys: keys.join('", "') })
+						? language.get('settingGatewayChooseKey', { keys: keys.map((k) => `\`${k}\``).join(', ') })
 						: language.get('settingGatewayUnconfigurableFolder')
 				);
 			} else if (!(entry as SchemaEntry).configurable && onlyConfigurable) {
@@ -570,7 +570,7 @@ export class SettingsFolder extends Map<string, unknown> {
 				if (clone.includes(value))
 					throw new Error(
 						context.language.get('settingGatewayDuplicateValue', {
-							entry: context.entry,
+							path: context.entry.path,
 							value: serializer.stringify(value, context.guild)
 						})
 					);
@@ -583,7 +583,7 @@ export class SettingsFolder extends Map<string, unknown> {
 				if (index === -1)
 					throw new Error(
 						context.language.get('settingGatewayMissingValue', {
-							entry: context.entry,
+							path: context.entry.path,
 							value: serializer.stringify(value, context.guild)
 						})
 					);
@@ -647,7 +647,7 @@ export class SettingsFolder extends Map<string, unknown> {
 		const parsed = await serializer.validate(value, context);
 
 		if (context.entry.filter !== null && context.entry.filter(this.client, parsed, context))
-			throw new Error(context.language.get('settingGatewayInvalidFilteredValue', { entry: context.entry, value }));
+			throw new Error(context.language.get('settingGatewayInvalidFilteredValue', { path: context.entry.path, value }));
 		return serializer.serialize(parsed);
 	}
 }

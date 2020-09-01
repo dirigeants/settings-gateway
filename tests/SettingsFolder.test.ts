@@ -436,7 +436,7 @@ describe('SettingsFolder', () => {
 		await settings.sync();
 
 		const updateResult = settings.update('messages', 420);
-		await expect(updateResult).rejects.toThrowError('[settingGatewayChooseKey]: ignoring hello');
+		await expect(updateResult).rejects.toThrowError('[settingGatewayChooseKey]: `ignoring`, `hello`');
 	});
 
 	test('SettingsFolder#update (Not Exists | Default Value)', async () => {
