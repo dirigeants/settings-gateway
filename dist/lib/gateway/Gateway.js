@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Gateway = void 0;
 const collection_1 = require("@discordjs/collection");
+const discord_js_1 = require("discord.js");
 const request_handler_1 = require("@klasa/request-handler");
 const Settings_1 = require("../settings/Settings");
 const GatewayStorage_1 = require("./GatewayStorage");
@@ -12,9 +13,7 @@ class Gateway extends GatewayStorage_1.GatewayStorage {
         /**
          * The cached entries for this Gateway or the external datastore to get the settings from.
          */
-        this.cache = Reflect.has(this.client, this.name) && this.client[this.name] instanceof Map
-            ? this.client[this.name]
-            : new collection_1.default();
+        this.cache = Reflect.get(this.client, this.name) instanceof discord_js_1.BaseManager ? Reflect.get(this.client, this.name).cache : new collection_1.default();
         /**
          * The request handler that manages the synchronization queue.
          */

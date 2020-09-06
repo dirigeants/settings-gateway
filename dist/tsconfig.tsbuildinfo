@@ -206,31 +206,6 @@
         "signature": "7be7f76b784383fa84812ca7eb8ad10315c9d482c0d25f178645365405509d44",
         "affectsGlobalScope": false
       },
-      "../node_modules/@klasa/request-handler/dist/index.d.ts": {
-        "version": "99c128ee48e7c7d77424e26f501a59aa88ceccaee4d815b21fb6641657273a92",
-        "signature": "99c128ee48e7c7d77424e26f501a59aa88ceccaee4d815b21fb6641657273a92",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@klasa/utils/dist/src/lib/arrayStrictEquals.d.ts": {
-        "version": "ab318edaac6f7ddbe7063a95acfd75d756c9f7769451883e97e0b74efc9b4039",
-        "signature": "ab318edaac6f7ddbe7063a95acfd75d756c9f7769451883e97e0b74efc9b4039",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@klasa/utils/dist/src/lib/chunk.d.ts": {
-        "version": "fc7f9ae37a2249ae9c3552fbfcc0c9eb3f543786566b2dc0ac2c64e38dd8c06c",
-        "signature": "fc7f9ae37a2249ae9c3552fbfcc0c9eb3f543786566b2dc0ac2c64e38dd8c06c",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@klasa/utils/dist/src/lib/codeBlock.d.ts": {
-        "version": "2cf553d462772fc3f9b1728590c7abb84040318f233851ea06566d191a58a29e",
-        "signature": "2cf553d462772fc3f9b1728590c7abb84040318f233851ea06566d191a58a29e",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@klasa/utils/dist/src/lib/deepClone.d.ts": {
-        "version": "1966b8d58071a6459015714b2e0a365ca5cb0a6b7621d8883427291b39ec8a15",
-        "signature": "1966b8d58071a6459015714b2e0a365ca5cb0a6b7621d8883427291b39ec8a15",
-        "affectsGlobalScope": false
-      },
       "../node_modules/@types/node/ts3.1/globals.d.ts": {
         "version": "6fc83519155969f2457d2454908d68830a6f6480974914c024eaf4e3248a2fd1",
         "signature": "6fc83519155969f2457d2454908d68830a6f6480974914c024eaf4e3248a2fd1",
@@ -491,6 +466,41 @@
         "signature": "98a637a0675858025e5be25c133dcdc10a0640a25e7cd610a512389b1676bc30",
         "affectsGlobalScope": false
       },
+      "../node_modules/@types/ws/index.d.ts": {
+        "version": "81361d2b8ba5b6bae26d65a42c01cb163e49dc626fd5c151b8b337f5d44d3bf8",
+        "signature": "81361d2b8ba5b6bae26d65a42c01cb163e49dc626fd5c151b8b337f5d44d3bf8",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/discord.js/typings/index.d.ts": {
+        "version": "453abbd598aa3aeac131ddad5e17dcf7aa29c38dd3da1aaad47adb619900896a",
+        "signature": "453abbd598aa3aeac131ddad5e17dcf7aa29c38dd3da1aaad47adb619900896a",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@klasa/request-handler/dist/index.d.ts": {
+        "version": "99c128ee48e7c7d77424e26f501a59aa88ceccaee4d815b21fb6641657273a92",
+        "signature": "99c128ee48e7c7d77424e26f501a59aa88ceccaee4d815b21fb6641657273a92",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/arrayStrictEquals.d.ts": {
+        "version": "ab318edaac6f7ddbe7063a95acfd75d756c9f7769451883e97e0b74efc9b4039",
+        "signature": "ab318edaac6f7ddbe7063a95acfd75d756c9f7769451883e97e0b74efc9b4039",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/chunk.d.ts": {
+        "version": "fc7f9ae37a2249ae9c3552fbfcc0c9eb3f543786566b2dc0ac2c64e38dd8c06c",
+        "signature": "fc7f9ae37a2249ae9c3552fbfcc0c9eb3f543786566b2dc0ac2c64e38dd8c06c",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/codeBlock.d.ts": {
+        "version": "2cf553d462772fc3f9b1728590c7abb84040318f233851ea06566d191a58a29e",
+        "signature": "2cf553d462772fc3f9b1728590c7abb84040318f233851ea06566d191a58a29e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@klasa/utils/dist/src/lib/deepClone.d.ts": {
+        "version": "1966b8d58071a6459015714b2e0a365ca5cb0a6b7621d8883427291b39ec8a15",
+        "signature": "1966b8d58071a6459015714b2e0a365ca5cb0a6b7621d8883427291b39ec8a15",
+        "affectsGlobalScope": false
+      },
       "../node_modules/@klasa/utils/dist/src/lib/exec.d.ts": {
         "version": "cdbfea776a7bfbeeef03170ae47ec6bfab22db0da09367ea0ecf4666c5bec2b8",
         "signature": "cdbfea776a7bfbeeef03170ae47ec6bfab22db0da09367ea0ecf4666c5bec2b8",
@@ -575,16 +585,6 @@
         "version": "0c575e81da5fc2790111d5c110c008a3b0296e3e1e91b79bebe1add4a89fe670",
         "signature": "0c575e81da5fc2790111d5c110c008a3b0296e3e1e91b79bebe1add4a89fe670",
         "affectsGlobalScope": false
-      },
-      "../node_modules/@types/ws/index.d.ts": {
-        "version": "81361d2b8ba5b6bae26d65a42c01cb163e49dc626fd5c151b8b337f5d44d3bf8",
-        "signature": "81361d2b8ba5b6bae26d65a42c01cb163e49dc626fd5c151b8b337f5d44d3bf8",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/discord.js/typings/index.d.ts": {
-        "version": "4a00ce68f5329f6944f8c875d69560e2f609f4efadfb20b4c0a29166d75d4728",
-        "signature": "4a00ce68f5329f6944f8c875d69560e2f609f4efadfb20b4c0a29166d75d4728",
-        "affectsGlobalScope": true
       },
       "../node_modules/@klasa/settings-gateway/dist/lib/schema/SchemaFolder.d.ts": {
         "version": "8c6cc368d271822fac11959d7f18b06153b551c19635e2dd7262e053b511c30f",
@@ -742,7 +742,7 @@
         "affectsGlobalScope": false
       },
       "../src/lib/gateway/Gateway.ts": {
-        "version": "1e8215f6b6c1097328968131fbe715deb02c9be64c9e7e519774e3b4e31e77d1",
+        "version": "824ca3d6c6401188db99e1a420346ce614f233c61bccdc43d2b37f6d8e6b8ef7",
         "signature": "84270fc728b733c379c1c3ecc568ee174497358a1cfa642912ab30524c9529ba",
         "affectsGlobalScope": false
       },
@@ -2676,9 +2676,9 @@
         "../node_modules/@types/node/ts3.4/fs.d.ts",
         "../node_modules/@types/node/ts3.4/process.d.ts",
         "../node_modules/@types/node/ts3.4/util.d.ts",
+        "../node_modules/discord.js/typings/index.d.ts",
         "../src/lib/gateway/GatewayStorage.ts",
-        "../src/lib/settings/Settings.ts",
-        "../src/lib/types.ts"
+        "../src/lib/settings/Settings.ts"
       ],
       "../src/lib/gateway/GatewayDriver.ts": [
         "../node_modules/@discordjs/collection/dist/index.d.ts",
