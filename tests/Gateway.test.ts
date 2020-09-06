@@ -1,6 +1,5 @@
 import Collection from '@discordjs/collection';
 import { RequestHandler } from '@klasa/request-handler';
-import { UserManager } from 'discord.js';
 import { Client as InternalClient, Gateway, GatewayStorage, Provider, Settings, SettingsExistenceStatus } from '../src';
 import { createClient } from './lib/MockClient';
 
@@ -32,7 +31,7 @@ describe('Gateway Tests', () => {
 
 		const gateway = new Gateway(client, 'users', { provider: 'Mock' });
 
-		expect(gateway.cache instanceof UserManager).toBe(true);
+		expect(gateway.cache instanceof Map).toBe(true);
 		expect(gateway.cache.size).toBe(0);
 	});
 
