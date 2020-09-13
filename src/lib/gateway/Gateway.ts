@@ -1,7 +1,7 @@
 import Collection from '@discordjs/collection';
+import { BaseManager } from 'discord.js';
 import { IdKeyed, RequestHandler } from '@klasa/request-handler';
 import { Settings } from '../settings/Settings';
-import type { Client } from '../types';
 import { GatewayStorage } from './GatewayStorage';
 
 export class Gateway extends GatewayStorage {
@@ -10,9 +10,7 @@ export class Gateway extends GatewayStorage {
 	 * The cached entries for this Gateway or the external datastore to get the settings from.
 	 */
 	public cache: ProxyMap =
-		Reflect.has(this.client, this.name) && this.client[this.name as keyof Client] instanceof Map
-			? (this.client[this.name as keyof Client] as ProxyMap)
-			: new Collection<string, ProxyMapEntry>();
+		Reflect.get(this.client, this.name) instanceof BaseManager ? Reflect.get(this.client, this.name).cache : new Collection();
 
 	/**
 	 * The request handler that manages the synchronization queue.
