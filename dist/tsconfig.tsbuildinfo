@@ -732,7 +732,7 @@
         "affectsGlobalScope": false
       },
       "../src/lib/settings/SettingsFolder.ts": {
-        "version": "2ed7d71cbdf9c6a78b9e09a349273917789863e81b4cbb721bff3312401a686b",
+        "version": "e191303f589b9397d4b046feb754ae9562c069f37858b058264da93253712871",
         "signature": "64ba9b65e268ccfc281501a1dddb4de4fa36956c177019cacc6b8fc9fb7f8cdd",
         "affectsGlobalScope": false
       },

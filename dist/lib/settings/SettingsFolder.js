@@ -300,7 +300,9 @@ class SettingsFolder extends Map {
                         .filter((val) => val.type !== 'Folder' && val.configurable)
                         .map((val) => val.key)
                     : [...entry.keys()];
-                throw new Error(keys.length > 0 ? language.get('settingGatewayChooseKey', { keys }) : language.get('settingGatewayUnconfigurableFolder'));
+                throw new Error(keys.length > 0
+                    ? language.get('settingGatewayChooseKey', { keys: keys.map((k) => `\`${k}\``).join(', ') })
+                    : language.get('settingGatewayUnconfigurableFolder'));
             }
             else if (!entry.configurable && onlyConfigurable) {
                 throw new Error(language.get('settingGatewayUnconfigurableKey', { key: path }));
@@ -355,7 +357,7 @@ class SettingsFolder extends Map {
             for (const value of values) {
                 if (clone.includes(value))
                     throw new Error(context.language.get('settingGatewayDuplicateValue', {
-                        entry: context.entry,
+                        path: context.entry.path,
                         value: serializer.stringify(value, context.guild)
                     }));
                 clone.push(value);
@@ -367,7 +369,7 @@ class SettingsFolder extends Map {
                 const index = clone.indexOf(value);
                 if (index === -1)
                     throw new Error(context.language.get('settingGatewayMissingValue', {
-                        entry: context.entry,
+                        path: context.entry.path,
                         value: serializer.stringify(value, context.guild)
                     }));
                 clone.splice(index, 1);
@@ -417,7 +419,7 @@ class SettingsFolder extends Map {
             throw new TypeError('The serializer was not available during the update.');
         const parsed = await serializer.validate(value, context);
         if (context.entry.filter !== null && context.entry.filter(this.client, parsed, context))
-            throw new Error(context.language.get('settingGatewayInvalidFilteredValue', { entry: context.entry, value }));
+            throw new Error(context.language.get('settingGatewayInvalidFilteredValue', { path: context.entry.path, value }));
         return serializer.serialize(parsed);
     }
 }
