@@ -442,8 +442,8 @@
         "affectsGlobalScope": false
       },
       "../node_modules/@types/ws/index.d.ts": {
-        "version": "81361d2b8ba5b6bae26d65a42c01cb163e49dc626fd5c151b8b337f5d44d3bf8",
-        "signature": "81361d2b8ba5b6bae26d65a42c01cb163e49dc626fd5c151b8b337f5d44d3bf8",
+        "version": "30ce0ba2c80c39007ab8e0132807437b4eb58ff73461e1602e2e2bf07b6416ed",
+        "signature": "30ce0ba2c80c39007ab8e0132807437b4eb58ff73461e1602e2e2bf07b6416ed",
         "affectsGlobalScope": false
       },
       "../node_modules/discord.js/typings/index.d.ts": {
