@@ -65,14 +65,19 @@ export abstract class Serializer extends AliasPiece {
 	protected static minOrMax(value: number, { minimum, maximum, inclusive, key }: SchemaEntry, language: Language): boolean {
 		if (minimum && maximum) {
 			if ((value >= minimum && value <= maximum && inclusive) || (value > minimum && value < maximum && !inclusive)) return true;
-			if (minimum === maximum) throw new RangeError(language.get('resolverMinmaxExactly', { key, min: minimum, inclusive }));
-			throw new RangeError(language.get('resolverMinmaxBoth', { key, min: minimum, max: maximum, inclusive }));
+			if (minimum === maximum)
+				throw new RangeError(
+					language.get(inclusive ? 'resolverMinmaxExactlyInclusive' : 'resolverMinmaxExactlyExclusive', { name: key, min: minimum })
+				);
+			throw new RangeError(
+				language.get(inclusive ? 'resolverMinmaxBothInclusive' : 'resolverMinmaxBothExclusive', { name: key, min: minimum, max: maximum })
+			);
 		} else if (minimum) {
 			if ((value >= minimum && inclusive) || (value > minimum && !inclusive)) return true;
-			throw new RangeError(language.get('resolverMinmaxMin', { key, min: minimum, inclusive }));
+			throw new RangeError(language.get(inclusive ? 'resolverMinmaxMinInclusive' : 'resolverMinmaxMinExclusive', { name: key, min: minimum }));
 		} else if (maximum) {
 			if ((value <= maximum && inclusive) || (value < maximum && !inclusive)) return true;
-			throw new RangeError(language.get('resolverMinmaxMax', { key, max: maximum, inclusive }));
+			throw new RangeError(language.get(inclusive ? 'resolverMinmaxMaxInclusive' : 'resolverMinmaxMaxExclusive', { name: key, max: maximum }));
 		}
 		return true;
 	}
